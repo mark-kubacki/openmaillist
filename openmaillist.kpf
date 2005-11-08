@@ -17,6 +17,10 @@
 <file url="inc/lib/openmaillist.php" id="107706CE8DBL16bb30b50x786e" name="openmaillist.php">
 </file>
 </folder>
+<file url="inc/_append.php" id="10770989D20L616d11290x2334" name="_append.php">
+</file>
+<file url="inc/_prepend.php" id="10770989D31L929082c0x2334" name="_prepend.php">
+</file>
 </folder>
 <folder url="templates" id="107706CE8E4L7b51b0e00x786e" name="templates">
 <folder url="templates/plain" id="107706CE8E5L6c22f70c0x786e" name="plain">
@@ -31,5 +35,15 @@
 <file url="templates/plain/messagesview.php" id="107706CE8DCL7ee3202e0x786e" name="messagesview.php">
 </file>
 </folder>
+</folder>
+<file url="index.php" id="107709878DDL663984a10x2334" name="index.php">
+</file>
+<file url="messages.php" id="1077098791BL70a0c2290x2334" name="messages.php">
+</file>
+<file url="threads.php" id="10770987942L3a65effe0x2334" name="threads.php">
+</file>
+<folder id="107709B7C3BL2f7056d60x2334" name="samples">
+<file url="samples/config.local.inc.php" id="107709B94E5L61bdd8d0x2334" name="config.local.inc.php">
+</file>
 </folder>
 </project>
