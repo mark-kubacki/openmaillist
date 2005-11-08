@@ -64,14 +64,14 @@
 		
 		// Performing SQL query
 		$query = '
-		select th.TID,th.Threadname as Subject, tm.From as "From", count(tm.tid) as Posts 
+		select th.TID,th.Threadname as Subject, tm.Sender, count(tm.tid) as Posts 
 		from Threads th
 		left outer join ThreadMessages tm on (th.tid = tm.tid) 
 		-- In Abhaengikeit von th.tid,
 		where '.$_GET["list"].'= th.lid
-		group by th.Threadname, tm.From
+		group by th.Threadname, tm.Sender
 		order by tm.DateReceived
-		-- Subject 	Status 	Posts 	Views 	From 	Last post
+		-- Subject 	Status 	Posts 	Views 	Sender 	Last post
 ';
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 		
@@ -111,7 +111,7 @@
 		// Performing SQL query
 		$query = '
 
-		select tm.TID , tm.from as "From", tm.DateSend as "Send at", tm.DateReceived as "Received at",
+		select tm.TID , tm.Sender, tm.DateSend as "Send at", tm.DateReceived as "Received at",
 			me.Subject as "Subject",  me.body as "Text", 
 			att.location as "Location"
 		from ThreadMessages tm
