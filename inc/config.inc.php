@@ -12,7 +12,7 @@ $cfg['force_default_language']	= false;
 // (Directories out of the client's browser's view.)
 $cfg['images_dir']	= 'images';		// This is where you store all the images
 $cfg['design_dir']	= 'design';		// CSS
-$cfg['upload_dir']	= 'uplaods';		// such as attachements
+$cfg['upload_dir']	= 'uploads';		// such as attachements
 
 // Select one of: plain
 $cfg['theme']		= 'plain';

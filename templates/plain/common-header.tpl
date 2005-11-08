@@ -4,3 +4,6 @@
 <head>
     <title>Openmaillist</title>
 </head>
+
+<body>
+<h1>Openmaillist</h1>
