@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="10770254AF8L7800a45d0x786e" name="openmaillist" kpf_version="2">
+<preference-set id="">
+  <string id="import_dirname">/var/www/localhost/htdocs/openmaillist</string>
+</preference-set>
+<ProjectRef url="openmaillist.kpf" id="107706CE8DBL1226a9610x786e" name="openmaillist.kpf">
+</ProjectRef>
+<folder url="inc" id="107706CE8DFLa44fdfd0x786e" name="inc">
+<file url="inc/config.inc.php" id="107706CE8DBL283c98fa0x786e" name="config.inc.php">
+</file>
+<folder url="inc/database" id="107706CE8E1L5a3e499b0x786e" name="database">
+<file url="inc/database/mysql.sql" id="107706CE8DBL339a16d40x786e" name="mysql.sql">
+</file>
+</folder>
+<folder url="inc/lib" id="107706CE8E3L69bcaad60x786e" name="lib">
+<file url="inc/lib/openmaillist.php" id="107706CE8DBL16bb30b50x786e" name="openmaillist.php">
+</file>
+</folder>
+</folder>
+<folder url="templates" id="107706CE8E4L7b51b0e00x786e" name="templates">
+<folder url="templates/plain" id="107706CE8E5L6c22f70c0x786e" name="plain">
+<file url="templates/plain/common-header.tpl" id="107706CE8DBL10af5a80x786e" name="common-header.tpl">
+</file>
+<file url="templates/plain/common-footer.tpl" id="107706CE8DBL45c9875f0x786e" name="common-footer.tpl">
+</file>
+<file url="templates/plain/listview.tpl" id="107706CE8DBL3eaea32f0x786e" name="listview.tpl">
+</file>
+<file url="templates/plain/threadview.tpl" id="107706CE8DBLca220320x786e" name="threadview.tpl">
+</file>
+<file url="templates/plain/messagesview.php" id="107706CE8DCL7ee3202e0x786e" name="messagesview.php">
+</file>
+</folder>
+</folder>
+</project>
