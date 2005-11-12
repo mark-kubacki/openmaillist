@@ -21,13 +21,13 @@ class openmaillist {
 		$tmp	= array();
 
 		$result = mysql_query('
-		select li.LID, lname as Name, LEmailTo as EmailTo, LDescription as Description,
-			count(th.TID) as Threads,
-			count(tm.TID) as Posts
-		from Lists li
-		left outer join Threads th on (li.LID = th.LID)
-		left outer join ThreadMessages tm on (th.TID = tm.TID)
-		group by li.lname, li.LEmailTo, li.LDescription
+		select li.LID, lname as name, lemailto as emailto, ldescription as description,
+			count(th.TID) as threads, 
+			count(tm.TID) as posts 		Lists
+		from '.$cfg['tablenames']['Lists'].' li
+		left outer join '.$cfg['tablenames']['Threads'].' th on (li.LID = th.LID)
+		left outer join '.$cfg['tablenames']['ThreadMessages'].' tm on (th.TID = tm.TID)
+		group by li.lname, li.lemailto, li.ldescription
 		');
 
 		if(mysql_num_rows($result) > 0) {
@@ -44,12 +44,12 @@ class openmaillist {
 		$tmp	= array();
 
 		$result = mysql_query('
-			select th.TID,th.Threadname as Subject, tm.Sender, count(tm.tid) as Posts
-			from Threads th
-			left outer join ThreadMessages tm on (th.tid = tm.tid)
-			where '.$list_id.'= th.lid
-			group by th.Threadname, tm.Sender
-			order by tm.DateReceived
+		select th.TID,th.Threadname as subject, tm.Sender, count(tm.tid) as posts 
+		from '.$cfg['tablenames']['Threads'].' th
+		left outer join '.$cfg['tablenames']['ThreadMessages'].' tm on (th.tid = tm.tid) 
+		where '.$list_id.'= th.lid
+		group by th.Threadname, tm.Sender
+		order by tm.DateReceived
 		');
 
 		if(mysql_num_rows($result) > 0) {
@@ -67,12 +67,12 @@ class openmaillist {
 		$tmp	= array();
 
 		$result = mysql_query('
-		select tm.TID , tm.Sender, tm.DateSend as "Send at", tm.DateReceived as "Received at",
-			me.Subject as "Subject",  me.body as "Text",
-			att.location as "Location"
-		from ThreadMessages tm
-		left outer join Messages me on (tm.MsgID = me.MsgID)
-		left outer join Attachements att on (tm.MsgID = att.MsgID)
+		select tm.tid , tm.Sender as sender, tm.DateSend as send_at, tm.DateReceived as received_at,
+			me.Subject as subject,  me.body as text, 
+			att.location as location
+		from  '.$cfg['tablenames']['ThreadMessages'].' tm
+		left outer join '.$cfg['tablenames']['Messages'].' me on (tm.MsgID = me.MsgID)
+		left outer join '.$cfg['tablenames']['Attachements'].' att on (tm.MsgID = att.MsgID) 
 		where '.$thread_id.' = tm.TID
 		order by tm.DateReceived
 		') ;
