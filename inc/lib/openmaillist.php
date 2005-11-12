@@ -9,7 +9,7 @@ class openmaillist {
 								$cfg['Servers']['DB'][0]['PASS'])
 		or die('Could not connect to MySQL Server');
 		mysql_select_db($cfg['Servers']['DB'][0]['DB'])
-		or die('Could not select database');
+		or die('Could not SELECT database');
 	}
 
 	function __destruct() {
@@ -21,13 +21,13 @@ class openmaillist {
 		$tmp	= array();
 
 		$result = mysql_query('
-		select li.LID, lname as name, lemailto as emailto, ldescription as description,
-			count(th.TID) as threads, 
-			count(tm.TID) as posts 		Lists
-		from '.$cfg['tablenames']['Lists'].' li
-		left outer join '.$cfg['tablenames']['Threads'].' th on (li.LID = th.LID)
-		left outer join '.$cfg['tablenames']['ThreadMessages'].' tm on (th.TID = tm.TID)
-		group by li.lname, li.lemailto, li.ldescription
+		SELECT li.LID, lname AS name, lemailto AS emailto, ldescription AS description,
+			COUNT(th.TID) AS threads, 
+			COUNT(tm.TID) AS posts 		Lists
+		FROM '.$cfg['tablenames']['Lists'].' li
+		LEFT OUTER JOIN '.$cfg['tablenames']['Threads'].' th ON (li.LID = th.LID)
+		LEFT OUTER JOIN '.$cfg['tablenames']['ThreadMessages'].' tm ON (th.TID = tm.TID)
+		GROUP BY li.lname, li.lemailto, li.ldescription
 		');
 
 		if(mysql_num_rows($result) > 0) {
@@ -44,12 +44,12 @@ class openmaillist {
 		$tmp	= array();
 
 		$result = mysql_query('
-		select th.TID,th.Threadname as subject, tm.Sender, count(tm.tid) as posts 
-		from '.$cfg['tablenames']['Threads'].' th
-		left outer join '.$cfg['tablenames']['ThreadMessages'].' tm on (th.tid = tm.tid) 
-		where '.$list_id.'= th.lid
-		group by th.Threadname, tm.Sender
-		order by tm.DateReceived
+		SELECT th.TID,th.Threadname AS subject, tm.Sender AS sender, COUNT(tm.tid) AS posts 
+		FROM '.$cfg['tablenames']['Threads'].' th
+		LEFT OUTER JOIN '.$cfg['tablenames']['ThreadMessages'].' tm ON (th.tid = tm.tid) 
+		WHERE '.$list_id.'= th.lid
+		GROUP BY th.Threadname, tm.Sender
+		ORDER BY tm.DateReceived
 		');
 
 		if(mysql_num_rows($result) > 0) {
@@ -67,14 +67,14 @@ class openmaillist {
 		$tmp	= array();
 
 		$result = mysql_query('
-		select tm.tid , tm.Sender as sender, tm.DateSend as send_at, tm.DateReceived as received_at,
-			me.Subject as subject,  me.body as text, 
-			att.location as location
-		from  '.$cfg['tablenames']['ThreadMessages'].' tm
-		left outer join '.$cfg['tablenames']['Messages'].' me on (tm.MsgID = me.MsgID)
-		left outer join '.$cfg['tablenames']['Attachements'].' att on (tm.MsgID = att.MsgID) 
-		where '.$thread_id.' = tm.TID
-		order by tm.DateReceived
+		SELECT tm.tid , tm.Sender AS sender, tm.DateSend AS send_at, tm.DateReceived AS received_at,
+			me.Subject AS subject,  me.body AS text, 
+			att.location AS location
+		FROM  '.$cfg['tablenames']['ThreadMessages'].' tm
+		LEFT OUTER JOIN '.$cfg['tablenames']['Messages'].' me ON (tm.MsgID = me.MsgID)
+		LEFT OUTER JOIN '.$cfg['tablenames']['Attachements'].' att ON (tm.MsgID = att.MsgID) 
+		WHERE '.$thread_id.' = tm.TID
+		ORDER BY tm.DateReceived
 		') ;
 
 		if(mysql_num_rows($result) > 0) {
