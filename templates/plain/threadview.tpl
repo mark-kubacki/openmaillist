@@ -10,7 +10,7 @@
 	<tr>
 	    <td><a href="messages.php?tid=<?= $thread['tid'] ?>" title="messages of"><?= $thread['name'] ?></a></td>
 	    <td><?= $thread['posts'] ?></td>
-	    <td><?= $thread['lastfrom'] ?></td>
+	    <td><?= htmlspecialchars($thread['lastfrom']) ?></td>
 	    <td><?= $thread['lastdate'] ?></td>
 	</tr>
     <?php } ?>

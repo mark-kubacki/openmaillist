@@ -6,16 +6,9 @@ ini_set('log_errors', '1');
 // error_reporting(E_ALL ^ E_NOTICE);
 error_reporting(E_ALL);
 
-include('config.inc.php4');
-	if(is_readable('config.local.inc.php')) {
-	    include('config.local.inc.php');
-	}
-	else if(is_readable('inc/config.local.inc.php')) {
-	    include('inc/config.local.inc.php');
-	}
-	else {
-	    die('You have to create an configuration file, first.');
-	}
+include('config.inc.php');
+@(include('config.local.inc.php'))
+    or die('You have to create an configuration file, first.');
 
 // MAIN
 include('templates/'.$cfg['theme'].'/common-header.tpl');
