@@ -1,0 +1,57 @@
+Return-Path: <list@openmailadmin.org>
+Received: from murder ([unix socket])
+         by neon (Cyrus v2.2.12-Gentoo) with LMTPA;
+         Tue, 01 Nov 2005 15:51:42 +0100
+X-Sieve: CMU Sieve 2.2
+Received: by neon.hurrikane.de (Postfix, from userid 81)
+        id 87186C0B580; Tue,  1 Nov 2005 15:51:41 +0100 (CET)
+Received: from murder ([unix socket])
+         by neon (Cyrus v2.2.12-Gentoo) with LMTPA;
+         Tue, 01 Nov 2005 15:51:35 +0100
+Received: from [192.168.1.34] (dslb-082-083-051-089.pools.arcor-ip.net [82.83.51.89])
+        (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by neon.hurrikane.de (Postfix) with ESMTP id 9045DC0B55F
+        for <list@openmailadmin.org>; Tue,  1 Nov 2005 15:51:34 +0100 (CET)
+Message-ID: <43678F6A.9090403@hurrikane.de>
+Disposition-Notification-To: W-Mark Kubacki <wmark@hurrikane.de>
+Date: Tue, 01 Nov 2005 16:53:14 +0100
+From: W-Mark Kubacki <wmark@hurrikane.de>
+User-Agent: Mail/News 1.4.1 (X11/20051030)
+MIME-Version: 1.0
+To: openmailadmin <list@openmailadmin.org>
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 8bit
+Reply-To: "openmailadmin" <list@openmailadmin.org>
+Precedence: bulk
+Mailing-List: <list@openmailadmin.org>
+Delivered-To: <list@openmailadmin.org>
+List-Id: openmailadmin <list.openmailadmin.org>
+List-Subscribe: <mailto:list@openmailadmin.org?subject=subscribe>
+List-Unsubscribe: <mailto:list@openmailadmin.org?subject=unsubscribe>
+List-Post: <mailto:list@openmailadmin.org>
+In-Reply-To: <275957489@lists.openmailadmin.org>
+References: <275957489@lists.openmailadmin.org>
+Subject: Re: [openmailadmin] version 0.9?
+X-Spam-Checker-Version: SpamAssassin 3.0.4-gr0 (2005-06-05) on 
+        neon.hurrikane.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.6 required=5.0 tests=AWL,LOCAL_SENDER_FROM,
+        RCVD_IN_NJABL_DUL,RCVD_IN_SORBS_DUL autolearn=unavailable 
+        version=3.0.4-gr0
+
+
+Hi ethan,
+
+I can't definitely say when the new release comes out.
+
+Current working copies need still some testing and QA, therefore it 
+might take some days.
+
+Feel free to use a recent snapshot. The latest is known to be quite stable.
+
+
+Gru<DF>,
+
+W-Mark Kubacki
+
