@@ -32,7 +32,7 @@
 </file>
 <file url="templates/plain/threadview.tpl" id="107706CE8DBLca220320x786e" name="threadview.tpl">
 </file>
-<file url="templates/plain/messagesview.php" id="107706CE8DCL7ee3202e0x786e" name="messagesview.php">
+<file url="templates/plain/messagesview.tpl" id="1078B7F52B1L56ca104b0x2498" name="messagesview.tpl">
 </file>
 </folder>
 </folder>

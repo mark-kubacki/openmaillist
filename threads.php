@@ -4,7 +4,7 @@ include('inc/_prepend.php');
 // ------------------------------ Threads ---------------------------------------------------------
 
 // DATA
-$lists = $oml->get_threads($_GET['lid']);
+$threads = $oml->get_threads($_GET['lid']);
 
 // DISPLAY
 include('templates/'.$cfg['theme'].'/threadview.tpl');

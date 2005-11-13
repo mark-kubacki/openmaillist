@@ -5,7 +5,7 @@
     <div>
 	<dl>
 	    <dt>Sender: </dt>
-	    <dd><?= $msg['sender'] ?></dd>
+	    <dd><?= htmlspecialchars($msg['sender']) ?></dd>
 	    <dt>Subject: </dt>
 	    <dd><?= $msg['subject'] ?><dd>
 	    <dt>Received: </dt>
@@ -13,15 +13,15 @@
 	</dl>
     </div>
     <div>
-	<?= $msg['body'] ?>
+	<pre><?= $msg['body'] ?></pre>
     </div>
     <?php if(count($msg['attach']) > 0) { ?>
 	<div>
 	    <ul>
 	    <?php foreach($msg['attach'] as $attachement) { ?>
 		<li>
-		    <a href="<?= $cfg['upload_dir'].$attachement['uri'] ?>" title="attachement">
-			<?= $attachement['uri'] ?>
+		    <a href="<?= $cfg['upload_dir'].$attachement['Location'] ?>" title="attachement">
+			<?= $attachement['Location'] ?>
 		    </a>
 		</li>
 	    <?php } ?>
