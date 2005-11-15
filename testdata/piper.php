@@ -12,40 +12,15 @@ $body	= '';
 $attachement	= array();
 $fields	= array();
 
-while(!feof(STDIN) && $i < 50) {
+while(!feof(STDIN)) {
 	$line = fgets(STDIN, 1024);
 	switch($mode) {
 		case MODE_HEADER:
 				if(trim($line) == '') {
 					$mode	= MODE_BODY;
+					preg_match_all('/([\w\-]+):\s([^\n]+(?:\n\s+[^\n]+)*)/', $header, $arr);
 				}
 				else {
-					// ([\w\-]+):\s([^\n]+(?:\n\s+[^\n]+)*)
-					switch($line{0}) {
-						case 'S':
-							if(preg_match('/Subject:\s(.*)/', $line, $arr)) {
-								$fields['Subject'] = $arr[1];
-							}
-							break;
-						case 'M':
-							if(preg_match('/Message-ID:\s<(.*)>/', $line, $arr)) {
-								$fields['Message-ID'] = $arr[1];
-							}
-							break;
-						case 'F':
-							if(preg_match('/From:\s(.*)/', $line, $arr)) {
-								$fields['From'] = $arr[1];
-							}
-							break;
-						case 'I':
-							if(preg_match('/In-Reply-To:\s<(.*)>/', $line, $arr)) {
-								$fields['In-Reply-To'] = $arr[1];
-							}
-						case 'R':
-							if(preg_match('/References:\s<(.*)>/', $line, $arr)) {
-								$fields['References'] = $arr[1];
-							}
-					}
 					$header	.= $line;
 				}
 			break;
@@ -57,8 +32,13 @@ while(!feof(STDIN) && $i < 50) {
 	}
 }
 
-echo("--- Datenbankrelevante Felder ---");
-print_r($fields);
+$gesucht		= array('Message-ID', 'From', 'In-Reply-To', 'References', 'Subject');
+
+echo("--- Datenbankrelevante Felder ---\n");
+foreach($gesucht as $was) {
+	$i = array_search($was, $arr[1]);
+	echo($arr[1][$i]." : ".$arr[2][$i]."\n");
+}
 echo("--- Body ---");
 echo($body);
 
