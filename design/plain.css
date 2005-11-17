@@ -1,0 +1,110 @@
+/* display standards */
+body {
+	font-size: 12px;
+	font-family: verdana,arial,helvetica;
+}
+
+table, td, th {
+	border-collapse: collapse;
+	border: 1px solid #cccccc;
+}
+
+th {
+	font-weight: bold;
+	background: #efefef;
+	color: #000000;
+	text-align: center;
+}
+
+td {
+	text-align: left;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+
+td.fig {
+	text-align: center;
+}
+td.date {
+	text-align: left;
+	padding-left: 1em;
+}
+
+table dl {
+	margin: 0;
+}
+
+table dl a, table td a {
+	color: #000000;
+	font-weight: bold;
+}
+
+/* page layout */
+table {
+	width: 95%;
+}
+
+#footer {
+	font-size: x-small;
+	color: #cccccc;
+	text-align: center;
+	text-decoration: none;
+	border-top: 1px solid #cccccc;
+	margin: 1em 60px 0 60px;
+	clear: both;
+}
+#footer a {
+	text-decoration: underline;
+	color: inherit;
+}
+
+/* -- messages */
+ol.messages {
+	list-style: none;
+	padding-left: 0;
+	width: 95%;
+}
+li.message {
+	border-collapse: collapse;
+	border: 1px solid #cccccc;
+}
+li.message dl {
+	border-bottom: 1px dashed #cccccc;
+}
+
+div.header dl {
+	background-color: #efefef;
+}
+div.header dt {
+	font-weight: bold;
+	color: #000000;
+	width: 13%;
+	float: left;
+	margin-left: 0.5em;
+}
+div.header dd {
+	width: 87%;
+}
+div.body pre {
+	width: 88%;
+	/* some very ugly hacks, but as far to browser seems to care about CSS 2.1 */
+	white-space: -moz-pre-wrap;	/* Mozilla */
+	white-space: -hp-pre-wrap;	/* HP printers */
+	white-space: -o-pre-wrap;	/* Opera 7 */
+	white-space: -pre-wrap;		/* Opera 4-6 */
+	white-space: pre-wrap;		/* CSS 2.1 */
+	white-space: pre-line;		/* CSS 3 (and 2.1 as well, actually) */
+	word-wrap: break-word;		/* IE */
+}
+
+div.attachement {
+	margin-top: 1.5em;
+	margin-left: 4em;
+}
+div.attachement ul {
+	border-top: 1px dashed #cccccc;
+	border-left: 1px dashed #cccccc;
+	list-style-type: upper-roman;	/* I II III IV V... */
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}

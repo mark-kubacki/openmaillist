@@ -14,9 +14,9 @@
 		    <dd><?= $list['description'] ?></dd>
 		</dl>
 	    </td>
-	    <td><?= $list['threads'] ?></td>
-	    <td><?= $list['posts'] ?></td>
-	    <td><?= $list['lastdate'] ?></td>
+	    <td class="fig"><?= $list['threads'] ?></td>
+	    <td class="fig"><?= $list['posts'] ?></td>
+	    <td class="date"><?= $list['lastdate'] ?></td>
 	</tr>
     <?php } ?>
 </table>
