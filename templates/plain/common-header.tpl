@@ -2,7 +2,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?= $lang ?>" lang="<?= $lang ?>">
 <head>
-    <title>Openmaillist</title>
+	<title>Openmaillist</title>
+	<link rel="stylesheet" href="<?= $cfg['design_dir'] ?>/plain.css" type="text/css" title="plain" />
 </head>
 
 <body>

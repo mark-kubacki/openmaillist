@@ -1,22 +1,22 @@
 <h2>Messages</h2>
-<ol>
+<ol class="messages">
 <?php foreach($messages as $msg) { ?>
-<li>
-    <div>
+<li class="message">
+    <div class="header">
 	<dl>
-	    <dt>Sender: </dt>
+	    <dt>Sender:</dt>
 	    <dd><?= htmlspecialchars($msg['sender']) ?></dd>
-	    <dt>Subject: </dt>
-	    <dd><?= $msg['subject'] ?><dd>
-	    <dt>Received: </dt>
+	    <dt>Received:</dt>
 	    <dd><?= $msg['datereceived'] ?><dd>
+	    <dt>Subject:</dt>
+	    <dd><?= $msg['subject'] ?><dd>
 	</dl>
     </div>
-    <div>
-	<pre><?= $msg['body'] ?></pre>
+    <div class="body">
+	<pre><blockquote><?= $msg['body'] ?></blockquote></pre>
     </div>
     <?php if(count($msg['attach']) > 0) { ?>
-	<div>
+	<div class="attachement">
 	    <ul>
 	    <?php foreach($msg['attach'] as $attachement) { ?>
 		<li>

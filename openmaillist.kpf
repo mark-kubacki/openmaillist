@@ -46,4 +46,8 @@
 <file url="samples/config.local.inc.php" id="107709B94E5L61bdd8d0x2334" name="config.local.inc.php">
 </file>
 </folder>
+<folder id="107A00B40A5L7b8e6b740x3fa2" name="design">
+<file url="design/plain.css" id="107A00B5F31L30dba9e20x3fa2" name="plain.css">
+</file>
+</folder>
 </project>
