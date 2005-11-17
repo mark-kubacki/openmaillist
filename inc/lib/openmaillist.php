@@ -24,12 +24,11 @@ class openmaillist {
 
 		$result = mysql_query('
 		SELECT li.lid, lname AS name, lemailto AS emailto, ldescription AS description,
-			coalesce(thc.TAnzahl,0) AS threads,
+			COALESCE(thc.TAnzahl, 0) AS threads,
 			COUNT(tm.TID) AS posts,
 			MAX(tm.DateReceived) AS lastdate
-
 		FROM '.$cfg['tablenames']['Lists'].' AS li
-		LEFT OUTER JOIN 
+		LEFT OUTER JOIN
 			( SELECT LID as LID, COUNT(TID) AS TAnzahl
 			FROM '.$cfg['tablenames']['Threads'].'
 			GROUP BY TID) AS thc ON (li.LID = thc.LID)
@@ -94,8 +93,8 @@ class openmaillist {
 		$tmp	= array();
 
 		$result = mysql_query('
-		SELECT tm.tid AS tid, tm.Sender AS sender, tm.DateSend AS datesend, tm.DateReceived AS datereceived,
-			me.Subject AS subject, me.body AS body, me.attach AS numattachements, me.MsgID AS msgid
+		SELECT tm.tid, tm.Sender AS sender, tm.DateSend AS datesend, tm.DateReceived AS datereceived,
+			me.Subject AS subject, me.body AS body, me.attach AS numattachements, me.MsgID
 		FROM '.$cfg['tablenames']['ThreadMessages'].' AS tm
 		LEFT OUTER JOIN '.$cfg['tablenames']['Messages'].' AS me ON (tm.MsgID = me.MsgID)
 		WHERE '.$thread_id.' = tm.TID
