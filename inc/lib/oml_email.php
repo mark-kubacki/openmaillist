@@ -35,6 +35,8 @@ class oml_email {
 		$this->hoi['date-received']	= strtotime(substr(strrchr($this->structure->headers['received'][0], ';'), 2));
 		$this->hoi['subject']		= $this->structure->headers['subject'];
 
+		$this->hoi['_recipient']	= $this->structure->headers['to'];
+
 		if(isset($this->structure->headers['in-reply-to'])) {
 			$this->hoi['in-reply-to']	= substr($this->structure->headers['in-reply-to'], 1, -1);
 		}
@@ -51,8 +53,27 @@ class oml_email {
 			$this->hoi['date-send']		= $this->hoi['date-received'];
 		}
 
-
 		$this->analyzed = true;
+
+		return true;
+	}
+
+	function get_header($key) {
+		if(!$this->analyzed) {
+			if(!$this->study()) {
+				return '';
+			}
+		}
+
+		if(isset($this->hoi[$key])) {
+			return $this->$hoi[$key];
+		}
+		else if(isset($this->structure->headers[$key])) {
+			return $this->structure->headers[$key];
+		}
+		else {
+			return '';
+		}
 	}
 }
 ?>

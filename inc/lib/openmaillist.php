@@ -1,7 +1,10 @@
 <?php
 class openmaillist {
 
-	var		$error;
+// private:
+	var	$regex_valid_email	= '[\w0-9]{1,}[\w0-9\.\-\_\+]*@[\w0-9\.\-\_]{2,}\.[\w]{2,}';
+// protected:
+	var	$error;
 
 	function openmaillist() {
 		global $cfg;
@@ -16,6 +19,10 @@ class openmaillist {
 
 	function __destruct() {
 		mysql_close();
+	}
+
+	function add_error($error) {
+		$this->error[]	= $error;
 	}
 
 	function get_lists() {
@@ -50,6 +57,24 @@ class openmaillist {
 		return $tmp;
 	}
 
+	function get_list_id($list_name, $list_email) {
+		global $cfg;
+		$id = 0;
+
+		$result = mysql_query('
+		SELECT LID
+		FROM '.$cfg['tablenames']['Lists'].'
+		WHERE LName = "'.$list_name.'" OR LEmailTo = "'.$list_email.'"
+		LIMIT 1');
+
+		if(mysql_num_rows($result) > 0) {
+			$id = mysql_result($result, 0, 0);
+			mysql_free_result($result);
+		}
+
+		return $id;
+	}
+
 	function get_threads($list_id) {
 		global $cfg;
 		$tmp	= array();
@@ -73,6 +98,22 @@ class openmaillist {
 		return $tmp;
 	}
 
+	function split_email($from_or_to) {
+		if(preg_match('/(.*)\s?\<(.+)\>/', $from_or_to, $arr)) {
+			$ret	= array('name'	=> $arr[1],
+					'email'	=> $arr[2],
+					);
+			return $ret;
+		}
+		else if(preg_match('/('.$this->regex_valid_email.')/', $from_or_to, $arr)) {
+			$ret	= array('email'	=> $arr[1],
+					);
+			return $ret;
+		}
+
+		return false;
+	}
+
 	function get_attachements($msgid) {
 		global $cfg;
 		$ret = array();
@@ -86,6 +127,34 @@ class openmaillist {
 		mysql_free_result($result);
 
 		return $ret;
+	}
+
+	function store_message($msg, $list_id = null) {
+		// If not list_id was given (bad) we have to determine it...
+		if(is_null($list_id)) {
+			// RE: [listname] ...
+			$list_tag = strstr($msg->get_header('subject'), '[');
+			if($list_tag) {
+				// We are naive to expect an correct tag, but that does not matter.
+				$list_tag = substr($list_tag, 0, strpos($list_tag, ']'));
+			}
+
+			// the address the message was send to
+			$list_rec = $this->split_email($msg->get_header('_recipient'));
+
+			// query for the id
+			$list_id = $this->get_list_id(mysql_real_escape_string($list_tag), mysql_real_escape_string($list_rec['email']));
+
+			if(! $list_id) {
+				$this->add_error('No list has been found which the message could belong to. Tag we tried to search for was "'.$list_tag.'".');
+			}
+			unset($list_tag); unset($list_rec);
+		}
+		// Our first task is to determine whether the given message belongs to an already opened thread.
+			// Does the message refer to a known Message-ID?
+			// If not, does it reference a known message?
+			// Maybe a similar subject was opened lately?
+		// If not, we are to create a new thread.
 	}
 
 	function get_messages($thread_id) {

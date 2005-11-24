@@ -23,6 +23,7 @@ $cfg['tablenames']
 		);
 
 // include the backend
+include('./inc/lib/oml_email.php');
 include('./inc/lib/openmaillist.php');
 $oml 	= new openmaillist();
 
