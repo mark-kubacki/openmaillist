@@ -1,5 +1,5 @@
 <?php
-include('inc/_prepend.php');
+include('./inc/_prepend.php');
 
 // ------------------------------ Messages --------------------------------------------------------
 
@@ -7,7 +7,7 @@ include('inc/_prepend.php');
 $messages = $oml->get_messages($_GET['tid']);
 
 // DISPLAY
-include('templates/'.$cfg['theme'].'/messagesview.tpl');
+include('./templates/'.$cfg['theme'].'/messagesview.tpl');
 
-include('inc/_append.php');
+include('./inc/_append.php');
 ?>
