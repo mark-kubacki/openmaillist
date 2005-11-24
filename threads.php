@@ -1,5 +1,5 @@
 <?php
-include('inc/_prepend.php');
+include('./inc/_prepend.php');
 
 // ------------------------------ Threads ---------------------------------------------------------
 
@@ -7,7 +7,7 @@ include('inc/_prepend.php');
 $threads = $oml->get_threads($_GET['lid']);
 
 // DISPLAY
-include('templates/'.$cfg['theme'].'/threadview.tpl');
+include('./templates/'.$cfg['theme'].'/threadview.tpl');
 
-include('inc/_append.php');
+include('./inc/_append.php');
 ?>

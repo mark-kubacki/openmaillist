@@ -1,5 +1,5 @@
 <?php
-include('inc/_prepend.php');
+include('./inc/_prepend.php');
 
 // ------------------------------ Mailing Lists ---------------------------------------------------
 
@@ -7,7 +7,7 @@ include('inc/_prepend.php');
 $lists = $oml->get_lists();
 
 // DISPLAY
-include('templates/'.$cfg['theme'].'/listview.tpl');
+include('./templates/'.$cfg['theme'].'/listview.tpl');
 
-include('inc/_append.php');
+include('./inc/_append.php');
 ?>
