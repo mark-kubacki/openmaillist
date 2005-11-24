@@ -16,6 +16,8 @@
 <folder url="inc/lib" id="107706CE8E3L69bcaad60x786e" name="lib">
 <file url="inc/lib/openmaillist.php" id="107706CE8DBL16bb30b50x786e" name="openmaillist.php">
 </file>
+<file url="inc/lib/oml_email.php" id="107C3982179L717983d0x250e" name="oml_email.php">
+</file>
 </folder>
 <file url="inc/_append.php" id="10770989D20L616d11290x2334" name="_append.php">
 </file>
@@ -48,6 +50,18 @@
 </folder>
 <folder id="107A00B40A5L7b8e6b740x3fa2" name="design">
 <file url="design/plain.css" id="107A00B5F31L30dba9e20x3fa2" name="plain.css">
+</file>
+</folder>
+<folder id="107C37D10C4L404c42360x250e" name="testdata">
+<file url="testdata/1." id="107C37D446CL66290ad10x250e" name="1.">
+</file>
+<file url="testdata/2." id="107C37D447AL2cae39ef0x250e" name="2.">
+</file>
+<file url="testdata/piper.php" id="107C37D4486L7fcb37390x250e" name="piper.php">
+</file>
+<file url="testdata/piper.pl" id="107C37D4491L5269c4c90x250e" name="piper.pl">
+</file>
+<file url="testdata/piper.py" id="107C37D449AL34e0bf5a0x250e" name="piper.py">
 </file>
 </folder>
 </project>
