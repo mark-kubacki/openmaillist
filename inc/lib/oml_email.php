@@ -14,6 +14,7 @@ class oml_email {
 	var	$structure;
 	var	$hoi		= array();	// headers of interest
 	var	$analyzed	= false;
+	var	$parts		= array();	// MIME parts including trailer.
 
 // public:
 	function oml_email(&$raw_message) {
@@ -74,6 +75,41 @@ class oml_email {
 		else {
 			return '';
 		}
+	}
+
+	function get_entire_header() {
+		return $this->mime_message->_header;
+	}
+
+	function get_entire_body() {
+		return $this->mime_message->_body;
+	}
+
+	// private
+	function split_parts() {
+		$this->parts = explode(	$this->structure->ctype_parameters['boundary'],
+					$this->get_entire_body());
+		array_walk($this->parts,
+				create_function('&$item,$index',
+						'$item = trim($item);'
+						));
+	}
+
+	function get_first_part() {
+		// In case we have no attachements the task will be trivial.
+		if(!$this->has_attachements()) {
+			return $this->get_entire_body();
+		}
+		else {
+			// Else we are to split the body in corresponding mime parts and return first text/text-plain part.
+			$this->split_parts();
+
+
+		}
+	}
+
+	function has_attachements() {
+		return ($this->structure->ctype_secondary != 'plain');
 	}
 }
 ?>

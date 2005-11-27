@@ -57,11 +57,15 @@
 </file>
 <file url="testdata/2." id="107C37D447AL2cae39ef0x250e" name="2.">
 </file>
-<file url="testdata/piper.php" id="107C37D4486L7fcb37390x250e" name="piper.php">
+<file url="testdata/3." id="107D2D3F09CL757cf7170x67d6" name="3.">
 </file>
-<file url="testdata/piper.pl" id="107C37D4491L5269c4c90x250e" name="piper.pl">
+</folder>
+<folder id="107D2D3B4C8L38027e4d0x67d6" name="bin">
+<file url="bin/piper.php" id="107D2D45CF8L6fb49a5c0x67d6" name="piper.php">
 </file>
-<file url="testdata/piper.py" id="107C37D449AL34e0bf5a0x250e" name="piper.py">
+<file url="bin/piper.pl" id="107D2D45D04L1d7febc40x67d6" name="piper.pl">
+</file>
+<file url="bin/piper.py" id="107D2D45D14L4b0be9e00x67d6" name="piper.py">
 </file>
 </folder>
 </project>
