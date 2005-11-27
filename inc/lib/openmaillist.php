@@ -9,9 +9,9 @@ class openmaillist {
 	function openmaillist() {
 		global $cfg;
 
-		$link = mysql_connect($cfg['Servers']['DB'][0]['HOST'],
-								$cfg['Servers']['DB'][0]['USER'],
-								$cfg['Servers']['DB'][0]['PASS'])
+		$link = mysql_connect(	$cfg['Servers']['DB'][0]['HOST'],
+					$cfg['Servers']['DB'][0]['USER'],
+					$cfg['Servers']['DB'][0]['PASS'])
 		or die('Could not connect to MySQL Server');
 		mysql_select_db($cfg['Servers']['DB'][0]['DB'])
 		or die('Could not SELECT database');
@@ -98,6 +98,22 @@ class openmaillist {
 		return $tmp;
 	}
 
+	function create_thread($threadname, $list_id) {
+		global $cfg;
+
+		$result = mysql_query('
+		INSERT INTO '.$cfg['tablenames']['Threads'].'
+		(LID, Threadname) VALUES
+		('.intval($list_id).', "'.$threadname.'")
+		');
+
+		if(mysql_affected_rows($result) < 1) {
+			return false;
+		}
+
+		return mysql_insert_id();
+	}
+
 	function split_email($from_or_to) {
 		if(preg_match('/(.*)\s?\<(.+)\>/', $from_or_to, $arr)) {
 			$ret	= array('name'	=> $arr[1],
@@ -129,32 +145,81 @@ class openmaillist {
 		return $ret;
 	}
 
-	function store_message($msg, $list_id = null) {
-		// If not list_id was given (bad) we have to determine it...
+	function store_message($msg, $list_id = null, $thread_id = null) {
+		// If no list_id was given (bad) we have to determine it...
 		if(is_null($list_id)) {
-			// RE: [listname] ...
-			$list_tag = strstr($msg->get_header('subject'), '[');
-			if($list_tag) {
-				// We are naive to expect an correct tag, but that does not matter.
-				$list_tag = substr($list_tag, 0, strpos($list_tag, ']'));
+			$list_id = $this->email_list_id($msg);
+			if(is_null($list_id)) {
+				return false;
 			}
-
-			// the address the message was send to
-			$list_rec = $this->split_email($msg->get_header('_recipient'));
-
-			// query for the id
-			$list_id = $this->get_list_id(mysql_real_escape_string($list_tag), mysql_real_escape_string($list_rec['email']));
-
-			if(! $list_id) {
-				$this->add_error('No list has been found which the message could belong to. Tag we tried to search for was "'.$list_tag.'".');
-			}
-			unset($list_tag); unset($list_rec);
 		}
 		// Our first task is to determine whether the given message belongs to an already opened thread.
-			// Does the message refer to a known Message-ID?
-			// If not, does it reference a known message?
-			// Maybe a similar subject was opened lately?
+		if(is_null($thread_id)) {
+			$thread_id = $this->email_thread_id($msg);
+		}
 		// If not, we are to create a new thread.
+		if(is_null($thread_id)) {
+			$thread_id = $this->create_thread(mysql_real_escape_string($msg->get_header('subject')), $list_id);
+		}
+
+		// Now we can store the message.
+		if($this->store_message_in_db($msg)) {
+			return $this->register_message_with_thread($thread_id, $msg);
+		}
+
+		return false;
+	}
+
+	// private
+	function store_message_in_db($msg) {
+		global $cfg;
+
+		$has_attachements	= $msg->has_attachements() ? 1 : 0;
+		$headers		= mysql_real_escape_string($msg->get_entire_header());
+		$body			= mysql_real_escape_string($msg->get_first_part());
+
+		$result = mysql_query('
+		INSERT DELAYED INTO Messages
+		(MsgID, Subject, Body, Header, Attach) VALUES
+		("'.$msg->get_header('message-id').'", "'.$msg->get_header('subject').'",
+		 "'.$headers.'", "'.$body.'", '.$has_attachements.')
+		');
+
+		if(mysql_affected_rows($result) > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	function email_list_id($oml_email_msg) {
+		// RE: [listname] ...
+		$list_tag = strstr($msg->get_header('subject'), '[');
+		if($list_tag) {
+			// We are naive to expect an correct tag, but that does not matter.
+			$list_tag = substr($list_tag, 0, strpos($list_tag, ']'));
+		}
+
+		// the address the message was send to
+		$list_rec = $this->split_email($msg->get_header('_recipient'));
+
+		// query for the id
+		$list_id = $this->get_list_id(mysql_real_escape_string($list_tag), mysql_real_escape_string($list_rec['email']));
+
+		if(!$list_id) {
+			$this->add_error('No list has been found which the message could belong to. Tag we tried to search for was "'.$list_tag.'".');
+			return null;
+		}
+
+		return $list_id;
+	}
+
+	function email_thread_id($oml_email_msg) {
+		$thread_id = null;
+		// Does the message refer to a known Message-ID?
+		// If not, does it reference a known message?
+		// Maybe a similar subject was opened lately?
+		return $thread_id;
 	}
 
 	function get_messages($thread_id) {
