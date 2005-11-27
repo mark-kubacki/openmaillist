@@ -87,7 +87,7 @@ class oml_email {
 
 	// private
 	function split_parts() {
-		$this->parts = explode(	$this->structure->ctype_parameters['boundary'],
+		$this->parts = explode(	'--'.$this->structure->ctype_parameters['boundary'],
 					$this->get_entire_body());
 		array_walk($this->parts,
 				create_function('&$item,$index',
