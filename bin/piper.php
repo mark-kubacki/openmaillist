@@ -13,11 +13,11 @@ print_r($myEmail->hoi);
 
 if($myEmail->has_attachements()) {
 	echo("Hat Anhänge.\n");
+	$myEmail->split_parts();
+	print_r($myEmail->parts);
 }
 else {
 	echo("Hat keine Anhänge.\n");
 }
 
-$myEmail->split_parts();
-print_r($myEmail);
 ?>

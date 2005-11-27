@@ -164,7 +164,7 @@ class openmaillist {
 
 		// Now we can store the message.
 		if($this->store_message_in_db($msg)) {
-			return $this->register_message_with_thread($thread_id, $msg);
+			return $this->register_message_with_thread($thread_id, $msg); // TODO
 		}
 
 		return false;
@@ -215,7 +215,7 @@ class openmaillist {
 	}
 
 	function email_thread_id($oml_email_msg) {
-		$thread_id = null;
+		$thread_id = null; // TODO
 		// Does the message refer to a known Message-ID?
 		// If not, does it reference a known message?
 		// Maybe a similar subject was opened lately?
