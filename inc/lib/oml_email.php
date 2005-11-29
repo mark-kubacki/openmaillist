@@ -1,29 +1,36 @@
 <?php
+
+include('Mail/mimeDecode.php');
+include('mimedecode.php');
+
 /**
  * This class is an specialization for OML. It's purposes are:
  * - Taking raw messages and analyzing them.
  * - Be passed as parameter in OML methods.
+ *
+ * See
+ * . RFC 2822	- http://www.ietf.org/rfc/rfc2822.txt
  */
-
-include('Mail/mimeDecode.php');
-
 class oml_email {
 
 // private:
 	var	$mime_message;
+	var	$decode_message;
 	var	$structure;
+	var	$decode_result;
 	var	$hoi		= array();	// headers of interest
-	var	$analyzed	= false;
-	var	$parts		= array();	// MIME parts including trailer.
+
+	var	$studied	= false;
+	var	$decoded	= false;
 
 // public:
 	function oml_email(&$raw_message) {
 		$this->mime_message = new Mail_mimeDecode($raw_message, "\r\n");
+		$this->decode_message = new DecodeMessage();
 	}
 
 	/**
-	 * Analyzes the message.
-	 * Does not trust the "Date"-Field.
+	 * Splits the message in header and body and creates an array of containing all headers.
 	 * @return	false; If the given message turns out to not comply with standards.
 	 */
 	function study() {
@@ -54,13 +61,32 @@ class oml_email {
 			$this->hoi['date-send']		= $this->hoi['date-received'];
 		}
 
-		$this->analyzed = true;
+		$this->studied = true;
+
+		return true;
+	}
+
+	/**
+	 * Decodes given message and stores any attachements in the given directory.
+	 * @return		!! currently always returns true. Will return whether decoding process was successfull.
+	 */
+	function decode() {
+		if(!$this->studied) {
+			if(!$this->study()) {
+				return '';
+			}
+		}
+
+		$this->decode_message->InitHeaderAndBody($this->get_header_part(), $this->get_entire_body(), $this->get_entire_msg());
+
+		$this->decode_result = $this->decode_message->Result();
+		$this->decoded = true;
 
 		return true;
 	}
 
 	function get_header($key) {
-		if(!$this->analyzed) {
+		if(!$this->studied) {
 			if(!$this->study()) {
 				return '';
 			}
@@ -77,39 +103,85 @@ class oml_email {
 		}
 	}
 
-	function get_entire_header() {
+	function get_header_part() {
 		return $this->mime_message->_header;
 	}
 
+	// private
 	function get_entire_body() {
 		return $this->mime_message->_body;
 	}
 
-	// private
-	function split_parts() {
-		$this->parts = explode(	'--'.$this->structure->ctype_parameters['boundary'],
-					$this->get_entire_body());
-		array_walk($this->parts,
-				create_function('&$item,$index',
-						'$item = trim($item);'
-						));
+	function get_entire_msg() {
+		return $this->mime_message->_input;
 	}
 
-	function get_first_part() {
-		// In case we have no attachements the task will be trivial.
-		if(!$this->has_attachements()) {
-			return $this->get_entire_body();
-		}
-		else {
-			// Else we are to split the body in corresponding mime parts and return first text/text-plain part.
-			$this->split_parts();
-
-
-		}
+	// public
+	/**
+	 * @param $where	has to be the absolute path without trailing slash to the location where the attachements will be stored
+	 * @return		true if the given path exists, is a directory and writeable
+	 */
+	function set_attachement_storage($where) {
+		$this->decode_message->attachment_path = $where;
+		return is_dir($where) && is_writable($where);
 	}
 
 	function has_attachements() {
 		return ($this->structure->ctype_secondary != 'plain');
+	}
+
+	/**
+	 * @return	an array with all (relative) paths to the attachements.
+	 */
+	function get_attachements() {
+		if(! $this->has_attachements()) {
+			return array();
+		}
+
+		if(!$this->decoded) {
+			$this->decode();
+		}
+
+		$attachements = array();
+
+		if(isset($this->decode_result[0])) {
+			for($i = 0; isset($this->decode_result[0][$i]); $i++) {
+				if(isset($this->decode_result[0][$i]['attachments'])) {
+					$attachements[] = $this->decode_result[0][$i]['attachments'];
+				}
+			}
+		}
+
+		return $attachements;
+	}
+
+	/**
+	 * @param $strip_html	Whether to strip html and PHP tags if the first displayable part is marked as containing html.
+	 * @retrun		first displayable part or empty string
+	 */
+	function get_first_displayable_part($strip_html = false) {
+		if(!$this->decoded) {
+			$this->decode();
+		}
+
+		if(isset($this->decode_result[0])) {
+			// this is faster than foreach
+			for($i = 0; isset($this->decode_result[0][$i]); $i++) {
+				if(isset($this->decode_result[0][$i]['body']['type'])
+				   && strstr($this->decode_result[0][$i]['body']['type'], 'text')) {
+
+					if(!$strip_html
+					   || strstr($this->decode_result[0][$i]['body']['type'], 'html')) {
+						return trim($this->decode_result[0][$i]['body']['body']);
+					}
+					else {
+						return strip_tags(trim($this->decode_result[0][$i]['body']['body']));
+					}
+				}
+			}
+		}
+
+		return '';
 	}
 }
 ?>
