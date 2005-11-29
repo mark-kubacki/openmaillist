@@ -153,6 +153,8 @@ class openmaillist {
 	}
 
 	function store_message($msg, $list_id = null, $thread_id = null) {
+		global $cfg;
+
 		// If no list_id was given (bad) we have to determine it...
 		if(is_null($list_id)) {
 			$list_id = $this->email_list_id($msg);
@@ -179,13 +181,67 @@ class openmaillist {
 		}
 
 		// Then, store any attachements.
+		if($msg->has_attachements()) {
+			$storage_rel	= $cfg['upload_dir'].'/'.md5($msg->get_header('message-id'));
+			$storage_dir	= $_SERVER['DOCUMENT_ROOT'].'/'.$storage_rel;
+			// ... create directory for attachement-storage
+			mkdir($storage_dir, 0775);
+			$msg->set_attachement_storage($storage_dir);
+			// ... and retrieve any attachements.
+			$attachements = $msg->get_attachements();
+		}
 
 		// Now we can store the message.
-		if($this->store_message_in_db($msg)) {
-			return $this->register_message_with_thread($thread_id, $msg);
+		if($this->store_message_in_db($msg)
+		   && $this->register_message_with_thread($thread_id, $msg)) {
+			// ... and register its attachements
+			if(isset($attachements)) {
+				$this->register_attachements($storage_rel, $attachements);
+			}
+			return true;
+		}
+		else {
+			// ... delete the attachements, if there are any
+			if(isset($attachements)) {
+				// (we have to call this even if 0 attachements are there - we are to delete the directory
+				$this->delete_attachements($storage_dir, $attachements);
+			}
 		}
 
 		return false;
+	}
+
+	// private
+	function register_attachements($msgid, $folder, $att) {
+		global $cfg;
+
+		if(count($att) > 0) {
+			// iterate through every attachement and create the VALUES part of SQL query
+			$values = array();
+			foreach($att as $filename) {
+				$values[] = '("'.$msgid.'", "'.$folder.'/'.$filename.'")';
+			}
+			// actually add the lines to DB
+			$result = mysql_query('
+			INSERT DELAYED INTO '.$cfg['tablenames']['Attachements'].'
+			(MsgID, Location) VALUES
+			'.implode(', ', $values).'
+			');
+
+			if(mysql_affected_rows($result) < 1) {
+				if(mysql_errno() != 0) {
+					$this->add_error(mysql_error());
+				}
+				return false;
+			}
+		}
+
+		return true;
+	}
+	// private
+	function delete_attachements($storage_dir, $att) {
+		rm_r($storage_dir);
+		return true;
 	}
 
 	//private
