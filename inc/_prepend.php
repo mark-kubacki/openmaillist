@@ -9,6 +9,7 @@ error_reporting(E_ALL);
 include('./inc/config.inc.php');
 @(include('./inc/config.local.inc.php'))
     or die('You have to create an configuration file, first.');
+include('./inc/functions.inc.php');
 
 // MAIN
 include('./templates/'.$cfg['theme'].'/common-header.tpl');
