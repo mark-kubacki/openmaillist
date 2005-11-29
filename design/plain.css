@@ -101,7 +101,7 @@ div.attachement {
 	margin-top: 1.5em;
 	margin-left: 4em;
 }
-div.attachement ul {
+div.attachement ol {
 	border-top: 1px dashed #cccccc;
 	border-left: 1px dashed #cccccc;
 	list-style-type: upper-roman;	/* I II III IV V... */
