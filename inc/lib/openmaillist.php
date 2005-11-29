@@ -1,8 +1,12 @@
 <?php
+
+include('./inc/lib/oml_email.php');
+
 class openmaillist {
 
 // private:
 	var	$regex_valid_email	= '[\w0-9]{1,}[\w0-9\.\-\_\+]*@[\w0-9\.\-\_]{2,}\.[\w]{2,}';
+	var	$regex_essen_subject	= '(?:re|aw|fwd)?:?\s?(?:\[.*\])?\s?(.+)\s*(?:\(was:.*\))?';
 // protected:
 	var	$error;
 
@@ -108,7 +112,10 @@ class openmaillist {
 		');
 
 		if(mysql_affected_rows($result) < 1) {
-			return false;
+			if(mysql_errno() != 0) {
+				$this->add_error(mysql_error());
+			}
+			return null;
 		}
 
 		return mysql_insert_id();
@@ -159,15 +166,59 @@ class openmaillist {
 		}
 		// If not, we are to create a new thread.
 		if(is_null($thread_id)) {
-			$thread_id = $this->create_thread(mysql_real_escape_string($msg->get_header('subject')), $list_id);
+			// extract subject's essential parts
+			if(preg_match('/'.$this->regex_essen_subject.'/i', $msg->get_header('subject'), $arr)
+			   && isset($arr[1])) {
+				// create that thread
+				$thread_id = $this->create_thread(mysql_real_escape_string($arr[1]), $list_id);
+			}
+			else {
+				$this->add_error('No suitable subject for naming a new thread was found.');
+				return false;
+			}
 		}
+
+		// Then, store any attachements.
 
 		// Now we can store the message.
 		if($this->store_message_in_db($msg)) {
-			return $this->register_message_with_thread($thread_id, $msg); // TODO
+			return $this->register_message_with_thread($thread_id, $msg);
 		}
 
 		return false;
+	}
+
+	//private
+	function register_message_with_thread($thread_id, $msg) {
+		global $cfg;
+
+		// Is the message already registered?
+		$result = mysql_query('
+		SELECT COUNT(*)
+		FROM '.$cfg['tablenames']['ThreadMessages'].'
+		WHERE TID='.$thread_id.' AND MsgID="'.$msg->get_header('message-id').'"
+		LIMIT 1
+		');
+
+		if($result && mysql_result($result, 0, 0) > 0) {
+			return true;
+		}
+
+		// If not, add that line.
+		$result = mysql_query('
+		INSERT INTO '.$cfg['tablenames']['ThreadMessages'].'
+		(MsgID, TID, DateSend, DateReceived, Sender) VALUES
+		("'.$msg->get_header('message-id').'", '.$thread_id.', '.$msg->get_header('date-send').', '.$msg->get_header('date-received').', "'.$msg->get_header('from').'")
+		');
+
+		if(mysql_affected_rows($result) < 1) {
+			if(mysql_errno() != 0) {
+				$this->add_error(mysql_error());
+			}
+			return false;
+		}
+
+		return true;
 	}
 
 	// private
@@ -175,21 +226,24 @@ class openmaillist {
 		global $cfg;
 
 		$has_attachements	= $msg->has_attachements() ? 1 : 0;
-		$headers		= mysql_real_escape_string($msg->get_entire_header());
+		$headers		= mysql_real_escape_string($msg->get_header_part());
 		$body			= mysql_real_escape_string($msg->get_first_part());
 
 		$result = mysql_query('
-		INSERT DELAYED INTO Messages
+		INSERT DELAYED INTO '.$cfg['tablenames']['Messages'].'
 		(MsgID, Subject, Body, Header, Attach) VALUES
 		("'.$msg->get_header('message-id').'", "'.$msg->get_header('subject').'",
 		 "'.$headers.'", "'.$body.'", '.$has_attachements.')
 		');
 
-		if(mysql_affected_rows($result) > 0) {
-			return true;
+		if(mysql_affected_rows($result) < 1) {
+			if(mysql_errno() != 0) {
+				$this->add_error(mysql_error());
+			}
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	function email_list_id($oml_email_msg) {
@@ -214,11 +268,64 @@ class openmaillist {
 		return $list_id;
 	}
 
-	function email_thread_id($oml_email_msg) {
-		$thread_id = null; // TODO
+	/**
+	 * Tries to detect which thread the given messae could belong to.
+	 * @param $msg		oml_email message
+	 * @return		possible thread_id or NULL
+	 */
+	function email_thread_id($msg) {
+		global $cfg;
+
+		$thread_id = null;
 		// Does the message refer to a known Message-ID?
+		if($msg->get_header('in-reply-to') != '') {
+			$result = mysql_query('
+			SELECT TID
+			FROM '.$cfg['tablenames']['ThreadMessages'].'
+			WHERE MsgID="'.$msg->get_header('in-reply-to').'"
+			ORDER BY DateReceived DESC
+			LIMIT 1
+			');
+			if(mysql_num_rows($result) > 0) {
+				$thread_id = mysql_result($result, 0, 0);
+				mysql_free_result($result);
+				return $thread_id;
+			}
+		}
 		// If not, does it reference a known message?
+		if($msg->get_header('references') != '') {
+			$result = mysql_query('
+			SELECT TID
+			FROM '.$cfg['tablenames']['ThreadMessages'].'
+			WHERE "'.$msg->get_header('references').'" LIKE CONCAT("%", MsgID, "%")
+			ORDER BY DateReceived DESC
+			LIMIT 1
+			');
+			if(mysql_num_rows($result) > 0) {
+				$thread_id = mysql_result($result, 0, 0);
+				mysql_free_result($result);
+				return $thread_id;
+			}
+		}
 		// Maybe a similar subject was opened lately?
+		if($cfg['thread']['guess_from_subject']) {
+			if(preg_match('/'.$this->regex_essen_subject.'/i', $msg->get_header('subject'), $arr)
+			   && isset($arr[1])) {
+				$result = mysql_query('
+				SELECT TID
+				FROM '.$cfg['tablenames']['Threads'].'
+				WHERE Threadname="'.$arr[1].'"
+				ORDER BY TID DESC
+				LIMIT 1
+				');
+				if(mysql_num_rows($result) > 0) {
+					$thread_id = mysql_result($result, 0, 0);
+					mysql_free_result($result);
+					return $thread_id;
+				}
+			}
+		}
+
 		return $thread_id;
 	}
 
