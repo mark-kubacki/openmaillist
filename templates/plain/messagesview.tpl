@@ -17,7 +17,7 @@
     </div>
     <?php if(count($msg['attach']) > 0) { ?>
 	<div class="attachement">
-	    <ul>
+	    <ol>
 	    <?php foreach($msg['attach'] as $attachement) { ?>
 		<li>
 		    <a href="<?= $cfg['upload_dir'].$attachement['Location'] ?>" title="attachement">
@@ -25,7 +25,7 @@
 		    </a>
 		</li>
 	    <?php } ?>
-	    </ul>
+	    </ol>
 	</div>
     <?php } ?>
 </li>
