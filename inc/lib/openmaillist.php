@@ -121,22 +121,6 @@ class openmaillist {
 		return mysql_insert_id();
 	}
 
-	function split_email($from_or_to) {
-		if(preg_match('/(.*)\s?\<(.+)\>/', $from_or_to, $arr)) {
-			$ret	= array('name'	=> $arr[1],
-					'email'	=> $arr[2],
-					);
-			return $ret;
-		}
-		else if(preg_match('/('.$this->regex_valid_email.')/', $from_or_to, $arr)) {
-			$ret	= array('email'	=> $arr[1],
-					);
-			return $ret;
-		}
-
-		return false;
-	}
-
 	function get_attachements($msgid) {
 		global $cfg;
 		$ret = array();
