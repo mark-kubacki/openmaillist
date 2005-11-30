@@ -1,6 +1,6 @@
 <?php
 
-include('./inc/lib/oml_email.php');
+include('oml_email.php');
 
 class openmaillist {
 
@@ -125,12 +125,15 @@ class openmaillist {
 		global $cfg;
 		$ret = array();
 
-		$result = mysql_query('SELECT *
+		$result = mysql_query('
+		SELECT *
 		FROM '.$cfg['tablenames']['Attachements'].'
 		WHERE MsgID = "'.$msgid.'"
 		ORDER BY AttID
 		');
-		while($ret[] = mysql_fetch_assoc($result));
+		while($row = mysql_fetch_assoc($result)) {
+			$ret[] = $row;
+		}
 		mysql_free_result($result);
 
 		return $ret;
@@ -374,7 +377,7 @@ class openmaillist {
 		$tmp	= array();
 
 		$result = mysql_query('
-		SELECT tm.tid, tm.Sender AS sender, tm.DateSend AS datesend, tm.DateReceived AS datereceived,
+		SELECT tm.Sender AS sender, tm.DateSend AS datesend, tm.DateReceived AS datereceived,
 			me.Subject AS subject, me.body AS body, me.attach AS numattachements, me.MsgID
 		FROM '.$cfg['tablenames']['ThreadMessages'].' AS tm
 		LEFT OUTER JOIN '.$cfg['tablenames']['Messages'].' AS me ON (tm.MsgID = me.MsgID)
