@@ -5,7 +5,7 @@
     <div class="header">
 	<dl>
 	    <dt>Sender:</dt>
-	    <dd><?= htmlspecialchars($msg['sender']) ?></dd>
+	    <dd><?= htmlentities(get_name($msg['sender'])) ?></dd>
 	    <dt>Received:</dt>
 	    <dd><?= $msg['datereceived'] ?><dd>
 	    <dt>Subject:</dt>
