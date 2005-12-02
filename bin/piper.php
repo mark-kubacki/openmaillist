@@ -5,6 +5,7 @@ include('../inc/lib/oml_email.php');
 $input = fread(STDIN, 32000);
 
 $myEmail = new oml_email($input);
+/*
 $myEmail->study();
 
 echo('--- gesamt ---');
@@ -19,5 +20,10 @@ if($myEmail->has_attachements()) {
 else {
 	echo("Hat keine Anhänge.\n");
 }
+*/
+
+$myEmail->set_attachement_storage('/tmp');
+$myEmail->get_first_displayable_part();
+print_r($myEmail->get_attachements());
 
 ?>
