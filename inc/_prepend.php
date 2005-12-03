@@ -9,6 +9,7 @@ error_reporting(E_ALL);
 include('./inc/config.inc.php');
 @(include('./inc/config.local.inc.php'))
 	or die('You have to create an configuration file, first.');
+include('adodb/adodb.inc.php');
 include('./inc/functions.inc.php');
 
 // MAIN
@@ -22,6 +23,9 @@ $cfg['tablenames']
 		'ThreadMessages'=> $cfg['Servers']['DB'][0]['PREFIX'].'ThreadMessages',
 		'Threads'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Threads',
 		);
+
+// set anything important to ADOdb
+$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
 // include the backend
 include('./inc/lib/openmaillist.php');
