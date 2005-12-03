@@ -16,8 +16,6 @@ abstract class OMLObject
 		$this->table	= $preferred_tablename;
 	}
 
-	public abstract static function create_your_table(NewADOConnection $db);
-
 	/**
 	 * Sets errors and infos to 'none' resp. 'false' as if nothing happened.
 	 */

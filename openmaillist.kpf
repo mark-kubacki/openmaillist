@@ -10,6 +10,8 @@
 <file url="inc/config.inc.php" id="107706CE8DBL283c98fa0x786e" name="config.inc.php">
 </file>
 <folder url="inc/database" id="107706CE8E1L5a3e499b0x786e" name="database">
+<file url="inc/database/message.adodb.txt" id="107F25147B5L4619675b0x24d8" name="message.adodb.txt">
+</file>
 </folder>
 <folder url="inc/lib" id="107706CE8E3L69bcaad60x786e" name="lib">
 <file url="inc/lib/openmaillist.php" id="107706CE8DBL16bb30b50x786e" name="openmaillist.php">
