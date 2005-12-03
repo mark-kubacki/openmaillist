@@ -10,8 +10,6 @@
 <file url="inc/config.inc.php" id="107706CE8DBL283c98fa0x786e" name="config.inc.php">
 </file>
 <folder url="inc/database" id="107706CE8E1L5a3e499b0x786e" name="database">
-<file url="inc/database/mysql.sql" id="107706CE8DBL339a16d40x786e" name="mysql.sql">
-</file>
 </folder>
 <folder url="inc/lib" id="107706CE8E3L69bcaad60x786e" name="lib">
 <file url="inc/lib/openmaillist.php" id="107706CE8DBL16bb30b50x786e" name="openmaillist.php">
@@ -19,6 +17,14 @@
 <file url="inc/lib/oml_email.php" id="107C3982179L717983d0x250e" name="oml_email.php">
 </file>
 <file url="inc/lib/mimedecode.php" id="107DB4DC4D0L56aef1f80x2a33" name="mimedecode.php">
+</file>
+<file url="inc/lib/DatabaseAccessor.php" id="107ECA9B98FL476ed3b00x27c6" name="DatabaseAccessor.php">
+</file>
+<file url="inc/lib/ErrorHandler.php" id="107ECA9B9D2L455133510x27c6" name="ErrorHandler.php">
+</file>
+<file url="inc/lib/OMLObject.php" id="107ECA9BA1CL70d3a8ee0x27c6" name="OMLObject.php">
+</file>
+<file url="inc/lib/oml_message.php" id="107F1F0A3E8L3a811a200x24d8" name="oml_message.php">
 </file>
 </folder>
 <file url="inc/_append.php" id="10770989D20L616d11290x2334" name="_append.php">
