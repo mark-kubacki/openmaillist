@@ -122,6 +122,28 @@ class oml_message
 		return false;
 	}
 
+	/**
+	 * Lässt eine Nachricht so tun, als enthielte sie die gegebenen Daten.
+	 * Hilfsmethode zum Speichern völlig neuer Nachrichten.
+	 */
+	public function let(...) {
+	}
+
+	/**
+	 * Wenn viele Nachrichten aus der Datenbank gelesen werden, bietet es sich an,
+	 * sie so zu konstruieren und einzelne Querries zu vermeiden.
+	 */
+	public function be($mid, ...) {
+	}
+
+	/**
+	 * A thread or other structure might be interested in getting a lot of messages.
+	 * This function is to suit that purpose.
+	 * @returns array	array of oml_messages with the given MIDs
+	 */
+	public static function get_messages_with(array $the_mids) {
+	}
+
 }
 
 ?>
