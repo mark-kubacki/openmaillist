@@ -46,9 +46,6 @@ class oml_message
 	 * Writes changes (or even new data) to db.
 	 */
 	public function write_to_db() {
-		if(isset($this->data['mid']) && is_null($this->data['mid'])) {
-			unset($this->data['mid']);
-		}
 		if(!isset($this->data['mid'])) {
 			$result = $this->db->AutoExecute($this->table, $this->data, 'INSERT');
 			if($result) {
@@ -134,7 +131,7 @@ class oml_message
 	 * returns	integer	the MID
 	 */
 	protected function get_mid() {
-		if(isset($this->data['mid']) && !is_null($this->data['mid'])) {
+		if(isset($this->data['mid'])) {
 			return $this->data['mid'];
 		} else {
 			throw new Exception('Message has not been stored, yet.');
