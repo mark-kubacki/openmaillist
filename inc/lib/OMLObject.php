@@ -5,15 +5,17 @@
 abstract class OMLObject
 	implements ErrorHandler, DatabaseAccessor
 {
-	protected $db		= null;
-	protected $table	= null;
+	protected $db;
+	protected $table;
+	protected $factory;
 
 	private $error		= array();
 	private $info		= array();
 
-	function __construct(NewADOConnection $database_handler, $preferred_tablename = null) {
+	function __construct(NewADOConnection $database_handler, oml_factory $factory = null, $preferred_tablename = null) {
 		$this->db	= $database_handler;
 		$this->table	= $preferred_tablename;
+		$this->factory	= $factory;
 	}
 
 	/**

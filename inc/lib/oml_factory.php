@@ -13,7 +13,7 @@ class oml_factory
 	}
 
 	public function get_message($mid = null) {
-		$tmp = new oml_message($this->db, $this->tables['Messages']);
+		$tmp = new oml_message($this->db, $this, $this->tables['Messages']);
 		if(!is_null($mid)) {
 			$tmp->assign_mid($mid);
 		}
@@ -21,7 +21,7 @@ class oml_factory
 	}
 
 	public function get_thread($tid = null) {
-		$tmp = new oml_thread($this->db, $this->tables['Threads']);
+		$tmp = new oml_thread($this->db, $this, $this->tables['Threads']);
 		if(!is_null($tid)) {
 			$tmp->assign_tid($mid);
 		}
