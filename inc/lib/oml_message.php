@@ -126,14 +126,26 @@ class oml_message
 	 * Lässt eine Nachricht so tun, als enthielte sie die gegebenen Daten.
 	 * Hilfsmethode zum Speichern völlig neuer Nachrichten.
 	 */
-	public function let(...) {
+	public function let($message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText) {
+		$this->data
+		= array('message-id'		=> $message_id,
+			'DateSend'		=> $DateSend,
+			'DateReceived'		=> $DateReceived,
+			'Sender'		=> $Sender,
+			'Subject'		=> $Subject,
+			'hasAttachements'	=> $hasAttachements ? 1 : 0,
+			);
+		$this->set_text($MsgText);
+
 	}
 
 	/**
 	 * Wenn viele Nachrichten aus der Datenbank gelesen werden, bietet es sich an,
 	 * sie so zu konstruieren und einzelne Querries zu vermeiden.
 	 */
-	public function be($mid, ...) {
+	public function be($mid, $message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText) {
+		$this->mid = $mid;
+		$this->let($message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText);
 	}
 
 	/**
