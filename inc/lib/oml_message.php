@@ -1,6 +1,7 @@
 <?php
 class oml_message
 	extends OMLObject
+	implements UniqueItem
 {
 	// due to OMLObject:
 	public static $schema_file	= './inc/database/message.adodb.txt';
@@ -32,6 +33,13 @@ class oml_message
 			throw new Exception('Table "'.$tablename.'" could not be created.');
 			return false;
 		}
+	}
+
+	/**
+	 * Due to UniqueItem.
+	 */
+	public function get_unique_value() {
+		$this->get_mid();
 	}
 
 	/**
@@ -120,6 +128,17 @@ class oml_message
 			return $arr[1];
 		}
 		return false;
+	}
+
+	/**
+	 * returns	integer	the MID
+	 */
+	protected function get_mid() {
+		if(isset($this->data['mid']) && !is_null($this->data['mid'])) {
+			return $this->data['mid'];
+		} else {
+			throw new Exception('Message has not been stored, yet.');
+		}
 	}
 
 	/**
