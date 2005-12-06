@@ -155,7 +155,6 @@ class oml_message
 			'hasattachements'	=> $hasAttachements ? 1 : 0,
 			);
 		$this->set_text($MsgText);
-
 	}
 
 	/**
@@ -168,11 +167,31 @@ class oml_message
 	}
 
 	/**
+	 * Only for internal use.
+	 */
+	public function become($data) {
+		$this->data = $data;
+	}
+
+	/**
 	 * A thread or other structure might be interested in getting a lot of messages.
 	 * This function is to suit that purpose.
 	 * @returns array	array of oml_messages with the given MIDs
 	 */
 	public static function get_messages_with(array $the_mids) {
+		if(count($the_mids) == 0) {
+			return array();
+		} else {
+			$result = arary();
+			$rs = $this->db->Execute('SELECT * FROM '.$this->table.' WHERE FIND_IN_SET(mid, ?)',
+							$db->qstr(implode(',',$the_mids)));
+			foreach($rs as $row) {
+				$tmp		= $this->factory->get_message();
+				$tmp->become($row);
+				$result[]	= $tmp;
+			}
+			return $result;
+		}
 	}
 
 }
