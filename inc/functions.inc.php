@@ -55,4 +55,11 @@ function EncodeEmail($string) {
 	return UniCodeString($string, true);
 }
 
+/**
+ * This is so we can use classes and interfaces without typeing long include lists.
+ */
+function __autoload($class_name) {
+	require_once('./inc/lib/'.$class_name.'.php');
+}
+
 ?>
