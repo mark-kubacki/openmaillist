@@ -48,7 +48,7 @@ class oml_message
 				if(!$tmp === false) {
 					$this->data['mid'] = $tmp;
 				} else {
-					$this->data['mid'] = $this->db->GetOne('SELECT MID FROM '.$this->table.' WHERE message_id='.$this->db->qstr($this->data['message_id']));
+					$this->data['mid'] = $this->db->GetOne('SELECT mid FROM '.$this->table.' WHERE message_id='.$this->db->qstr($this->data['message_id']));
 				}
 				return true;
 			}
@@ -66,7 +66,7 @@ class oml_message
 	 * @returns boolean	whether MID was found an we acquired data successfully
 	 */
 	public function assign_mid($mid) {
-		$rs = $this->db->Execute('SELECT * FROM '.$this->table.' WHERE MID='.$mid);
+		$rs = $this->db->Execute('SELECT * FROM '.$this->table.' WHERE mid='.$mid);
 		if(!$rs === false) {
 			$this->data = $rs->fields;
 			return true;
@@ -105,8 +105,8 @@ class oml_message
 	 * returns	string if successfully determined the sender's name, else false
 	 */
 	public function get_senders_name() {
-		if(isset($this->data['Sender'])
-		   && preg_match($this->rex_name, $this->data['Sender'], $arr)) {
+		if(isset($this->data['sender'])
+		   && preg_match($this->rex_name, $this->data['sender'], $arr)) {
 			return trim($arr[1]);
 		}
 		return false;
@@ -115,8 +115,8 @@ class oml_message
 	 * returns	string if successfully determined the sender's email, else false
 	 */
 	public function get_senders_email() {
-		if(isset($this->data['Sender'])
-		   && preg_match($this->rex_email, $this->data['Sender'], $arr)) {
+		if(isset($this->data['sender'])
+		   && preg_match($this->rex_email, $this->data['sender'], $arr)) {
 			return $arr[1];
 		}
 		return false;
@@ -129,11 +129,11 @@ class oml_message
 	public function let($message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText) {
 		$this->data
 		= array('message-id'		=> $message_id,
-			'DateSend'		=> $DateSend,
-			'DateReceived'		=> $DateReceived,
-			'Sender'		=> $Sender,
-			'Subject'		=> $Subject,
-			'hasAttachements'	=> $hasAttachements ? 1 : 0,
+			'datesend'		=> $DateSend,
+			'datereceived'		=> $DateReceived,
+			'sender'		=> $Sender,
+			'subject'		=> $Subject,
+			'hasattachements'	=> $hasAttachements ? 1 : 0,
 			);
 		$this->set_text($MsgText);
 
