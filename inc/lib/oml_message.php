@@ -178,15 +178,15 @@ class oml_message
 	 * This function is to suit that purpose.
 	 * @returns array	array of oml_messages with the given MIDs
 	 */
-	public static function get_messages_with(array $the_mids) {
+	public static function get_messages_with(oml_factory $factory, array $the_mids, $tablename) {
 		if(count($the_mids) == 0) {
 			return array();
 		} else {
 			$result = arary();
-			$rs = $this->db->Execute('SELECT * FROM '.$this->table.' WHERE FIND_IN_SET(mid, ?)',
+			$rs = $this->db->Execute('SELECT * FROM '.$tablename.' WHERE FIND_IN_SET(mid, ?)',
 							$db->qstr(implode(',',$the_mids)));
 			foreach($rs as $row) {
-				$tmp		= $this->factory->get_message();
+				$tmp		= $factory->get_message();
 				$tmp->become($row);
 				$result[]	= $tmp;
 			}
