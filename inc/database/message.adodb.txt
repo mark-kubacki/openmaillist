@@ -1,8 +1,8 @@
-MID		I	UNSIGNED PRIMARY AUTO,
+mid		I	UNSIGNED PRIMARY AUTO,
 message_id	C 128	NOTNULL,
-DateSend	I	UNSIGNED NOTNULL,
-DateReceived	I	UNSIGNED NOTNULL,
-Sender		C 128	NOTNULL,
-Subject		C 255	NOTNULL,
-hasAttachements	L 1	DEFAULT 0 NOTNULL,
-MsgText		X	NOTNULL
+datesend	I	UNSIGNED NOTNULL,
+datereceived	I	UNSIGNED NOTNULL,
+sender		C 128	NOTNULL,
+subject		C 255	NOTNULL,
+hasattachements	L 1	DEFAULT 0 NOTNULL,
+msgtext		X	NOTNULL
