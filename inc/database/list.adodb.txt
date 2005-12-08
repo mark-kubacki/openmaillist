@@ -1,0 +1,4 @@
+lid		I	UNSIGNED PRIMARY AUTO,
+lname		C 128	NOTNULL,
+lemailto	C 96	NOTNULL,
+ldescription	X	NOTNULL
