@@ -25,6 +25,7 @@ class oml_message
 		$sqlarray = $dict->CreateTableSQL($tablename, $flds, $taboptarray);
 		if($dict->ExecuteSQLArray($sqlarray)) {
 			$sqlarray = $dict->CreateIndexSQL('tid', $tablename, 'tid');
+			$dict->ExecuteSQLArray($sqlarray);
 			$sqlarray = $dict->CreateIndexSQL('message_id', $tablename, 'message_id', array('UNIQUE'));
 			return $dict->ExecuteSQLArray($sqlarray);
 		} else {
@@ -79,7 +80,7 @@ class oml_message
 	 *
 	 * @returns boolean	whether MID was found an we acquired data successfully
 	 */
-	public function assign_mid($mid) {
+	public function set_unique_value($mid) {
 		$rs = $this->db->GetRow('SELECT * FROM '.$this->table.' WHERE mid='.$mid);
 		if(!$rs === false) {
 			$this->data = $rs;
