@@ -7,5 +7,6 @@
 interface UniqueItem
 {
 	function get_unique_value();
+	function set_unique_value();
 }
 ?>
