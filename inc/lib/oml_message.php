@@ -48,12 +48,7 @@ class oml_message
 		if(!isset($this->data['mid'])) {
 			$result = $this->db->AutoExecute($this->table, $this->data, 'INSERT');
 			if($result) {
-				$tmp = $this->db->Insert_ID();
-				if(!$tmp === false) {
-					$this->data['mid'] = $tmp;
-				} else {
-					$this->data['mid'] = $this->db->GetOne('SELECT mid FROM '.$this->table.' WHERE message_id='.$this->db->qstr($this->data['message_id']));
-				}
+				$this->data['mid'] = $this->db->Insert_ID();
 				return true;
 			}
 			return false;
