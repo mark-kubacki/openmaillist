@@ -7,7 +7,7 @@ class oml_factory
 	protected	$db;
 	protected	$tables;
 
-	function __construct(NewADOConnection $database_handler, array $table_names) {
+	function __construct(ADOConnection $database_handler, array $table_names) {
 		$this->db	= $database_handler;
 		$this->tables	= $table_names;
 	}

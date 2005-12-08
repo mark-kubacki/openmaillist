@@ -4,7 +4,7 @@
  */
 interface DatabaseAccessor
 {
-	function __construct(NewADOConnection $database_handler);
+	function __construct(ADOConnection $database_handler);
 
 }
 

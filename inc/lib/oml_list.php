@@ -13,8 +13,8 @@ class oml_list
 	 * @returns integer	0 if failure, 1 if errors, 2 if successful
 	 * @see_also		adodb: ExecuteSQLArray and table creation
 	 */
-	public static function create_your_table(NewADOConnection $db, $tablename) {
-		$filds		= file_get_contents(self::$schema_file);
+	public static function create_your_table(ADOConnection $db, $tablename) {
+		$flds		= file_get_contents(self::$schema_file);
 		$taboptarray	= array('mysql' => 'ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci');
 
 		$dict = NewDataDictionary($db);
@@ -31,7 +31,7 @@ class oml_list
 		}
 	}
 
-	public static function get_all_lists(NewADOConnection $db, oml_factory $factory, $tablename) {
+	public static function get_all_lists(ADOConnection $db, oml_factory $factory, $tablename) {
 		$result		= array();
 		$rs = $db->Execute('SELECT * FROM '.$tablename);
 		foreach($rs as $row){

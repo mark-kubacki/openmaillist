@@ -17,18 +17,21 @@ include('./templates/'.$cfg['theme'].'/common-header.tpl');
 
 // table names with prefixes
 $cfg['tablenames']
-	= array('Attachements'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Attachements',
+	= array('Attachments'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Attachements',
 		'Lists'		=> $cfg['Servers']['DB'][0]['PREFIX'].'Lists',
 		'Messages'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Messages',
-		'ThreadMessages'=> $cfg['Servers']['DB'][0]['PREFIX'].'ThreadMessages',
 		'Threads'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Threads',
 		);
 
 // set anything important to ADOdb
 $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+$db	= ADONewConnection($cfg['Servers']['DB'][0]['TYPE']);
+$db->Connect(	$cfg['Servers']['DB'][0]['HOST'],
+		$cfg['Servers']['DB'][0]['USER'], $cfg['Servers']['DB'][0]['PASS'],
+		$cfg['Servers']['DB'][0]['DB']);
 
 // include the backend
-include('./inc/lib/openmaillist.php');
-$oml	= new openmaillist();
+$factory	= new oml_factory($db, $cfg['tablenames']);
+$oml		= new openmaillist($db, $factory);
 
 ?>
