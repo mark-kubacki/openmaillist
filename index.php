@@ -4,7 +4,7 @@ include('./inc/_prepend.php');
 // ------------------------------ Mailing Lists ---------------------------------------------------
 
 // DATA
-$lists = $oml->get_lists();
+$lists = $oml->get_all_lists();
 
 // DISPLAY
 include('./templates/'.$cfg['theme'].'/listview.tpl');
