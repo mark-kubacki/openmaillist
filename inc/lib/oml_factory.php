@@ -12,6 +12,14 @@ class oml_factory
 		$this->tables	= $table_names;
 	}
 
+	public function create_lists_table() {
+		return oml_list::create_your_table($this->db, $this->tables['Lists']);
+	}
+
+	public function create_messages_table() {
+		return oml_message::create_your_table($this->db, $this->tables['Messages']);
+	}
+
 	public function get_all_lists() {
 		return oml_list::get_all_lists($this->db, $this, $this->tables['Lists']);
 	}
