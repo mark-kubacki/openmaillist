@@ -19,15 +19,13 @@ class oml_message
 	public static function create_your_table(NewADOConnection $db, $tablename) {
 		$filds		= file_get_contents(self::$schema_file);
 		$taboptarray	= array('mysql' => 'ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci');
-		$idxname = 'message_id';
-		$idxflds = 'message_id';
-		$idxopts = array('UNIQUE');
 
 		$dict = NewDataDictionary($db);
 
 		$sqlarray = $dict->CreateTableSQL($tablename, $flds, $taboptarray);
 		if($dict->ExecuteSQLArray($sqlarray)) {
-			$sqlarray = $dict->CreateIndexSQL($idxname, $tablename, $idxflds, $idxopts);
+			$sqlarray = $dict->CreateIndexSQL('tid', $tablename, 'tid');
+			$sqlarray = $dict->CreateIndexSQL('message_id', $tablename, 'message_id', array('UNIQUE'));
 			return $dict->ExecuteSQLArray($sqlarray);
 		} else {
 			throw new Exception('Table "'.$tablename.'" could not be created.');
@@ -71,9 +69,9 @@ class oml_message
 	 * @returns boolean	whether MID was found an we acquired data successfully
 	 */
 	public function assign_mid($mid) {
-		$rs = $this->db->Execute('SELECT * FROM '.$this->table.' WHERE mid='.$mid);
+		$rs = $this->db->GetRow('SELECT * FROM '.$this->table.' WHERE mid='.$mid);
 		if(!$rs === false) {
-			$this->data = $rs->fields;
+			$this->data = $rs;
 			return true;
 		}
 		return false;
@@ -173,22 +171,17 @@ class oml_message
 	/**
 	 * A thread or other structure might be interested in getting a lot of messages.
 	 * This function is to suit that purpose.
-	 * @returns array	array of oml_messages with the given MIDs
+	 * @returns array	array of oml_messages belonging to that Thread_ID
 	 */
-	public static function get_messages_with(oml_factory $factory, array $the_mids, $tablename) {
-		if(count($the_mids) == 0) {
-			return array();
-		} else {
-			$result = arary();
-			$rs = $this->db->Execute('SELECT * FROM '.$tablename.' WHERE FIND_IN_SET(mid, ?)',
-							$db->qstr(implode(',',$the_mids)));
-			foreach($rs as $row) {
-				$tmp		= $factory->get_message();
-				$tmp->become($row);
-				$result[]	= $tmp;
-			}
-			return $result;
+	public function get_messages_belonging_to($thread_id) {
+		$result = array();
+		$rs = $this->db->Execute('SELECT * FROM '.$this->table.' WHERE TID='.$thread_id);
+		foreach($rs as $row) {
+			$tmp		= $this->factory->get_message();
+			$tmp->become($row);
+			$result[]	= $tmp;
 		}
+		return $result;
 	}
 
 }
