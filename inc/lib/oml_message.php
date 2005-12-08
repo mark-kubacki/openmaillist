@@ -63,6 +63,17 @@ class oml_message
 	}
 
 	/**
+	 * returns boolean	true on success
+	 */
+	public function remove_from_db() {
+		if(isset($this->data['mid'])) {
+			$this->db->Execute('DELETE FROM '.$this->table.' WHERE mid='.$this->data['mid']);
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Execute if you want this message be filled with contents from an already existing entry.
 	 * Changes made prior to it's call will be discarded, so don't forget serialization.
 	 *
