@@ -103,27 +103,27 @@ class oml_list
 	}
 
 	public function get_name() {
-		return $this->getter('name');
+		return $this->getter('lname');
 	}
 	public function get_address() {
-		return $this->getter('address');
+		return $this->getter('lemailto');
 	}
 	public function get_description() {
-		return $this->getter('description');
+		return $this->getter('ldescription');
 	}
 
 	public function set_name($txt) {
-		$this->setter('name', $txt);
+		$this->setter('lname', $txt);
 	}
 	public function set_address($txt) {
-		if(preg_match('/\<([\w0-9][\w0-9\.\-\_\+]{1,}@[\w0-9\.\-\_]{2,}\.[\w]{2,})\>/i', $txt)) {
-			$this->setter('address', $txt);
+		if(preg_match('/([\w0-9][\w0-9\.\-\_\+]{1,}@[\w0-9\.\-\_]{2,}\.[\w]{2,})/i', $txt)) {
+			$this->setter('lemailto', $txt);
 		} else {
 			throw new Exception('Address has to be a valid email-alias.');
 		}
 	}
 	public function set_description($txt) {
-		$this->setter('description', $txt);
+		$this->setter('ldescription', $txt);
 	}
 
 }
