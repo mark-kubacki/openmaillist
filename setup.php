@@ -9,7 +9,7 @@ switch($factory->create_lists_table()) {
 // some example lists
 $todo	= array(array('openmailadmin', 'list@openmailadmin.org', 'Everything about openmailadmin.'),
 		array('openmaillist', 'list@openmaillist.org', 'Do you enjoy the great product of Alex and Mark? Words of praise go here.'),
-		array('Noligy\'s Exchange', 'exchange@noligy.de', 'Ich <b>liebe</b> MÃ¶pse. Leider <i>vertragen</i> sie sich nicht mit Schnauzern.'),
+		array('Noligy\'s Exchange', 'exchange@noligy.de', 'Ich <b>liebe</b> Möpse. Leider <i>vertragen</i> sie sich nicht mit Schnauzern.'),
 		);
 foreach($todo as $task) {
 	$myList	= $factory->get_list();
