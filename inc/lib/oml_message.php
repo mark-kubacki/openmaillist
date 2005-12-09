@@ -5,12 +5,11 @@ class oml_message
 {
 	// due to OMLObject:
 	public static $schema_file	= './inc/database/message.adodb.txt';
+	protected $unique_key		= 'mid';
+
 	// variables for own purpose
-	protected $mid			= null;	// null means: not in or taken from db -> new, pristine
 	private static $rex_name	= '/([\w][\w0-9\-\.\,\s]+[\w0-9\.])\s*\</i';
 	private static $rex_email	= '/\<([\w0-9][\w0-9\.\-\_\+]{1,}@[\w0-9\.\-\_]{2,}\.[\w]{2,})\>/i';
-	// see table for them, but access carefully:
-	public $data			= array();
 
 	/**
 	 * @returns integer	0 if failure, 1 if errors, 2 if successful
@@ -35,20 +34,13 @@ class oml_message
 	}
 
 	/**
-	 * Due to UniqueItem.
-	 */
-	public function get_unique_value() {
-		$this->get_mid();
-	}
-
-	/**
 	 * Writes changes (or even new data) to db.
 	 */
 	public function write_to_db() {
-		if(!isset($this->data['mid'])) {
+		if(!$this->has('mid')) {
 			$result = $this->db->AutoExecute($this->table, $this->data, 'INSERT');
 			if($result) {
-				$this->data['mid'] = $this->db->Insert_ID();
+				$this->setter('mid', $this->db->Insert_ID());
 				return true;
 			}
 			return false;
@@ -62,23 +54,8 @@ class oml_message
 	 * returns boolean	true on success
 	 */
 	public function remove_from_db() {
-		if(isset($this->data['mid'])) {
-			$this->db->Execute('DELETE FROM '.$this->table.' WHERE mid='.$this->data['mid']);
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Execute if you want this message be filled with contents from an already existing entry.
-	 * Changes made prior to it's call will be discarded, so don't forget serialization.
-	 *
-	 * @returns boolean	whether MID was found an we acquired data successfully
-	 */
-	public function set_unique_value($mid) {
-		$rs = $this->db->GetRow('SELECT * FROM '.$this->table.' WHERE mid='.$mid);
-		if(!$rs === false) {
-			$this->data = $rs;
+		if($this->has('mid')) {
+			$this->db->Execute('DELETE FROM '.$this->table.' WHERE mid='.$this->get_mid());
 			return true;
 		}
 		return false;
@@ -91,9 +68,9 @@ class oml_message
 	 */
 	public function get_text($strip_tags = false) {
 		if($strip_tags) {
-			return strip_tags($this->msgText);
+			return strip_tags($this->getter('msgtext'));
 		} else {
-			return $this->msgText;
+			return $this->getter('msgtext');
 		}
 	}
 
@@ -105,9 +82,9 @@ class oml_message
 	 */
 	public function set_text($text, $strip_tags = false) {
 		if($strip_tags) {
-			$this->msgText = strip_tags($text);
+			$this->setter('msgtext', strip_tags($text));
 		} else {
-			$this->msgText = $text;
+			$this->setter('msgtext', $text);
 		}
 	}
 
@@ -115,8 +92,8 @@ class oml_message
 	 * returns	string if successfully determined the sender's name, else false
 	 */
 	public function get_senders_name() {
-		if(isset($this->data['sender'])
-		   && preg_match($this->rex_name, $this->data['sender'], $arr)) {
+		if($this->has('sender')
+		   && preg_match($this->rex_name, $this->getter('sender'), $arr)) {
 			return trim($arr[1]);
 		}
 		return false;
@@ -125,8 +102,8 @@ class oml_message
 	 * returns	string if successfully determined the sender's email, else false
 	 */
 	public function get_senders_email() {
-		if(isset($this->data['sender'])
-		   && preg_match($this->rex_email, $this->data['sender'], $arr)) {
+		if($this->has('sender')
+		   && preg_match($this->rex_email, $this->getter('sender'), $arr)) {
 			return $arr[1];
 		}
 		return false;
@@ -136,8 +113,8 @@ class oml_message
 	 * returns	integer	the MID
 	 */
 	protected function get_mid() {
-		if(isset($this->data['mid'])) {
-			return $this->data['mid'];
+		if($this->has('mid')) {
+			return $this->getter('mid');
 		} else {
 			throw new Exception('Message has not been stored, yet.');
 		}
@@ -148,14 +125,14 @@ class oml_message
 	 * Hilfsmethode zum Speichern völlig neuer Nachrichten.
 	 */
 	public function let($message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText) {
-		$this->data
-		= array('message-id'		=> $message_id,
+		$this->become(
+		  array('message-id'		=> $message_id,
 			'datesend'		=> $DateSend,
 			'datereceived'		=> $DateReceived,
 			'sender'		=> $Sender,
 			'subject'		=> $Subject,
 			'hasattachements'	=> $hasAttachements ? 1 : 0,
-			);
+			));
 		$this->set_text($MsgText);
 	}
 
@@ -164,15 +141,8 @@ class oml_message
 	 * sie so zu konstruieren und einzelne Querries zu vermeiden.
 	 */
 	public function be($mid, $message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText) {
-		$this->mid = $mid;
+		$this->setter('mid', $mid);
 		$this->let($message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText);
-	}
-
-	/**
-	 * Only for internal use.
-	 */
-	public function become($data) {
-		$this->data = $data;
 	}
 
 	/**

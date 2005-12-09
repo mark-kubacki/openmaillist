@@ -1,12 +1,10 @@
 <?php
 class oml_thread
 	extends OMLObject
-	implements UniqueItem
 {
 	// due to OMLObject:
 	public static $schema_file	= './inc/database/thread.adodb.txt';
-	// my
-	protected	$data;
+	protected $unique_key		= 'tid';
 
 	/* administrative */
 	/**
@@ -68,38 +66,7 @@ class oml_thread
 		return false;
 	}
 
-	/* due to UniqueItem */
-	public function get_unique_value() {
-		return $this->data['tid'];
-	}
-
-	public function set_unique_value($value) {
-		$rs = $this->db->GetRow('SELECT * FROM '.$this->table.' WHERE tid='.$value);
-		if(!$rs === false) {
-			$this->data = $rs;
-			return true;
-		}
-		return false;
-	}
-
 	/* now come getters and setters */
-	/**
-	 * For internal use only.
-	 */
-	public function become($data) {
-		$this->data	= $data;
-	}
-	protected function getter($key) {
-		if(isset($this->data[$key])) {
-			return $this->data[$key];
-		} else {
-			throw new Exception(__CLASSNAME__.' does not contain value for "'.$key.'".');
-		}
-	}
-	protected function setter($key, $value) {
-		$this->data[$key] = $value;
-	}
-
 	public function get_name() {
 		return $this->getter('threadname');
 	}

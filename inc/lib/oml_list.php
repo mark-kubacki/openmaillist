@@ -1,12 +1,10 @@
 <?php
 class oml_list
 	extends OMLObject
-	implements UniqueItem
 {
 	// due to OMLObject:
 	public static $schema_file	= './inc/database/list.adodb.txt';
-	// my
-	protected	$data;
+	protected $unique_key		= 'lid';
 
 	/* administrative */
 	/**
@@ -46,7 +44,7 @@ class oml_list
 	 * Writes changes (or even new data) to db.
 	 */
 	public function write_to_db() {
-		if(!isset($this->data['lid'])) {
+		if(!$this->has('lid')) {
 			$result = $this->db->AutoExecute($this->table, $this->data, 'INSERT');
 			if($result) {
 				$this->data['lid'] = $this->db->Insert_ID();
@@ -70,38 +68,7 @@ class oml_list
 		return false;
 	}
 
-	/* due to UniqueItem */
-	public function get_unique_value() {
-		return $this->data['lid'];
-	}
-
-	public function set_unique_value($value) {
-		$rs = $this->db->GetRow('SELECT * FROM '.$this->table.' WHERE lid='.$value);
-		if(!$rs === false) {
-			$this->data = $rs;
-			return true;
-		}
-		return false;
-	}
-
 	/* now come getters and setters */
-	/**
-	 * For internal use only.
-	 */
-	public function become($data) {
-		$this->data	= $data;
-	}
-	protected function getter($key) {
-		if(isset($this->data[$key])) {
-			return $this->data[$key];
-		} else {
-			throw new Exception(__CLASSNAME__.' does not contain value for "'.$key.'".');
-		}
-	}
-	protected function setter($key, $value) {
-		$this->data[$key] = $value;
-	}
-
 	public function get_name() {
 		return $this->getter('lname');
 	}

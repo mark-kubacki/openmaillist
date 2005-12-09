@@ -19,6 +19,22 @@ abstract class OMLObject
 		$this->factory	= $factory;
 	}
 
+	// due to DataCarrier
+	/**
+	 * Execute if you want this object be filled with contents from an already existing entry.
+	 * Changes made prior to it's call will be discarded, so don't forget serialization.
+	 *
+	 * @returns boolean	whether unique_key was found an we acquired data successfully
+	 */
+	public function set_unique_value($value) {
+		$rs = $this->db->GetRow('SELECT * FROM '.$this->table.' WHERE '.$this->get_unique_key().'='.$value);
+		if(!$rs === false) {
+			$this->become($rs);
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * Sets errors and infos to 'none' resp. 'false' as if nothing happened.
 	 */
