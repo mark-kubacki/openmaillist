@@ -6,6 +6,7 @@
  */
 interface UniqueItem
 {
+	function get_unique_key();
 	function get_unique_value();
 	function set_unique_value($value);
 }
