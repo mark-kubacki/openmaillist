@@ -33,6 +33,22 @@ class oml_message
 	}
 
 	/**
+	 * A thread or other structure might be interested in getting a lot of messages.
+	 * This function is to suit that purpose.
+	 * @returns array	array of oml_messages belonging to that Thread_ID
+	 */
+	public static function get_messages_of(ADOConnection $db, oml_factory $factory, $tablename, $thread_id) {
+		$result = array();
+		$rs = $db->Execute('SELECT * FROM '.$tablename.' WHERE tid='.$thread_id);
+		foreach($rs as $row) {
+			$tmp		= $factory->get_message();
+			$tmp->become($row);
+			$result[]	= $tmp;
+		}
+		return $result;
+	}
+
+	/**
 	 * It might be that we have to strip tags or convert to special entities.
 	 *
 	 * @returns	string with text. At emails we call this "first displayable part (of body)".
@@ -81,23 +97,12 @@ class oml_message
 	}
 
 	/**
-	 * returns	integer	the MID
-	 */
-	protected function get_mid() {
-		if($this->has('mid')) {
-			return $this->getter('mid');
-		} else {
-			throw new Exception('Message has not been stored, yet.');
-		}
-	}
-
-	/**
 	 * Lässt eine Nachricht so tun, als enthielte sie die gegebenen Daten.
 	 * Hilfsmethode zum Speichern völlig neuer Nachrichten.
 	 */
 	public function let($message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText) {
 		$this->become(
-		  array('message-id'		=> $message_id,
+		  array('message_id'		=> $message_id,
 			'datesend'		=> $DateSend,
 			'datereceived'		=> $DateReceived,
 			'sender'		=> $Sender,
@@ -114,22 +119,6 @@ class oml_message
 	public function be($mid, $message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText) {
 		$this->setter('mid', $mid);
 		$this->let($message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText);
-	}
-
-	/**
-	 * A thread or other structure might be interested in getting a lot of messages.
-	 * This function is to suit that purpose.
-	 * @returns array	array of oml_messages belonging to that Thread_ID
-	 */
-	public function get_messages_belonging_to($thread_id) {
-		$result = array();
-		$rs = $this->db->Execute('SELECT * FROM '.$this->table.' WHERE TID='.$thread_id);
-		foreach($rs as $row) {
-			$tmp		= $this->factory->get_message();
-			$tmp->become($row);
-			$result[]	= $tmp;
-		}
-		return $result;
 	}
 
 }
