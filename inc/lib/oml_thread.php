@@ -38,13 +38,36 @@ class oml_thread
 		return $result;
 	}
 
+	public static function get_thread_with_name(ADOConnection $db, oml_factory $factory, $tablename, $list_id, $name) {
+		$result		= array();
+		$tid = $db->GetOne('SELECT tid FROM '.$tablename.' WHERE lid='.$list_id.' AND threadname='.$db->qstr($name).' ORDER BY lastpost DESC');
+		if(!$tid === false) {
+			return $factory->get_thread($tid);
+		}
+		return false;
+	}
+
 	/* now come getters and setters */
 	public function get_name() {
 		return $this->getter('threadname');
 	}
 
+	public function get_owning_list() {
+		return $this->factory->get_list($this->getter('lid'));
+	}
+
 	public function set_name($txt) {
 		$this->setter('threadname', $txt);
+	}
+
+	public function set_lastpost($timestamp) {
+		if($this->has('lastpost')) {
+			if($this->getter('lastpost') < $timestamp) {
+				$this->setter('lastpost', $timestamp);
+			}
+		} else {
+			$this->setter('lastpost', $timestamp);
+		}
 	}
 
 	public function associate_with_list(oml_list $partner) {

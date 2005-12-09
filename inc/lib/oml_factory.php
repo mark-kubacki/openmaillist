@@ -30,9 +30,29 @@ class oml_factory
 	}
 
 	public function get_all_threads_of($list_id) {
+		return oml_thread::get_threads_of($this->db, $this, $this->tables['Threads'], $list_id);
 	}
 
 	public function get_all_messages_of($thread_id) {
+		return oml_message::get_messages_of($this->db, $this, $this->tables['Messages'], $thread_id);
+	}
+
+	public function get_thread_with($list_id, $message_id) {
+		$thread	= oml_message::get_thread_with($this->db, $this, $this->tables['Messages'], $message_id);
+		$list	= $thread->get_owning_list();
+		if($list_id == $list->get_unique_value()) {
+			return $thread;
+		} else {
+			return false;
+		}
+	}
+
+	public function get_thread_with_name($list_id, $name) {
+		return oml_thread::get_thread_with_name($this->db, $this, $this->tables['Threads'], $list_id, $name);
+	}
+
+	public function get_message_quoted_by(oml_message $msg) {
+		return oml_message::get_message_quoted_by($this->db, $this, $this->tables['Messages'], $msg);
 	}
 
 	public function get_list($lid = null) {

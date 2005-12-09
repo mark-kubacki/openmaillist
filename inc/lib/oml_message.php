@@ -58,8 +58,14 @@ class oml_message
 		return false;
 	}
 
+	public static function get_message_quoted_by(ADOConnection $db, oml_factory $factory, $tablename, oml_message $msg) {
+		// TODO
+		return false;
+	}
+
 	public function associate_with_thread(oml_thread $thread) {
 		$thread->set_lastpost($this->getter('datereceived'));
+		$thread->write_to_db();
 		$this->setter('tid', $thread->get_unique_value());
 	}
 
@@ -144,6 +150,10 @@ class oml_message
 	public function be($mid, $message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText) {
 		$this->setter('mid', $mid);
 		$this->let($message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText);
+	}
+
+	public function get_owning_thread() {
+		$this->factory->get_thread($this->getter('tid'));
 	}
 
 }

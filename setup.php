@@ -36,6 +36,7 @@ switch($factory->create_messages_table()) {
 echo('<br />');
 $todo	= array(
 		  array('message_id'		=> '200510281112.13579.alex@noligy.de',
+			'lid'			=> 3,
 			'datesend'		=> 1130490761,
 			'datereceived'		=> 1130490762,
 			'sender'		=> '<alex@noligy.de>',
@@ -57,6 +58,7 @@ Section "InputDevice"
 EOT
 			),
 		  array('message_id'		=> '20051101205153.GA891@ds217-115-141-141.dedicated.hosteurope.de',
+			'lid'			=> 1,
 			'datesend'		=> 1130878268,
 			'datereceived'		=> 1130880023,
 			'sender'		=> 'Jochen Suckfuell <boger@suckfuell.net>',
@@ -75,6 +77,8 @@ Jochen Suckfüll
 EOT
 			),
 		  array('message_id'		=> '43692E64.5010708@hurrikane.de',
+			'lid'			=> 1,
+			'in_reply_to'		=> '20051101205153.GA891@ds217-115-141-141.dedicated.hosteurope.de',
 			'datesend'		=> 1130966585,
 			'datereceived'		=> 1130966656,
 			'sender'		=> 'W-Mark Kubacki <wmark@hurrikane.de>',
@@ -99,8 +103,14 @@ EOT
 			),
 		);
 foreach($todo as $task) {
-	$myMsg	= $factory->get_message();
+	$myMsg		= $factory->get_message();
 	$myMsg->let($task['message_id'], $task['datesend'], $task['datereceived'], $task['sender'], $task['subject'], $task['hasattachements'], $task['msgtext']);
+
+	// register that message
+	$theList	= $factory->get_list($task['lid']);
+	$theList->register_message($myMsg);
+
+	// write it to db
 	if(!$myMsg->write_to_db()) {
 		echo('Argh!');
 	}
