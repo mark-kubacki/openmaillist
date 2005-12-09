@@ -40,6 +40,35 @@ class oml_list
 		return $result;
 	}
 
+	public function create_new_thread($threadname) {
+		$thread = $this->factory->get_thread();
+		$thread->set_name($threadname);
+		$thread->associate_with_list($this);
+		return $thread;
+	}
+
+	public function register_message(oml_message $msg, $group_same_subjects = true) {
+		$subject = $msg->get_essence_of_subject();
+
+		// TODO: make sure that the thread belongs to current list!
+		// In-Reply-To und References auswerten.
+		$pre	= $this->factory->get_message_quoted_by($msg);
+		if(!$pre === false) {
+			$thread = $this->factory->get_thread($pre->get_owning_thread());
+			return $msg->associate_with_thread($thread);
+		}
+
+		// Sonst nach bereits vorhandenem Subject fahnden.
+		$thread = $this->factory->get_thread_with_name($this->get_unique_value(), $subject);
+		if(!$thread === false) {
+			return $msg->associate_with_thread($thread);
+		}
+
+		// Ansonsten erstelle einen neuen Thread.
+		$thread = $this->create_new_thread($subject);
+		return $msg->associate_with_thread($thread);
+	}
+
 	/* now come getters and setters */
 	public function get_name() {
 		return $this->getter('lname');
