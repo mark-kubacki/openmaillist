@@ -48,6 +48,9 @@ abstract class OMLStoredItem
 		return $this->unique_key;
 	}
 	public function get_unique_value() {
+		if(!$this->has($this->get_unique_key())) {
+			$this->write_to_db();
+		}
 		return $this->getter($this->get_unique_key());
 	}
 
