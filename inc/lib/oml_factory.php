@@ -1,6 +1,7 @@
 <?php
 /**
  * Pattern: (Construct-)Factory
+ * Responsible for creation and administration.
  */
 class oml_factory
 {
@@ -16,6 +17,10 @@ class oml_factory
 		return oml_list::create_your_table($this->db, $this->tables['Lists']);
 	}
 
+	public function create_threads_table() {
+		return oml_thread::create_your_table($this->db, $this->tables['Threads']);
+	}
+
 	public function create_messages_table() {
 		return oml_message::create_your_table($this->db, $this->tables['Messages']);
 	}
@@ -24,6 +29,11 @@ class oml_factory
 		return oml_list::get_all_lists($this->db, $this, $this->tables['Lists']);
 	}
 
+	public function get_all_threads_of($list_id) {
+	}
+
+	public function get_all_messages_of($thread_id) {
+	}
 
 	public function get_list($lid = null) {
 		$tmp = new oml_list($this->db, $this, $this->tables['Lists']);
@@ -33,7 +43,6 @@ class oml_factory
 		return $tmp;
 	}
 
-/*
 	public function get_thread($tid = null) {
 		$tmp = new oml_thread($this->db, $this, $this->tables['Threads']);
 		if(!is_null($tid)) {
@@ -41,7 +50,6 @@ class oml_factory
 		}
 		return $tmp;
 	}
-*/
 
 	public function get_message($mid = null) {
 		$tmp = new oml_message($this->db, $this, $this->tables['Messages']);
