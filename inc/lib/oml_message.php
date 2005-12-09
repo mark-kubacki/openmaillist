@@ -33,34 +33,6 @@ class oml_message
 	}
 
 	/**
-	 * Writes changes (or even new data) to db.
-	 */
-	public function write_to_db() {
-		if(!$this->has('mid')) {
-			$result = $this->db->AutoExecute($this->table, $this->data, 'INSERT');
-			if($result) {
-				$this->setter('mid', $this->db->Insert_ID());
-				return true;
-			}
-			return false;
-		} else {
-			$result = $this->db->Replace($this->table, $this->data, 'mid', true);
-			return ($result > 0);
-		}
-	}
-
-	/**
-	 * returns boolean	true on success
-	 */
-	public function remove_from_db() {
-		if($this->has('mid')) {
-			$this->db->Execute('DELETE FROM '.$this->table.' WHERE mid='.$this->get_mid());
-			return true;
-		}
-		return false;
-	}
-
-	/**
 	 * It might be that we have to strip tags or convert to special entities.
 	 *
 	 * @returns	string with text. At emails we call this "first displayable part (of body)".

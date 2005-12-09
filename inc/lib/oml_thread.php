@@ -38,34 +38,6 @@ class oml_thread
 		return $result;
 	}
 
-	/**
-	 * Writes changes (or even new data) to db.
-	 */
-	public function write_to_db() {
-		if(!isset($this->data['tid'])) {
-			$result = $this->db->AutoExecute($this->table, $this->data, 'INSERT');
-			if($result) {
-				$this->data['tid'] = $this->db->Insert_ID();
-				return true;
-			}
-			return false;
-		} else {
-			$result = $this->db->Replace($this->table, $this->data, 'tid', true);
-			return ($result > 0);
-		}
-	}
-
-	/**
-	 * returns boolean	true on success
-	 */
-	public function remove_from_db() {
-		if(isset($this->data['tid'])) {
-			$this->db->Execute('DELETE FROM '.$this->table.' WHERE tid='.$this->data['lid']);
-			return true;
-		}
-		return false;
-	}
-
 	/* now come getters and setters */
 	public function get_name() {
 		return $this->getter('threadname');

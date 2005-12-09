@@ -36,7 +36,7 @@ class oml_factory
 	}
 
 	public function get_list($lid = null) {
-		$tmp = new oml_list($this->db, $this, $this->tables['Lists']);
+		$tmp = new oml_list($this->db, $this->tables['Lists'], $this);
 		if(!is_null($lid)) {
 			$tmp->set_unique_value($lid);
 		}
@@ -44,7 +44,7 @@ class oml_factory
 	}
 
 	public function get_thread($tid = null) {
-		$tmp = new oml_thread($this->db, $this, $this->tables['Threads']);
+		$tmp = new oml_thread($this->db, $this->tables['Threads'], $this);
 		if(!is_null($tid)) {
 			$tmp->set_unique_value($tid);
 		}
@@ -52,7 +52,7 @@ class oml_factory
 	}
 
 	public function get_message($mid = null) {
-		$tmp = new oml_message($this->db, $this, $this->tables['Messages']);
+		$tmp = new oml_message($this->db, $this->tables['Messages'], $this);
 		if(!is_null($mid)) {
 			$tmp->set_unique_value($mid);
 		}

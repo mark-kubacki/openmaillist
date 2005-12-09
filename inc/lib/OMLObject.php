@@ -3,36 +3,18 @@
  * A collection of common implementations.
  */
 abstract class OMLObject
-	extends DataCarrier
-	implements ErrorHandler, DatabaseAccessor
+	extends OMLStoredItem
+	implements ErrorHandler
 {
-	protected $db;
-	protected $table;
 	protected $factory;
 
 	private $error		= array();
 	private $info		= array();
 
-	function __construct(ADOConnection $database_handler, oml_factory $factory = null, $preferred_tablename = null) {
+	function __construct(ADOConnection $database_handler, $preferred_tablename = null, oml_factory $factory = null) {
 		$this->db	= $database_handler;
 		$this->table	= $preferred_tablename;
 		$this->factory	= $factory;
-	}
-
-	// due to DataCarrier
-	/**
-	 * Execute if you want this object be filled with contents from an already existing entry.
-	 * Changes made prior to it's call will be discarded, so don't forget serialization.
-	 *
-	 * @returns boolean	whether unique_key was found an we acquired data successfully
-	 */
-	public function set_unique_value($value) {
-		$rs = $this->db->GetRow('SELECT * FROM '.$this->table.' WHERE '.$this->get_unique_key().'='.$value);
-		if(!$rs === false) {
-			$this->become($rs);
-			return true;
-		}
-		return false;
 	}
 
 	/**
