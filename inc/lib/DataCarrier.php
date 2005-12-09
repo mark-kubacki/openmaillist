@@ -4,7 +4,6 @@
  * in order to store shared code within one place.
  */
 abstract class DataCarrier
-	implements UniqueItem
 {
 	private		$data	= array();
 
@@ -34,12 +33,8 @@ abstract class DataCarrier
 		$this->data	= $data;
 	}
 
-	// due to UniqueItem
-	public function get_unique_key() {
-		return $this->unique_key;
-	}
-	public function get_unique_value() {
-		return $this->getter($this->get_unique_key());
+	protected function confess() {
+		return $this->data;
 	}
 
 }

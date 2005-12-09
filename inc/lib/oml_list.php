@@ -40,34 +40,6 @@ class oml_list
 		return $result;
 	}
 
-	/**
-	 * Writes changes (or even new data) to db.
-	 */
-	public function write_to_db() {
-		if(!$this->has('lid')) {
-			$result = $this->db->AutoExecute($this->table, $this->data, 'INSERT');
-			if($result) {
-				$this->data['lid'] = $this->db->Insert_ID();
-				return true;
-			}
-			return false;
-		} else {
-			$result = $this->db->Replace($this->table, $this->data, 'lid', true);
-			return ($result > 0);
-		}
-	}
-
-	/**
-	 * returns boolean	true on success
-	 */
-	public function remove_from_db() {
-		if(isset($this->data['lid'])) {
-			$this->db->Execute('DELETE FROM '.$this->table.' WHERE lid='.$this->data['lid']);
-			return true;
-		}
-		return false;
-	}
-
 	/* now come getters and setters */
 	public function get_name() {
 		return $this->getter('lname');
