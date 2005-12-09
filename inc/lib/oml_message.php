@@ -1,7 +1,6 @@
 <?php
 class oml_message
 	extends OMLObject
-	implements UniqueItem
 {
 	// due to OMLObject:
 	public static $schema_file	= './inc/database/message.adodb.txt';
