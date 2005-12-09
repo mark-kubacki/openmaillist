@@ -21,6 +21,13 @@ foreach($todo as $task) {
 echo('<br />');
 
 // messages' table
+switch($factory->create_threads_table()) {
+	case '1':	echo('Table already exists.');	break;
+	case '2':	echo('Table created.');		break;
+}
+echo('<br />');
+
+// messages' table
 switch($factory->create_messages_table()) {
 	case '1':	echo('Table already exists.');	break;
 	case '2':	echo('Table created.');		break;
