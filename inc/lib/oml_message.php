@@ -9,6 +9,7 @@ class oml_message
 	// variables for own purpose
 	private static $rex_name	= '/([\w][\w0-9\-\.\,\s]+[\w0-9\.])\s*\</i';
 	private static $rex_email	= '/\<([\w0-9][\w0-9\.\-\_\+]{1,}@[\w0-9\.\-\_]{2,}\.[\w]{2,})\>/i';
+	private static $essen_subject	= '/(?:re|aw|fwd)?:?\s?(?:\[.*\])?\s?(.+)\s*(?:\(was:.*\))?/i';
 
 	/**
 	 * @returns integer	0 if failure, 1 if errors, 2 if successful
@@ -48,6 +49,20 @@ class oml_message
 		return $result;
 	}
 
+	public static function get_thread_with(ADOConnection $db, oml_factory $factory, $tablename, $message_id) {
+		$tid	= $db->GetOne('SELECT tid FROM '.$tablename.' WHERE message_id='.$db->qstr($message_id).' ORDER BY datereceived DESC');
+		if(!$tid === false) {
+			$tmp	= $factory->get_thread($tid);
+			return $tmp;
+		}
+		return false;
+	}
+
+	public function associate_with_thread(oml_thread $thread) {
+		$thread->set_lastpost($this->getter('datereceived'));
+		$this->setter('tid', $thread->get_unique_value());
+	}
+
 	/**
 	 * It might be that we have to strip tags or convert to special entities.
 	 *
@@ -79,8 +94,7 @@ class oml_message
 	 * returns	string if successfully determined the sender's name, else false
 	 */
 	public function get_senders_name() {
-		if($this->has('sender')
-		   && preg_match($this->rex_name, $this->getter('sender'), $arr)) {
+		if(preg_match(self::$rex_name, $this->getter('sender'), $arr)) {
 			return trim($arr[1]);
 		}
 		return false;
@@ -89,11 +103,22 @@ class oml_message
 	 * returns	string if successfully determined the sender's email, else false
 	 */
 	public function get_senders_email() {
-		if($this->has('sender')
-		   && preg_match($this->rex_email, $this->getter('sender'), $arr)) {
+		if(preg_match(self::$rex_email, $this->getter('sender'), $arr)) {
 			return $arr[1];
 		}
 		return false;
+	}
+
+	public function get_subject() {
+		return $this->getter('subject');
+	}
+
+	public function get_essence_of_subject() {
+		if(preg_match(self::$essen_subject, $this->get_subject(), $arr)) {
+			return $arr[1];
+		} else {
+			throw new Exception('No suitable subject for naming a new thread was found. Subject was "'.$this->get_subject().'".');
+		}
 	}
 
 	/**
