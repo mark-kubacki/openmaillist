@@ -3,6 +3,7 @@
  * A collection of common implementations.
  */
 abstract class OMLObject
+	extends DataCarrier
 	implements ErrorHandler, DatabaseAccessor
 {
 	protected $db;
