@@ -1,4 +1,6 @@
 <?php
+die('Uncomment this for setting up OML. After having done so, restore this line.');
+
 include('./inc/_prepend.php');
 
 // lists' table
