@@ -1,6 +1,6 @@
 #!/bin/env php
 <?php
-// die('This is an executable, not suited for being served by any webserver.');
+die('This is an executable, not suited for being served by any webserver.');
 
 ////////////////////////////////////////////////////////////////////////////////
 /* copied from inc/_prepend.php */
