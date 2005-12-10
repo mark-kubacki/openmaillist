@@ -24,7 +24,7 @@ class oml_email {
 	var	$decoded	= false;
 
 // public:
-	function oml_email(&$raw_message) {
+	function __construct(&$raw_message) {
 		$this->mime_message = new Mail_mimeDecode($raw_message, "\r\n");
 		$this->decode_message = new DecodeMessage();
 	}
@@ -93,7 +93,7 @@ class oml_email {
 		}
 
 		if(isset($this->hoi[$key])) {
-			return $this->$hoi[$key];
+			return $this->hoi[$key];
 		}
 		else if(isset($this->structure->headers[$key])) {
 			return $this->structure->headers[$key];
@@ -157,7 +157,7 @@ class oml_email {
 
 	/**
 	 * @param $strip_html	Whether to strip html and PHP tags if the first displayable part is marked as containing html.
-	 * @retrun		first displayable part or empty string
+	 * @return		first displayable part or empty string
 	 */
 	function get_first_displayable_part($strip_html = false) {
 		if(!$this->decoded) {

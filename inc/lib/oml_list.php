@@ -40,6 +40,17 @@ class oml_list
 		return $result;
 	}
 
+	public static function get_list_by_name(ADOConnection $db, oml_factory $factory, $tablename, $listname) {
+		$row		= $db->GetRow('SELECT * FROM '.$tablename.' WHERE lname='.$db->qstr($listname));
+		if(!$row === false) {
+			$theList	= $factory->get_list();
+			$theList->become($row);
+			return $theList;
+		} else {
+			throw new Exception('List does not exist.');
+		}
+	}
+
 	public function create_new_thread($threadname) {
 		$thread = $this->factory->get_thread();
 		$thread->set_name($threadname);
