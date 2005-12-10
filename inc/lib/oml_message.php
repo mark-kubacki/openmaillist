@@ -116,10 +116,13 @@ class oml_message
 	public function get_author() {
 		$name = $this->get_senders_name();
 		if($name === false) {
-			preg_match('/(\w+).*\@(\w+)/i', $this->get_senders_email(), $arr);
-			$localpart	= str_capitalize($arr[1]);
-			$domain		= str_capitalize($arr[2]);
-			$name		= sprintf('%s from %s', $localpart, $domain);
+			if(preg_match('/(\w+).*\@(\w+)/i', $this->get_senders_email(), $arr)) {
+				$localpart	= str_capitalize($arr[1]);
+				$domain		= str_capitalize($arr[2]);
+				$name		= sprintf('%s from %s', $localpart, $domain);
+			} else {
+				$name	= 'unknown';
+			}
 		}
 		return $name;
 	}
