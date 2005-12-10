@@ -47,6 +47,10 @@ class oml_list
 		return $thread;
 	}
 
+	public function get_threads() {
+		return $this->factory->get_all_threads_of($this->get_unique_value());
+	}
+
 	public function register_message(oml_message $msg, $group_same_subjects = true) {
 		$subject = $msg->get_essence_of_subject();
 
@@ -75,7 +79,7 @@ class oml_list
 	}
 
 	public function number_of_messages() {
-		return $this->factory->get_num_messages_of($this->get_unique_value());
+		return $this->factory->get_list_num_messages($this->get_unique_value());
 	}
 
 	public function get_last_message($order_by) {
