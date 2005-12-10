@@ -51,6 +51,10 @@ class oml_thread
 		return $db->GetOne('SELECT COUNT(*) FROM '.$tablename.' WHERE lid='.$list_id);
 	}
 
+	public function get_messages() {
+		return $this->factory->get_all_messages_of($this->get_unique_value());
+	}
+
 	public function number_of_messages() {
 		return $this->factory->get_thread_num_messages($this->get_unique_value());
 	}

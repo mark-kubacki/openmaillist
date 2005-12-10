@@ -36,5 +36,18 @@ final class openmaillist
 		return $list->get_all_threads();
 	}
 
+	public function get_thread($thread_id) {
+		if(is_numeric($thread_id)) {
+			$thread = $this->factory->get_thread($thread_id);
+			if(!$thread === false) {
+				return $thread;
+			} else {
+				throw new Exception('Given thread does not exist.');
+			}
+		} else {
+			throw new Exception('Given thread_id is not valid.');
+		}
+	}
+
 }
 ?>
