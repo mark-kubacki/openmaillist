@@ -59,12 +59,36 @@ class oml_factory
 		return oml_thread::get_num_threads_of($this->db, $this->tables['Threads'], $list_id);
 	}
 
-	public function get_num_messages_of($list_id) {
+	public function get_list_num_messages($list_id) {
 		return $this->db->GetOne(
 			'SELECT COUNT(*)
 			FROM '.$this->tables['Messages'].', '.$this->tables['Threads'].'
 			WHERE '.$this->tables['Messages'].'.tid = '.$this->tables['Threads'].'.tid AND '.$this->tables['Threads'].'.lid = '.$list_id
 		);
+	}
+
+	public function get_thread_num_messages($thread_id) {
+		return $this->db->GetOne(
+			'SELECT COUNT(*)
+			FROM '.$this->tables['Messages'].', '.$this->tables['Threads'].'
+			WHERE '.$this->tables['Messages'].'.tid = '.$this->tables['Threads'].'.tid AND '.$this->tables['Threads'].'.tid = '.$thread_id
+		);
+	}
+
+	public function get_thread_last_message($thread_id, $order_by) {
+		$data = $this->db->GetRow(
+			'SELECT '.$this->tables['Messages'].'.*
+			FROM '.$this->tables['Messages'].', '.$this->tables['Threads'].'
+			WHERE '.$this->tables['Threads'].'.tid = '.$this->tables['Messages'].'.tid
+			AND '.$this->tables['Threads'].'.tid ='.$thread_id.'
+			ORDER BY '.$order_by.' DESC'
+		);
+		if(!$data === false) {
+			$msg = $this->get_message();
+			$msg->become($data);
+			return $msg;
+		}
+		return false;
 	}
 
 	public function get_lists_last_message($list_id, $order_by) {
