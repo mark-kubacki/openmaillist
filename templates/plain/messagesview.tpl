@@ -5,29 +5,16 @@
     <div class="header">
 	<dl>
 	    <dt>Sender:</dt>
-	    <dd><?= htmlentities(get_name($msg['sender'])) ?></dd>
+	    <dd><?= htmlentities($msg->get_author()) ?></dd>
 	    <dt>Received:</dt>
-	    <dd><?= $msg['datereceived'] ?><dd>
+	    <dd><?= $msg->get_date_received($cfg['display']['date_format']) ?><dd>
 	    <dt>Subject:</dt>
-	    <dd><?= $msg['subject'] ?><dd>
+	    <dd><?= $msg->get_subject() ?><dd>
 	</dl>
     </div>
     <div class="body">
-	<pre><blockquote><?= $msg['body'] ?></blockquote></pre>
+	<pre><blockquote><?= $msg->get_text() ?></blockquote></pre>
     </div>
-    <?php if(count($msg['attach']) > 0) { ?>
-	<div class="attachement">
-	    <ol>
-	    <?php foreach($msg['attach'] as $attachement) { ?>
-		<li>
-		    <a href="<?= $cfg['upload_dir'].$attachement['Location'] ?>" title="attachement">
-			<?= $attachement['Location'] ?>
-		    </a>
-		</li>
-	    <?php } ?>
-	    </ol>
-	</div>
-    <?php } ?>
 </li>
 <?php } ?>
 </ol>

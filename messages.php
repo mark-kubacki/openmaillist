@@ -4,7 +4,9 @@ include('./inc/_prepend.php');
 // ------------------------------ Messages --------------------------------------------------------
 
 // DATA
-$messages = $oml->get_messages($_GET['tid']);
+$thread		= $oml->get_thread($_GET['tid']);
+$list		= $thread->get_owning_list();
+$messages	= $thread->get_messages();
 
 // DISPLAY
 include('./templates/'.$cfg['theme'].'/messagesview.tpl');
