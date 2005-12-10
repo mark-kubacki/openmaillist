@@ -1,4 +1,7 @@
 <h2>Threads</h2>
+<div class="path">
+	<a href="index.php">Mailing Lists</a>&nbsp;&raquo;&nbsp;<?= $list->get_name() ?>
+</div>
 <table class="threads">
     <tr>
 	<th>Subject</th>
