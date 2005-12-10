@@ -64,8 +64,6 @@ class oml_message
 	}
 
 	public function associate_with_thread(oml_thread $thread) {
-		$thread->set_lastpost($this->getter('datereceived'));
-		$thread->write_to_db();
 		$this->setter('tid', $thread->get_unique_value());
 	}
 
