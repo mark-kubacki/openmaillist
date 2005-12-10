@@ -12,6 +12,7 @@
 		<dl>
 		    <dt><a href="threads.php?lid=<?= $list->get_unique_value() ?>" title="threads of"><?= $list->get_name() ?></a></dt>
 		    <dd><?= $list->get_description() ?></dd>
+		    <dd>write to <a href="mailto:<?= EncodeEmail($list->get_address()) ?>"><?= EncodeEmail($list->get_address()) ?></a></dd>
 		</dl>
 	    </td>
 	    <td class="fig"><?= $list->number_of_threads() ?></td>

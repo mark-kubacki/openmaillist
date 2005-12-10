@@ -31,6 +31,7 @@ function rm_r($dir) {
  */
 function UniCodeString($string, $hex = true) {
 	$len = strlen($string);
+	$encoded = '';
 	if($hex) {
 		for($i = 0; $i < $len; $i++) {
 			$encoded .= '&#x'.base_convert(ord(substr($string,$i)), 10, 16).';';
