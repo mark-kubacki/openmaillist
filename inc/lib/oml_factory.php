@@ -37,6 +37,10 @@ class oml_factory
 		return oml_message::get_messages_of($this->db, $this, $this->tables['Messages'], $thread_id);
 	}
 
+	public function get_list_by_name($listname) {
+		return oml_list::get_list_by_name($this->db, $this, $this->tables['Lists'], $listname);
+	}
+
 	public function get_thread_with($list_id, $message_id) {
 		$thread	= oml_message::get_thread_with($this->db, $this, $this->tables['Messages'], $message_id);
 		$list	= $thread->get_owning_list();
