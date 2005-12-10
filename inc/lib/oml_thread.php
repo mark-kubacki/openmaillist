@@ -47,6 +47,10 @@ class oml_thread
 		return false;
 	}
 
+	public static function get_num_threads_of(ADOConnection $db, $tablename, $list_id) {
+		return $db->GetOne('SELECT COUNT(*) FROM '.$tablename.' WHERE lid='.$list_id);
+	}
+
 	/* now come getters and setters */
 	public function get_name() {
 		return $this->getter('threadname');

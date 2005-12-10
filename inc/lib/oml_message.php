@@ -127,6 +127,22 @@ class oml_message
 		}
 	}
 
+	private function get_date($send_or_received, $format = null) {
+		if(is_null($format)) {
+			return $this->getter($send_or_received);
+		} else {
+			return date($format, $this->getter($send_or_received));
+		}
+	}
+
+	public function get_date_send($format = null) {
+		return $this->get_date('datesend', $format);
+	}
+
+	public function get_date_received($format = null) {
+		return $this->get_date('datereceived', $format);
+	}
+
 	/**
 	 * Lässt eine Nachricht so tun, als enthielte sie die gegebenen Daten.
 	 * Hilfsmethode zum Speichern völlig neuer Nachrichten.

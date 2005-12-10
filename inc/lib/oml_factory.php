@@ -55,6 +55,34 @@ class oml_factory
 		return oml_message::get_message_quoted_by($this->db, $this, $this->tables['Messages'], $msg);
 	}
 
+	public function get_num_threads_of($list_id) {
+		return oml_thread::get_num_threads_of($this->db, $this->tables['Threads'], $list_id);
+	}
+
+	public function get_num_messages_of($list_id) {
+		return $this->db->GetOne(
+			'SELECT COUNT(*)
+			FROM '.$this->tables['Messages'].', '.$this->tables['Threads'].'
+			WHERE '.$this->tables['Messages'].'.tid = '.$this->tables['Threads'].'.tid AND '.$this->tables['Threads'].'.lid = '.$list_id
+		);
+	}
+
+	public function get_lists_last_message($list_id, $order_by) {
+		$data = $this->db->GetRow(
+			'SELECT '.$this->tables['Messages'].'.*
+			FROM '.$this->tables['Messages'].', '.$this->tables['Threads'].'
+			WHERE '.$this->tables['Threads'].'.tid = '.$this->tables['Messages'].'.tid
+			AND '.$this->tables['Threads'].'.lid ='.$list_id.'
+			ORDER BY '.$order_by.' DESC'
+		);
+		if(!$data === false) {
+			$msg = $this->get_message();
+			$msg->become($data);
+			return $msg;
+		}
+		return false;
+	}
+
 	public function get_list($lid = null) {
 		$tmp = new oml_list($this->db, $this->tables['Lists'], $this);
 		if(!is_null($lid)) {

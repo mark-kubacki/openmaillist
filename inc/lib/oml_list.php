@@ -69,6 +69,19 @@ class oml_list
 		return $msg->associate_with_thread($thread);
 	}
 
+	/* for generating a list */
+	public function number_of_threads() {
+		return $this->factory->get_num_threads_of($this->get_unique_value());
+	}
+
+	public function number_of_messages() {
+		return $this->factory->get_num_messages_of($this->get_unique_value());
+	}
+
+	public function get_last_message($order_by) {
+		return $this->factory->get_lists_last_message($this->get_unique_value(), $order_by);
+	}
+
 	/* now come getters and setters */
 	public function get_name() {
 		return $this->getter('lname');
