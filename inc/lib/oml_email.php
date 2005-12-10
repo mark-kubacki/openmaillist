@@ -67,7 +67,7 @@ class oml_email {
 	}
 
 	/**
-	 * Decodes given message and stores any attachements in the given directory.
+	 * Decodes given message and stores any attachments in the given directory.
 	 * @return		!! currently always returns true. Will return whether decoding process was successfull.
 	 */
 	function decode() {
@@ -118,23 +118,23 @@ class oml_email {
 
 	// public
 	/**
-	 * @param $where	has to be the absolute path without trailing slash to the location where the attachements will be stored
+	 * @param $where	has to be the absolute path without trailing slash to the location where the attachments will be stored
 	 * @return		true if the given path exists, is a directory and writeable
 	 */
-	function set_attachement_storage($where) {
+	function set_attachment_storage($where) {
 		$this->decode_message->attachment_path = $where;
 		return is_dir($where) && is_writable($where);
 	}
 
-	function has_attachements() {
+	function has_attachments() {
 		return ($this->structure->ctype_secondary != 'plain');
 	}
 
 	/**
-	 * @return	an array with all (relative) paths to the attachements.
+	 * @return	an array with all (relative) paths to the attachments.
 	 */
-	function get_attachements() {
-		if(! $this->has_attachements()) {
+	function get_attachments() {
+		if(! $this->has_attachments()) {
 			return array();
 		}
 
@@ -142,17 +142,17 @@ class oml_email {
 			$this->decode();
 		}
 
-		$attachements = array();
+		$attachments = array();
 
 		if(isset($this->decode_result[0])) {
 			for($i = 0; isset($this->decode_result[0][$i]); $i++) {
 				if(isset($this->decode_result[0][$i]['attachments'])) {
-					$attachements[] = $this->decode_result[0][$i]['attachments'];
+					$attachments[] = $this->decode_result[0][$i]['attachments'];
 				}
 			}
 		}
 
-		return $attachements;
+		return $attachments;
 	}
 
 	/**

@@ -159,14 +159,14 @@ class oml_message
 	 * Lässt eine Nachricht so tun, als enthielte sie die gegebenen Daten.
 	 * Hilfsmethode zum Speichern völlig neuer Nachrichten.
 	 */
-	public function let($message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText) {
+	public function let($message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachments, $MsgText) {
 		$this->become(
 		  array('message_id'		=> $message_id,
 			'datesend'		=> $DateSend,
 			'datereceived'		=> $DateReceived,
 			'sender'		=> $Sender,
 			'subject'		=> $Subject,
-			'hasattachements'	=> $hasAttachements ? 1 : 0,
+			'hasattachments'	=> $hasAttachments ? 1 : 0,
 			));
 		$this->set_text($MsgText);
 	}
@@ -175,9 +175,9 @@ class oml_message
 	 * Wenn viele Nachrichten aus der Datenbank gelesen werden, bietet es sich an,
 	 * sie so zu konstruieren und einzelne Querries zu vermeiden.
 	 */
-	public function be($mid, $message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText) {
+	public function be($mid, $message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachments, $MsgText) {
 		$this->setter('mid', $mid);
-		$this->let($message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachements, $MsgText);
+		$this->let($message_id, $DateSend, $DateReceived, $Sender, $Subject, $hasAttachments, $MsgText);
 	}
 
 	public function get_owning_thread() {

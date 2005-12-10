@@ -12,7 +12,7 @@ echo('--- gesamt ---');
 echo("\n");
 print_r($myEmail->hoi);
 
-if($myEmail->has_attachements()) {
+if($myEmail->has_attachments()) {
 	echo("Hat Anhänge.\n");
 	$myEmail->split_parts();
 	print_r($myEmail->parts);
@@ -22,8 +22,8 @@ else {
 }
 */
 
-$myEmail->set_attachement_storage('/tmp');
+$myEmail->set_attachment_storage('/tmp');
 $myEmail->get_first_displayable_part();
-print_r($myEmail->get_attachements());
+print_r($myEmail->get_attachments());
 
 ?>

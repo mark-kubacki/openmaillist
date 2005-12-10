@@ -41,7 +41,7 @@ $todo	= array(
 			'datereceived'		=> 1130490762,
 			'sender'		=> '<alex@noligy.de>',
 			'subject'		=> 'Mouserad unter Linux',
-			'hasattachements'	=> 1,
+			'hasattachments'	=> 1,
 			'msgtext'		=> <<<EOT
 Hi Mark,
 
@@ -63,7 +63,7 @@ EOT
 			'datereceived'		=> 1130880023,
 			'sender'		=> 'Jochen Suckfuell <boger@suckfuell.net>',
 			'subject'		=> 'Mailbox names limited to 16 chars',
-			'hasattachements'	=> 0,
+			'hasattachments'	=> 0,
 			'msgtext'		=> <<<EOT
 Hello!
 
@@ -83,7 +83,7 @@ EOT
 			'datereceived'		=> 1130966656,
 			'sender'		=> 'W-Mark Kubacki <wmark@hurrikane.de>',
 			'subject'		=> 'Re: Mailbox names limited to 16 chars',
-			'hasattachements'	=> 0,
+			'hasattachments'	=> 0,
 			'msgtext'		=> <<<EOT
 Hallo,
 
@@ -104,7 +104,7 @@ EOT
 		);
 foreach($todo as $task) {
 	$myMsg		= $factory->get_message();
-	$myMsg->let($task['message_id'], $task['datesend'], $task['datereceived'], $task['sender'], $task['subject'], $task['hasattachements'], $task['msgtext']);
+	$myMsg->let($task['message_id'], $task['datesend'], $task['datereceived'], $task['sender'], $task['subject'], $task['hasattachments'], $task['msgtext']);
 
 	// register that message
 	$theList	= $factory->get_list($task['lid']);
