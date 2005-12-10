@@ -57,6 +57,19 @@ function EncodeEmail($string) {
 }
 
 /**
+ * Makes the first letter an uppercase one.
+ *
+ * @return		Capitalized string.
+ */
+function str_capitalize($string) {
+	if(strlen($string) > 0) {
+		$string{0}	= strtoupper($string{0});
+		return $string;
+	}
+	return $string;
+}
+
+/**
  * This is so we can use classes and interfaces without typeing long include lists.
  */
 function __autoload($class_name) {

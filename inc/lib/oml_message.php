@@ -113,6 +113,17 @@ class oml_message
 		return false;
 	}
 
+	public function get_author() {
+		$name = $this->get_senders_name();
+		if($name === false) {
+			preg_match('/(\w+).*\@(\w+)/i', $this->get_senders_email(), $arr);
+			$localpart	= str_capitalize($arr[1]);
+			$domain		= str_capitalize($arr[2]);
+			$name		= sprintf('%s from %s', $localpart, $domain);
+		}
+		return $name;
+	}
+
 	public function get_subject() {
 		return $this->getter('subject');
 	}
