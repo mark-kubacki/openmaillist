@@ -90,14 +90,8 @@
 <file url="testdata/3." id="107D2D3F09CL757cf7170x67d6" name="3.">
 </file>
 </folder>
-<folder id="107D2D3B4C8L38027e4d0x67d6" name="bin">
-<file url="bin/piper.php" id="107D2D45CF8L6fb49a5c0x67d6" name="piper.php">
-</file>
-<file url="bin/piper.pl" id="107D2D45D04L1d7febc40x67d6" name="piper.pl">
-</file>
-<file url="bin/piper.py" id="107D2D45D14L4b0be9e00x67d6" name="piper.py">
-</file>
-</folder>
 <file url="setup.php" id="1080BA49D6ELae578fc0x267a" name="setup.php">
+</file>
+<file url="piper.php" id="107D2D45CF8L6fb49a5c0x67d6" name="piper.php">
 </file>
 </project>
