@@ -153,7 +153,7 @@ class oml_message
 	}
 
 	public function get_owning_thread() {
-		$this->factory->get_thread($this->getter('tid'));
+		return $this->factory->get_thread($this->getter('tid'));
 	}
 
 }
