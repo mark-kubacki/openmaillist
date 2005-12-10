@@ -14,9 +14,16 @@
 		    <dd><?= $list->get_description() ?></dd>
 		</dl>
 	    </td>
-	    <td class="fig"><!?= $list['threads'] ?></td>
-	    <td class="fig"><!?= $list['posts'] ?></td>
-	    <td class="date"><!?= $list['lastdate'] ?></td>
+	    <td class="fig"><?= $list->number_of_threads() ?></td>
+	    <td class="fig"><?= $list->number_of_messages() ?></td>
+	    <td class="date">
+		<?php if($list->number_of_messages() > 0) { ?>
+			<?php $post = $list->get_last_message('datereceived'); ?>
+			<?= $post->get_date_received('r') ?>
+		<?php } else { ?>
+			never
+		<?php } ?>
+	    </td>
 	</tr>
     <?php } ?>
 </table>
