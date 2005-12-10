@@ -17,7 +17,7 @@ include('./templates/'.$cfg['theme'].'/common-header.tpl');
 
 // table names with prefixes
 $cfg['tablenames']
-	= array('Attachments'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Attachements',
+	= array('Attachments'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Attachments',
 		'Lists'		=> $cfg['Servers']['DB'][0]['PREFIX'].'Lists',
 		'Messages'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Messages',
 		'Threads'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Threads',

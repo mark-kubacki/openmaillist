@@ -5,5 +5,5 @@ datesend	I	UNSIGNED NOTNULL,
 datereceived	I	UNSIGNED NOTNULL,
 sender		C 128	NOTNULL,
 subject		C 255	NOTNULL,
-hasattachements	L 1	DEFAULT 0 NOTNULL,
+hasattachments	L 1	DEFAULT 0 NOTNULL,
 msgtext		X	NOTNULL
