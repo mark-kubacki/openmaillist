@@ -1,4 +1,7 @@
 <h2>Messages</h2>
+<div class="path">
+	<a href="index.php">Mailing Lists</a>&nbsp;&raquo;&nbsp;<a href="threads.php?lid=<?= $list->get_unique_value() ?>"><?= $list->get_name() ?></a>&nbsp;&raquo;&nbsp;<?= $thread->get_name() ?>
+</div>
 <ol class="messages">
 <?php foreach($messages as $msg) { ?>
 <li class="message">

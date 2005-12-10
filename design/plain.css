@@ -85,6 +85,14 @@ div.header dt {
 div.header dd {
 	width: 87%;
 }
+div.path {
+	margin-bottom: 1em;
+	font-weight: bold;
+}
+div.path a {
+	color: #000000;
+	font-weight: bold;
+}
 div.body pre {
 	width: 88%;
 	/* some very ugly hacks, but as far to browser seems to care about CSS 2.1 */

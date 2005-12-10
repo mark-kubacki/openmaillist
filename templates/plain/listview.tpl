@@ -1,4 +1,4 @@
-<h2>Mail Lists</h2>
+<h2>Mailing Lists</h2>
 <table>
     <tr>
 	<th>Name</th>
