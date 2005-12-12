@@ -16,7 +16,7 @@
 	</dl>
     </div>
     <div class="body">
-	<pre><blockquote><?= $msg->get_text() ?></blockquote></pre>
+	<pre><blockquote><?= format_quotings(htmlentities($msg->get_text())) ?></blockquote></pre>
     </div>
 </li>
 <?php } ?>

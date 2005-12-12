@@ -76,4 +76,8 @@ function __autoload($class_name) {
 	require_once('./inc/lib/'.$class_name.'.php');
 }
 
+function format_quotings($text) {
+	return preg_replace('/((?:^(\>|&gt;|\#|\|).*\s)+)(?:\s)/m', '<span class="quote">\1</span>', $text);
+}
+
 ?>
