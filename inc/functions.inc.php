@@ -77,7 +77,7 @@ function __autoload($class_name) {
 }
 
 function format_quotings($text) {
-	return preg_replace(	array(	'/(\s*(?:-^_{5,}|^--\s?\n\w)(?:.*\s?)*)/m',
+	return preg_replace(	array(	'/(\s*(?:^_{5,}|^--\s?\n\w)(?:.*\s?)*)/m',
 					'/((?:^(\>|&gt;|\#|\|).*\s*)+)(?:\s|$)/m',
 				),
 				array(	'',
