@@ -73,6 +73,7 @@ class oml_message
 	 * @returns	string with text. At emails we call this "first displayable part (of body)".
 	 */
 	public function get_text($strip_tags = false) {
+		$text	= imap_qprint($text);
 		if($strip_tags) {
 			return strip_tags($this->getter('msgtext'));
 		} else {
