@@ -77,7 +77,9 @@ function __autoload($class_name) {
 }
 
 function format_quotings($text) {
-	return preg_replace('/((?:^(\>|&gt;|\#|\|).*\s*)+)(?:\s|$)/m', '<span class="quote">\1</span>', $text);
+	return preg_replace(	array('/(\s*-{2,6}Original(?:.*\s?)*)/m', '/((?:^(\>|&gt;|\#|\|).*\s*)+)(?:\s|$)/m'), 
+				array('', '<span class="quote">\1</span>'), 
+				$text);
 }
 
 ?>
