@@ -87,6 +87,7 @@ class oml_message
 	 * @param boolean	true for removing tags. false is default
 	 */
 	public function set_text($text, $strip_tags = false) {
+		$text	= imap_qprint($text);
 		if($strip_tags) {
 			$this->setter('msgtext', strip_tags($text));
 		} else {
