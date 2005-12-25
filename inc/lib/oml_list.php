@@ -65,9 +65,8 @@ class oml_list
 	public function register_message(oml_message $msg, $group_same_subjects = true) {
 		$subject = $msg->get_essence_of_subject();
 
-		// TODO: make sure that the thread belongs to current list!
-		// In-Reply-To und References auswerten.
-		$pre	= $this->factory->get_message_quoted_by($msg);
+		// in-reply-to and references
+		$pre	= $this->factory->get_latest_msg_referred_to($msg, $this->get_unique_value());
 		if(!$pre === false) {
 			$thread = $pre->get_owning_thread();
 			return $msg->associate_with_thread($thread);
