@@ -27,6 +27,7 @@ abstract class DataCarrier
 		} else {
 			$this->data[$key] = $value;
 		}
+		return true;
 	}
 
 	public function become($data) {

@@ -64,7 +64,7 @@ class oml_message
 	}
 
 	public function associate_with_thread(oml_thread $thread) {
-		$this->setter('tid', $thread->get_unique_value());
+		return $this->setter('tid', $thread->get_unique_value());
 	}
 
 	/**
