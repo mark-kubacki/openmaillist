@@ -79,6 +79,10 @@ class oml_factory
 		);
 	}
 
+	public function delete_empty_threads($list_id) {
+		// TODO
+	}
+
 	public function get_thread_last_message($thread_id, $order_by) {
 		$data = $this->db->GetRow(
 			'SELECT '.$this->tables['Messages'].'.*
