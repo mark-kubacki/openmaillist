@@ -24,11 +24,11 @@ $cfg['tablenames']
 		);
 
 // set anything important to ADOdb
-$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 $db	= ADONewConnection($cfg['Servers']['DB'][0]['TYPE']);
 $db->Connect(	$cfg['Servers']['DB'][0]['HOST'],
 		$cfg['Servers']['DB'][0]['USER'], $cfg['Servers']['DB'][0]['PASS'],
 		$cfg['Servers']['DB'][0]['DB']);
+$db->SetFetchMode(ADODB_FETCH_ASSOC);
 
 // include the backend
 $factory	= new oml_factory($db, $cfg['tablenames']);
