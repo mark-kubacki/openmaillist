@@ -61,6 +61,12 @@ $myMsg->let(	$myEmail->get_header('message-id'), $myEmail->get_header('date-send
 		$myEmail->get_header('from'), $myEmail->get_header('subject'),
 		$myEmail->has_attachments() ? 1 : 0,
 		$myEmail->get_first_displayable_part(true));
+if($myEmail->get_header('in-reply-to') != '') {
+	$myMsg->set_in_reply_to($myEmail->get_header('in-reply-to'));
+}
+if($myEmail->get_header('references') != '') {
+	$myMsg->set_referenced($myEmail->get_header('references'));
+}
 
 if($myMsg->write_to_db()) {
 	$theList	= $factory->get_list_by_name($argv[1]);
