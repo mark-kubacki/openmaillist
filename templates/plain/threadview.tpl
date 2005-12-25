@@ -6,6 +6,7 @@
     <tr>
 	<th>Subject</th>
 	<th>Posts</th>
+	<th>Views</th>
 	<th>From</th>
 	<th>Last Post</th>
     </tr>
@@ -13,6 +14,7 @@
 	<tr>
 	    <td><a href="messages.php?tid=<?= $thread->get_unique_value() ?>" title="messages of"><?= $thread->get_name() ?></a></td>
 	    <td class="fig"><?= $thread->number_of_messages() ?></td>
+	    <td class="fig"><?= $thread->get_views() ?></td>
 	    <?php $post = $thread->get_last_message(); ?>
 	    <td><?= htmlentities($post->get_author()) ?></td>
 	    <td class="date"><?= $post->get_date_received($cfg['display']['date_format']) ?></td>

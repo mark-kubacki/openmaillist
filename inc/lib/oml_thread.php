@@ -72,8 +72,22 @@ class oml_thread
 		return $this->factory->get_list($this->getter('lid'));
 	}
 
+	public function get_views() {
+		if($this->has('views')) {
+			return (int) $this->getter('views');
+		} else {
+			return 0;
+		}
+	}
+
 	public function set_name($txt) {
 		$this->setter('threadname', $txt);
+	}
+
+	public function inc_views() {
+		$n = $this->get_views();
+		$this->setter('views', ++$n);
+		$this->write_to_db();
 	}
 
 	public function associate_with_list(oml_list $partner) {
