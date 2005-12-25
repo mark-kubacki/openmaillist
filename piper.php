@@ -44,7 +44,7 @@ $db->SetFetchMode(ADODB_FETCH_ASSOC);
 
 // include the backend
 $factory	= new oml_factory($db, $cfg['tablenames']);
-$oml		= new openmaillist($db, $factory);
+//$oml		= new openmaillist($db, $factory);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -68,7 +68,8 @@ if($myMsg->write_to_db()) {
 
 	// write updated message to DB
 	if(!$myMsg->write_to_db()) {
-		// $myMsg->remove_from_db();
+		$myMsg->remove_from_db();
+		$factory->delete_empty_threads($theList->get_unique_value());
 		die("... message could not be saved.\n");
 	} else {
 		echo("... message stored successfully.\n");
