@@ -30,7 +30,22 @@ class oml_factory
 	}
 
 	public function get_all_threads_of($list_id) {
-		return oml_thread::get_threads_of($this->db, $this, $this->tables['Threads'], $list_id);
+		$threads	= array();
+		$rs = $this->db->Execute(
+			'SELECT th.*, COUNT(tm.tid) AS posts, MAX(tm.DateReceived) AS lastdate
+			FROM '.$this->tables['Threads'].' AS th
+			LEFT OUTER JOIN '.$this->tables['Messages'].' AS tm ON (th.tid = tm.tid)
+			WHERE '.$list_id.'=th.lid
+			GROUP BY th.Threadname
+			HAVING posts > 0
+			ORDER BY tm.DateReceived DESC'
+		);
+		foreach($rs as $row) {
+			$tmp	= $this->get_thread();
+			$tmp->become($row);
+			$threads[]	= $tmp;
+		}
+		return $threads;
 	}
 
 	public function get_all_messages_of($thread_id) {
@@ -80,7 +95,17 @@ class oml_factory
 	}
 
 	public function delete_empty_threads($list_id) {
-		// TODO
+		$this->DB->Execute(
+			'DELETE FROM Threads WHERE tid IN (
+				SELECT th.tid
+				FROM '.$this->tables['Threads'].' AS th
+				LEFT OUTER JOIN '.$this->tables['Messages'].' AS tm ON (th.tid = tm.tid)
+				WHERE '.$list_id.'=th.lid
+				GROUP BY th.Threadname
+				HAVING COUNT(tm.tid)=0
+			)'
+		);
+		return $this->db->Affected_Rows();
 	}
 
 	public function get_thread_last_message($thread_id, $order_by) {

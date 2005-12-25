@@ -27,17 +27,6 @@ class oml_thread
 		}
 	}
 
-	public static function get_threads_of(ADOConnection $db, oml_factory $factory, $tablename, $list_id) {
-		$result		= array();
-		$rs = $db->Execute('SELECT * FROM '.$tablename.' WHERE lid='.$list_id);
-		foreach($rs as $row){
-			$tmp		= $factory->get_thread();
-			$tmp->become($row);
-			$result[]	= $tmp;
-		}
-		return $result;
-	}
-
 	public static function get_thread_with_name(ADOConnection $db, oml_factory $factory, $tablename, $list_id, $name) {
 		$result		= array();
 		$tid = $db->GetOne('SELECT tid FROM '.$tablename.' WHERE lid='.$list_id.' AND threadname='.$db->qstr($name));
@@ -56,7 +45,18 @@ class oml_thread
 	}
 
 	public function number_of_messages() {
-		return $this->factory->get_thread_num_messages($this->get_unique_value());
+		if(!$this->has('posts')) {
+			$this->setter('posts', $this->factory->get_thread_num_messages($this->get_unique_value()));
+		}
+		return $this->getter('posts');
+	}
+
+	public function get_date_last_post() {
+		if(!$this->has('lastdate')) {
+			$tmp	= $this->get_last_message();
+			$this->setter('lastdate', $tmp->get_date_received());
+		}
+		return $this->getter('lastdate');
 	}
 
 	public function get_last_message() {
