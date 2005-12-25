@@ -15,7 +15,7 @@ abstract class DataCarrier
 		if(isset($this->data[$key])) {
 			return $this->data[$key];
 		} else {
-			throw new Exception(self.' does not contain value for "'.$key.'".');
+			throw new Exception('Container does not contain value for "'.$key.'".');
 		}
 	}
 
