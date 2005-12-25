@@ -74,6 +74,25 @@ class oml_factory
 		return oml_message::get_message_quoted_by($this->db, $this, $this->tables['Messages'], $msg);
 	}
 
+	public function get_latest_msg_referred_to(oml_message $msg, $list_id) {
+		try {
+			$data = $this->db->GetRow(
+				'SELECT tm.*
+				FROM '.$this->tables['Messages'].' AS tm, '.$this->tables['Threads'].' AS tt
+				WHERE tt.tid = tm.tid AND tt.lid='.$list_id.'
+				AND (tm.message_id='.$this->db->qstr($msg->get_in_reply_to()).' OR '.$this->db->qstr($msg->get_referenced()).' LIKE CONCAT("%", tm.message_id, "%"))
+				ORDER BY tm.datereceived DESC'
+			);
+			if(!$data === false) {
+				$msg = $this->get_message();
+				$msg->become($data);
+				return $msg;
+			}
+		} catch (exception $e) {
+		}
+		return false;
+	}
+
 	public function get_num_threads_of($list_id) {
 		return oml_thread::get_num_threads_of($this->db, $this->tables['Threads'], $list_id);
 	}
