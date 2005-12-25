@@ -39,7 +39,7 @@ abstract class OMLStoredItem
 	public function remove_from_db() {
 		if($this->has($this->get_unique_key())) {
 			$this->db->Execute('DELETE FROM '.$this->table.' WHERE '.$this->get_unique_key().'='.$this->get_unique_value());
-			return ($this->db->AffectedRows() > 0);
+			return ($this->db->Affected_Rows() > 0);
 		}
 		return true;
 	}
