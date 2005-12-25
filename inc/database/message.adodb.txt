@@ -1,6 +1,8 @@
 mid		I	UNSIGNED PRIMARY AUTO,
 tid		I	UNSIGNED DEFAULT 0 NOTNULL,
 message_id	C 128	NOTNULL,
+in_reply_to	C 128,
+refers		X,
 datesend	I	UNSIGNED NOTNULL,
 datereceived	I	UNSIGNED NOTNULL,
 sender		C 128	NOTNULL,
