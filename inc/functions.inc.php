@@ -79,9 +79,11 @@ function __autoload($class_name) {
 function format_quotings($text) {
 	return preg_replace(	array(	'/(\s*(?:^_{5,}|^--\s?\n\w)(?:.*\s?)*)/m',
 					'/((?:^(\>|&gt;|\#|\|).*\s*)+)(?:\s|$)/m',
+					'/((?:http|https|svn|ftp):\/\/\S{5,})/',
 				),
 				array(	'',
 					'<span class="quote">\1</span>',
+					'<a href="\1" rel="nofollow" title="URL">\1</a>',
 				),
 				$text);
 }
