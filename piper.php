@@ -44,7 +44,6 @@ $db->SetFetchMode(ADODB_FETCH_ASSOC);
 
 // include the backend
 $factory	= new oml_factory($db, $cfg['tablenames']);
-//$oml		= new openmaillist($db, $factory);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -56,18 +55,24 @@ $myEmail->get_attachments();
 
 echo("On processing that message...\n");
 
-$myMsg		= $factory->get_message();
-$myMsg->let(	$myEmail->get_header('message-id'), $myEmail->get_header('date-send'), $myEmail->get_header('date-received'),
-		$myEmail->get_header('from'), $myEmail->get_header('subject'),
-		$myEmail->has_attachments() ? 1 : 0,
-		$myEmail->get_first_displayable_part(true));
+try {
+	$myMsg		= $factory->get_message();
+	$myMsg->let(	$myEmail->get_header('message-id'), $myEmail->get_header('date-send'), $myEmail->get_header('date-received'),
+			$myEmail->get_header('from'), $myEmail->get_header('subject'),
+			$myEmail->has_attachments() ? 1 : 0,
+			$myEmail->get_first_displayable_part(true));
+
+} catch (exception $e) {
+	die("... message could not be saved as it lacks important fields in header.\n");
+}
+
 if($myEmail->get_header('in-reply-to') != '') {
 	$myMsg->set_in_reply_to($myEmail->get_header('in-reply-to'));
-}
-if($myEmail->get_header('references') != '') {
-	$myMsg->set_referenced($myEmail->get_header('references'));
-} else {
-	$myMsg->set_referenced('<'.$myEmail->get_header('in-reply-to').'>');
+	try {
+		$myMsg->set_referenced($myEmail->get_header('references'));
+	} catch (exception $e) {
+		$myMsg->set_referenced('<'.$myEmail->get_header('in-reply-to').'>');
+	}
 }
 
 if($myMsg->write_to_db()) {
