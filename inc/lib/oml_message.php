@@ -59,7 +59,27 @@ class oml_message
 	}
 
 	public static function get_message_quoted_by(ADOConnection $db, oml_factory $factory, $tablename, oml_message $msg) {
-		// TODO
+		try {
+			$row = $db->GetRow('SELECT * FROM '.$tablename.' WHERE message_id='.$db->qstr($msg->get_in_reply_to()));
+			if(!$row === false) {
+				$tmp		= $factory->get_message();
+				$tmp->become($row);
+				return $tmp;
+			} else if($msg->get_referenced() != '') {
+				$row = $db->GetRow(
+					'SELECT * FROM '.$tablename.
+					' WHERE '.$db->qstr($msg->get_referenced()).' LIKE CONCAT("%", message_id, "%") '.
+					'ORDER BY datereceived DESC'
+				);
+				if(!$row === false) {
+					$tmp		= $factory->get_message();
+					$tmp->become($row);
+					return $tmp;
+				}
+			}
+			trigger_error($msg->get_referenced());
+		} catch (exception $e) {
+		}
 		return false;
 	}
 
@@ -93,6 +113,22 @@ class oml_message
 		} else {
 			$this->setter('msgtext', $text);
 		}
+	}
+
+	public function set_in_reply_to($message_id) {
+		$this->setter('in_reply_to', $message_id);
+	}
+
+	public function set_referenced($references) {
+		$this->setter('references', $references);
+	}
+
+	public function get_in_reply_to() {
+		return $this->getter('in_reply_to');
+	}
+
+	public function get_referenced() {
+		return $this->getter('references');
 	}
 
 	/**
