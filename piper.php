@@ -66,6 +66,8 @@ if($myEmail->get_header('in-reply-to') != '') {
 }
 if($myEmail->get_header('references') != '') {
 	$myMsg->set_referenced($myEmail->get_header('references'));
+} else {
+	$myMsg->set_referenced('<'.$myEmail->get_header('in-reply-to').'>');
 }
 
 if($myMsg->write_to_db()) {
