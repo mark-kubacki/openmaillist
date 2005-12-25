@@ -5,6 +5,7 @@ include('./inc/_prepend.php');
 
 // DATA
 $thread		= $oml->get_thread($_GET['tid']);
+$thread->inc_views();
 $list		= $thread->get_owning_list();
 $messages	= $thread->get_messages();
 
