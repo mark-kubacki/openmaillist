@@ -28,8 +28,8 @@ abstract class OMLStoredItem
 			}
 			return false;
 		} else {
-			$result = $this->db->Replace($this->table, $this->confess(), $this->get_unique_key(), true);
-			return ($result > 0);
+			$result = $this->db->AutoExecute($this->table, $this->confess(), 'UPDATE', $this->get_unique_key().'='.$this->get_unique_value(), false);
+			return $result;
 		}
 	}
 

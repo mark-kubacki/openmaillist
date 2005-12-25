@@ -69,7 +69,7 @@ class oml_list
 		// In-Reply-To und References auswerten.
 		$pre	= $this->factory->get_message_quoted_by($msg);
 		if(!$pre === false) {
-			$thread = $this->factory->get_thread($pre->get_owning_thread());
+			$thread = $pre->get_owning_thread();
 			return $msg->associate_with_thread($thread);
 		}
 

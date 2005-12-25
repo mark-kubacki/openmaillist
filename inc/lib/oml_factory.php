@@ -95,7 +95,7 @@ class oml_factory
 	}
 
 	public function delete_empty_threads($list_id) {
-		$this->DB->Execute(
+		$this->db->Execute(
 			'DELETE FROM Threads WHERE tid IN (
 				SELECT th.tid
 				FROM '.$this->tables['Threads'].' AS th
