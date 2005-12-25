@@ -86,6 +86,7 @@ EOT
 			'sender'		=> 'W-Mark Kubacki <wmark@hurrikane.de>',
 			'subject'		=> 'Re: Mailbox names limited to 16 chars',
 			'hasattachments'	=> 0,
+			'references'		=> '<20051101205153.GA891@ds217-115-141-141.dedicated.hosteurope.de>',
 			'msgtext'		=> <<<EOT
 Hallo,
 
@@ -107,6 +108,10 @@ EOT
 foreach($todo as $task) {
 	$myMsg		= $factory->get_message();
 	$myMsg->let($task['message_id'], $task['datesend'], $task['datereceived'], $task['sender'], $task['subject'], $task['hasattachments'], $task['msgtext']);
+	if(isset($task['in_reply_to'])) {
+		$myMsg->set_in_reply_to($task['in_reply_to']);
+		$myMsg->set_referenced($task['references']);
+	}
 
 	// register that message
 	$theList	= $factory->get_list($task['lid']);

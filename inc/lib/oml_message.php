@@ -120,7 +120,7 @@ class oml_message
 	}
 
 	public function set_referenced($references) {
-		$this->setter('references', $references);
+		$this->setter('refers', $references);
 	}
 
 	public function get_in_reply_to() {
@@ -128,7 +128,7 @@ class oml_message
 	}
 
 	public function get_referenced() {
-		return $this->getter('references');
+		return $this->getter('refers');
 	}
 
 	/**
