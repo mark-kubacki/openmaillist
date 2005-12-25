@@ -1,0 +1,93 @@
+Return-Path: <noreply@freshmeat.net>
+Received: from murder ([unix socket])
+	 by neon (Cyrus v2.2.12-Gentoo) with LMTPA;
+	 Sat, 17 Dec 2005 16:35:18 +0100
+X-Sieve: CMU Sieve 2.2
+X-Spam-Checker-Version: SpamAssassin 3.1.0-gr0 (2005-09-13) on 
+	neon.hurrikane.de
+X-Spam-Level: 
+X-Spam-Status: No, score=0.5 required=5.0 tests=AWL,NO_REAL_NAME autolearn=no 
+	version=3.1.0-gr0
+Received: from mail.freshmeat.net (mail.freshmeat.net [66.35.250.169])
+	by neon.hurrikane.de (Postfix) with ESMTP id 79776C16344
+	for <wmark.freshmeat.net@hurrikane.de>; Sat, 17 Dec 2005 16:35:17 +0100 (CET)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.freshmeat.net (Postfix) with ESMTP id 90E8C48268;
+	Sat, 17 Dec 2005 07:35:15 -0800 (PST)
+Received: from mail.freshmeat.net ([127.0.0.1])
+ by localhost (freshmeat-mail-1.osdn.net [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 01163-01; Sat, 17 Dec 2005 07:35:14 -0800 (PST)
+Received: from freshmeat.net (freshmeat-http-2.v39.osdn.net [10.2.39.12])
+	by mail.freshmeat.net (Postfix) with SMTP id 7943F48254;
+	Sat, 17 Dec 2005 07:35:14 -0800 (PST)
+From: <noreply@freshmeat.net>
+To: <noreply@freshmeat.net>
+Subject: [fmII] Openmailadmin 0.8.2 released (Default branch)
+Message-Id: <20051217153514.7943F48254@mail.freshmeat.net>
+Date: Sat, 17 Dec 2005 07:35:14 -0800 (PST)
+X-Virus-Scanned: by amavisd-new at freshmeat.net
+
+This email is to inform you about the release of version '0.8.2' of
+'Openmailadmin' through freshmeat.net. All URLs and other useful
+information can be found at
+
+    http://freshmeat.net/projects/openmailadmin/
+
+The changes in this release are as follows:
+Cyradm-library has been completely rewritten.  
+
+Release focus:
+3 - Code cleanup 
+
+Project added:
+Sun, Nov 28th 2004 06:49 (1 year, 0 months ago)
+
+Project description:
+Openmailadmin is a little administration interface to every complete
+IMAP mail server daemon. It supports every feature IMAP provides, and
+fits in most MTA configurations. A key feature is the non-standard,
+generic administration hierarchy which not only seperates "normal
+users" from "administrators", but enables the mailserver-master to
+create instances between them. You will be able to let other users
+create their own sub-users and thus either share a single mail server
+between different organizations or project your company's employee
+structure. It excels with features such as regex addresses and folder
+ACL management. 
+
+Trove categories:
+[Development Status  ] 5 - Production/Stable
+[Environment         ] Web Environment
+[Intended Audience   ] Advanced End Users, System Administrators
+[License             ] OSI Approved :: GNU General Public License (GPL)
+[Operating System    ] OS Independent
+[Programming Language] PHP
+[Topic               ] Communications :: Email, Communications :: Email ::
+Mail Transport Agents, Communications :: Email :: Post-Office,
+Communications :: Email :: Post-Office :: IMAP, Communications :: Email ::
+Post-Office :: POP3
+[Translations        ] English, German, Polish, Russian 
+
+If you would like to cancel subscription to releases of this project,
+login to freshmeat.net and choose 'home' from the personal menubar at the
+top of the page. You'll be presented with a list of projects and
+categories you're subscribed to in the right column, which you may cancel
+by highlighting the project or category in question and clicking the
+'delete' button.
+
+Sincerely,
+freshmeat.net 
+ 
+____________________________| Advertising |____________________________
+Avoid the headaches and delays associated with debugging complex code! 
+
+TotalView, THE debugger for complex code, helps you find elusive bugs and
+memory leaks 
+fast -- even in data-intensive, multi-threaded, parallel or
+multi-processor environments. 
+Download your free evaluation copy.  
+  
+
+http://www.etnus.com/Try/index.html?source=Enews_FreshMeat 
+____________________________| Advertising |____________________________
+
+

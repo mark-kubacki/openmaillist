@@ -1,0 +1,48 @@
+Message-ID: <43A4B69C.8000106@hurrikane.de>
+Disposition-Notification-To: W-Mark Kubacki <wmark@hurrikane.de>
+Date: Sun, 18 Dec 2005 02:08:44 +0100
+From: W-Mark Kubacki <wmark@hurrikane.de>
+User-Agent: Mail/News 1.4.1 (X11/20051030)
+MIME-Version: 1.0
+To: Karl Reichert <reichert@reichert.de>
+Subject: Re: openmailadmin
+References: <20051217201711.E453.REICHERT@on-topic.de> <43A47A62.9070909@hurrikane.de> <20051217223855.06EC61680E1@mail.on-topic.de>
+In-Reply-To: <20051217223855.06EC61680E1@mail.on-topic.de>
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hallo Karl Reichert,
+
+das Problem ist gelöst. Bitte beachte die Änderung in: 
+http://www.openmailadmin.org/changeset/166
+
+Wenn du auf der Seite unten auf "Unified Diff" klickst, dann erhälst du 
+einen Patch für deine Installation.
+
+Vielen Dank für deinen Hinweis!
+
+
+Gruß,
+
+W-Mark Kubacki
+
+
+Karl Reichert wrote:
+> W-Mark Kubacki <wmark@hurrikane.de> schrieb am Sat, 17 Dec 2005 21:51:46 +0100
+> 
+> Hallo W-Mark Kubacki,
+> 
+> ich bin es nochmal. Also ein Problem konnte ich lösen nachdem ich die
+> jeweiligen Mailboxen entsperrt hatte, können sich die jeweiligen
+> Maillboxadmins anmelden und auch auf Unterordner zugreifen.
+> 
+> Ich kann aber den Benutzern immer noch keine Grupp(Domains) zuweisen.
+> Wie schon geschrieben erscheint in der DB nur ein numerischer Ausdruck 1
+> und nicht der Gruppenstring. Wenn ich diesen manuell setze kann der
+> Mailboxadmin dann auch auf die zugehörigen Domains zugreifen.
+> 
+> Gruss
+> Karl Reichert
+> 
+> 
+
