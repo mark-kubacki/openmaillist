@@ -66,16 +66,16 @@ class oml_factory
 	public function get_list_num_messages($list_id) {
 		return $this->db->GetOne(
 			'SELECT COUNT(*)
-			FROM '.$this->tables['Messages'].', '.$this->tables['Threads'].'
-			WHERE '.$this->tables['Messages'].'.tid = '.$this->tables['Threads'].'.tid AND '.$this->tables['Threads'].'.lid = '.$list_id
+			FROM '.$this->tables['Messages'].' AS tm, '.$this->tables['Threads'].' AS tt
+			WHERE tm.tid = tt.tid AND tt.lid = '.$list_id
 		);
 	}
 
 	public function get_thread_num_messages($thread_id) {
 		return $this->db->GetOne(
 			'SELECT COUNT(*)
-			FROM '.$this->tables['Messages'].', '.$this->tables['Threads'].'
-			WHERE '.$this->tables['Messages'].'.tid = '.$this->tables['Threads'].'.tid AND '.$this->tables['Threads'].'.tid = '.$thread_id
+			FROM '.$this->tables['Messages'].' AS tm, '.$this->tables['Threads'].' AS tt
+			WHERE tm.tid = tt.tid AND tt.tid = '.$thread_id
 		);
 	}
 
@@ -85,10 +85,10 @@ class oml_factory
 
 	public function get_thread_last_message($thread_id, $order_by) {
 		$data = $this->db->GetRow(
-			'SELECT '.$this->tables['Messages'].'.*
-			FROM '.$this->tables['Messages'].', '.$this->tables['Threads'].'
-			WHERE '.$this->tables['Threads'].'.tid = '.$this->tables['Messages'].'.tid
-			AND '.$this->tables['Threads'].'.tid ='.$thread_id.'
+			'SELECT tm.*
+			FROM '.$this->tables['Messages'].' AS tm, '.$this->tables['Threads'].' AS tt
+			WHERE tt.tid = tm.tid
+			AND tt.tid ='.$thread_id.'
 			ORDER BY '.$order_by.' DESC'
 		);
 		if(!$data === false) {
@@ -101,10 +101,10 @@ class oml_factory
 
 	public function get_lists_last_message($list_id, $order_by) {
 		$data = $this->db->GetRow(
-			'SELECT '.$this->tables['Messages'].'.*
-			FROM '.$this->tables['Messages'].', '.$this->tables['Threads'].'
-			WHERE '.$this->tables['Threads'].'.tid = '.$this->tables['Messages'].'.tid
-			AND '.$this->tables['Threads'].'.lid ='.$list_id.'
+			'SELECT tm.*
+			FROM '.$this->tables['Messages'].' AS tm, '.$this->tables['Threads'].' AS tt
+			WHERE tt.tid = tm.tid
+			AND tt.lid ='.$list_id.'
 			ORDER BY '.$order_by.' DESC'
 		);
 		if(!$data === false) {
