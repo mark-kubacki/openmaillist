@@ -72,6 +72,11 @@ li.message dl {
 	border-bottom: 1px dashed #cccccc;
 }
 
+div.header {
+	float: left;
+	width: 100%;
+}
+
 div.header dl {
 	background-color: #efefef;
 }
