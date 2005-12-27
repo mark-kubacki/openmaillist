@@ -1,32 +1,28 @@
-Return-Path: <list@openmailadmin.org>
+Return-Path: <nobody@nowhere.de>
 Received: from murder ([unix socket])
          by neon (Cyrus v2.2.12-Gentoo) with LMTPA;
-         Tue, 01 Nov 2005 07:56:06 +0100
+         Fri, 28 Oct 2005 11:12:40 +0100
 X-Sieve: CMU Sieve 2.2
-Received: by neon.hurrikane.de (Postfix, from userid 81)
-        id 061A9C0B55C; Tue,  1 Nov 2005 07:56:05 +0100 (CET)
-Subject: [openmailadmin] version 0.9?
-From: "ethan" <ethan@md.com.my>
-Reply-to: "openmailadmin" <list@openmailadmin.org>
-To: "openmailadmin" <list@openmailadmin.org>
-Date: Tue, 1 Nov 2005 07:56:04 +0100
-Message-ID: <275957489@lists.openmailadmin.org>
-Precedence: bulk
-Mailing-List: <list@openmailadmin.org>
-Delivered-To: <list@openmailadmin.org>
-List-Id: openmailadmin <list.openmailadmin.org>
-List-Subscribe: <mailto:list@openmailadmin.org?subject=subscribe>
-List-Unsubscribe: <mailto:list@openmailadmin.org?subject=unsubscribe>
-List-Post: <mailto:list@openmailadmin.org>
-X-Mailer: MailGust
+Received: by neon.example.com (Postfix, from userid 81)
+        id 061A9C0B55C; Fri, 28 Oct 2005 11:12:39 +0100 (CET)
+Subject: Maus unter X
+From: "Sample User 1" <sample1@example.com>
+To: <list@example.com>
+Date: Fri, 28 Oct 2005 11:12:20 +0100
+Message-ID: <200510281111.13579.user1@example.com>
 Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
-X-Spam-Checker-Version: SpamAssassin 3.0.4-gr0 (2005-06-05) on
-        neon.hurrikane.de
-X-Spam-Level:
-X-Spam-Status: No, score=-2.8 required=5.0 tests=ALL_TRUSTED
-        autolearn=unavailable version=3.0.4-gr0
+
+Hi Mark,
+
+hiermit sollte es gehen:
 
 
-may i know when is the actual date for the 0.9 release?thanks
+Section "InputDevice"
+        Identifier      "Configured Mouse"
+        Driver          "mouse"
+        Option          "CorePointer"
+        Option          "Device"                "/dev/input/mice"
+        Option          "Protocol"              "ImPS/2"
+        Option          "ZAxisMapping"          "4 5"
 
