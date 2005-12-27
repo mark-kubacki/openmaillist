@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * Any object which is to be stored in DB will be descendant of this class.
  */
 abstract class OMLStoredItem
 	extends DataCarrier
@@ -9,16 +9,11 @@ abstract class OMLStoredItem
 	protected $db;
 	protected $table;
 
-	// due to DatabaseStorer
 	function __construct(ADOConnection $database_handler, $preferred_tablename) {
 		$this->db	= $database_handler;
 		$this->table	= $preferred_tablename;
 	}
 
-	/**
-	 * Writes changes (or even new data) to db.
-	 * @returns boolean	true on success
-	 */
 	public function write_to_db() {
 		if(!$this->has($this->get_unique_key())) {
 			$result = $this->db->AutoExecute($this->table, $this->confess(), 'INSERT');
@@ -34,7 +29,7 @@ abstract class OMLStoredItem
 	}
 
 	/**
-	 * returns boolean	true on success
+	 * @return		true on success
 	 */
 	public function remove_from_db() {
 		if($this->has($this->get_unique_key())) {
@@ -44,10 +39,10 @@ abstract class OMLStoredItem
 		return true;
 	}
 
-	// due to UniqueItem
 	public function get_unique_key() {
 		return $this->unique_key;
 	}
+
 	public function get_unique_value() {
 		if(!$this->has($this->get_unique_key())) {
 			$this->write_to_db();
@@ -59,7 +54,7 @@ abstract class OMLStoredItem
 	 * Execute if you want this object be filled with contents from an already existing entry.
 	 * Changes made prior to it's call will be discarded, so don't forget serialization.
 	 *
-	 * @returns boolean	whether unique_key was found an we acquired data successfully
+	 * @return	Boolean, true if unique_key was found an we acquired data successfully.
 	 */
 	public function set_unique_value($value) {
 		$rs = $this->db->GetRow('SELECT * FROM '.$this->table.' WHERE '.$this->get_unique_key().'='.$value);
@@ -69,7 +64,6 @@ abstract class OMLStoredItem
 		}
 		return false;
 	}
-
 
 }
 

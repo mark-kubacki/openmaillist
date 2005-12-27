@@ -1,6 +1,7 @@
 <?php
 /**
  * A collection of common implementations.
+ * To demand factory as constructor.
  */
 abstract class OMLObject
 	extends OMLStoredItem

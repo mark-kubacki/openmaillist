@@ -7,10 +7,6 @@ class oml_thread
 	protected $unique_key		= 'tid';
 
 	/* administrative */
-	/**
-	 * @returns integer	0 if failure, 1 if errors, 2 if successful
-	 * @see_also		adodb: ExecuteSQLArray and table creation
-	 */
 	public static function create_your_table(ADOConnection $db, $tablename) {
 		$flds		= file_get_contents(self::$schema_file);
 		$taboptarray	= array('mysql' => 'ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci');
@@ -27,6 +23,11 @@ class oml_thread
 		}
 	}
 
+	/**
+	 * Retrieving a particular named thread is necessary while registering a message with a list.
+	 *
+	 * @return		The thread or false.
+	 */
 	public static function get_thread_with_name(ADOConnection $db, oml_factory $factory, $tablename, $list_id, $name) {
 		$result		= array();
 		$tid = $db->GetOne('SELECT tid FROM '.$tablename.' WHERE lid='.$list_id.' AND threadname='.$db->qstr($name));
@@ -36,14 +37,28 @@ class oml_thread
 		return false;
 	}
 
+	/**
+	 * Factory cannot know that we store list_id along with all data.
+	 * Don't mix this up with number_of_messages().
+	 *
+	 * @return		Unsigned integer.
+	 */
 	public static function get_num_threads_of(ADOConnection $db, $tablename, $list_id) {
 		return $db->GetOne('SELECT COUNT(*) FROM '.$tablename.' WHERE lid='.$list_id);
 	}
 
+	/**
+	 * Used in displaying thread's contents.
+	 */
 	public function get_messages() {
 		return $this->factory->get_all_messages_of($this->get_unique_value());
 	}
 
+	/**
+	 * Used in displaying the threads' list.
+	 *
+	 * @return		Integer greater than 0 as threads without messages cannot exist.
+	 */
 	public function number_of_messages() {
 		if(!$this->has('posts')) {
 			$this->setter('posts', $this->factory->get_thread_num_messages($this->get_unique_value()));
@@ -51,6 +66,9 @@ class oml_thread
 		return $this->getter('posts');
 	}
 
+	/**
+	 * Usefull at displaying threads' list.
+	 */
 	public function get_last_message() {
 		return $this->factory->get_thread_last_message($this->get_unique_value(), 'datereceived');
 	}
@@ -76,12 +94,18 @@ class oml_thread
 		$this->setter('threadname', $txt);
 	}
 
+	/**
+	 * Writes thread immediately to db after having increased the counter.
+	 */
 	public function inc_views() {
 		$n = $this->get_views();
 		$this->setter('views', ++$n);
 		$this->write_to_db();
 	}
 
+	/**
+	 * Used in creation of new thread by oml_list.
+	 */
 	public function associate_with_list(oml_list $partner) {
 		$this->setter('lid', $partner->get_unique_value());
 	}
