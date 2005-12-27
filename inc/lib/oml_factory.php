@@ -56,6 +56,9 @@ class oml_factory
 		return oml_list::get_list_by_name($this->db, $this, $this->tables['Lists'], $listname);
 	}
 
+	/**
+	 * @return		Particular thread or false.
+	 */
 	public function get_thread_with($list_id, $message_id) {
 		$thread	= oml_message::get_thread_with($this->db, $this, $this->tables['Messages'], $message_id);
 		$list	= $thread->get_owning_list();
@@ -70,6 +73,11 @@ class oml_factory
 		return oml_thread::get_thread_with_name($this->db, $this, $this->tables['Threads'], $list_id, $name);
 	}
 
+	/**
+	 * @param	msg	Message whose reference has to be retrieved.
+	 * @param	list_id	Only lists with this ID will be searched through.
+	 * @return	Message the given one refers to or false.
+	 */
 	public function get_latest_msg_referred_to(oml_message $msg, $list_id) {
 		try {
 			$data = $this->db->GetRow(
@@ -123,6 +131,9 @@ class oml_factory
 		return $this->db->Affected_Rows();
 	}
 
+	/**
+	 * @return	Message or false if none has been found.
+	 */
 	public function get_thread_last_message($thread_id, $order_by) {
 		$data = $this->db->GetRow(
 			'SELECT tm.*
@@ -139,13 +150,16 @@ class oml_factory
 		return false;
 	}
 
+	/**
+	 * @return	Message or false if none has been found.
+	 */
 	public function get_lists_last_message($list_id, $order_by) {
 		$data = $this->db->GetRow(
 			'SELECT tm.*
 			FROM '.$this->tables['Messages'].' AS tm, '.$this->tables['Threads'].' AS tt
 			WHERE tt.tid = tm.tid
 			AND tt.lid ='.$list_id.'
-			ORDER BY '.$order_by.' DESC'
+			ORDER BY tm'.$order_by.' DESC'
 		);
 		if(!$data === false) {
 			$msg = $this->get_message();

@@ -11,6 +11,9 @@ abstract class DataCarrier
 		return isset($this->data[$key]);
 	}
 
+	/**
+	 * @throw		If no value for $key has yet been set.
+	 */
 	protected function getter($key) {
 		if(isset($this->data[$key])) {
 			return $this->data[$key];
@@ -30,10 +33,16 @@ abstract class DataCarrier
 		return true;
 	}
 
-	public function become($data) {
+	/**
+	 * Use this to avoid calling setter several times.
+	 */
+	public function become(array $data) {
 		$this->data	= $data;
 	}
 
+	/**
+	 * @return	Array with all keys and their values.
+	 */
 	protected function confess() {
 		return $this->data;
 	}

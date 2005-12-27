@@ -62,7 +62,8 @@ final class openmaillist
 	/**
 	 * This is for integrating new emails.
 	 *
-	 * @param $input		String with the email-message.
+	 * @param	list		List the message has been addressed to.
+	 * @param	input		String with the email-message.
 	 * @throw			Several exceptions. You can use their text as error message.
 	 */
 	public function put_email(oml_list $list, oml_email $input) {
