@@ -95,12 +95,12 @@ class oml_email
 	 *
 	 * @param $key		Field of the header. (Lowercase)
 	 * @return		Value of that field.
-	 * @throw		If header-field does not exist.
+	 * @throw		If header-field does not exist or message is invalid.
 	 */
 	public function get_header($key) {
 		if(!$this->studied) {
 			if(!$this->study()) {
-				return '';
+				throw new Exception('Email cannot be studied.');
 			}
 		}
 
@@ -112,6 +112,18 @@ class oml_email
 		}
 		else {
 			throw new Exception('Email does not contain that field in header.');
+		}
+	}
+
+	/**
+	 * In case you allow optional fields you could utilize this.
+	 */
+	public function has_header($key) {
+		try {
+			$this->get_header($key);
+			return true;
+		} catch(Exception $e) {
+			return false;
 		}
 	}
 

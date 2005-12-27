@@ -44,6 +44,7 @@ $db->SetFetchMode(ADODB_FETCH_ASSOC);
 
 // include the backend
 $factory	= new oml_factory($db, $cfg['tablenames']);
+$oml		= new openmaillist($db, $factory);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -53,42 +54,11 @@ $myEmail = new oml_email($input);
 $myEmail->set_attachment_storage('/tmp');
 $myEmail->get_attachments();
 
-echo("On processing that message...\n");
-
 try {
-	$myMsg		= $factory->get_message();
-	$myMsg->let(	$myEmail->get_header('message-id'), $myEmail->get_header('date-send'), $myEmail->get_header('date-received'),
-			$myEmail->get_header('from'), $myEmail->get_header('subject'),
-			$myEmail->has_attachments() ? 1 : 0,
-			$myEmail->get_first_displayable_part(true));
-
-} catch (exception $e) {
-	die("... message could not be saved as it lacks important fields in header.\n");
-}
-
-if($myEmail->get_header('in-reply-to') != '') {
-	$myMsg->set_in_reply_to($myEmail->get_header('in-reply-to'));
-	try {
-		$myMsg->set_referenced($myEmail->get_header('references'));
-	} catch (exception $e) {
-		$myMsg->set_referenced('<'.$myEmail->get_header('in-reply-to').'>');
-	}
-}
-
-if($myMsg->write_to_db()) {
 	$theList	= $factory->get_list_by_name($argv[1]);
-	$theList->register_message($myMsg);
-
-	// write updated message to DB
-	if(!$myMsg->write_to_db()) {
-		$myMsg->remove_from_db();
-		$factory->delete_empty_threads($theList->get_unique_value());
-		die("... message could not be saved.\n");
-	} else {
-		echo("... message stored successfully.\n");
-	}
-} else {
-	die("... message could not be saved. Maybe it has already been stored.\n");
+	$oml->put_email($theList, $myEmail);
+} catch(Exception $e) {
+	die($e->getMessage()."\n");
 }
 
 chdir($former_directory);
