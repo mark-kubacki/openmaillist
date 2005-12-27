@@ -63,7 +63,7 @@ class DecodeMessage{
 			  			break;
 			  		endif;
 				}
-				if (ereg("^($field)", $p[$i]))  :
+				if (isset($p[$i]) && ereg("^($field)", $p[$i]))  :
 					for ($i=$position+1;$i<count($p);$i++) {
 						$tok = strtok($p[$i], " ");
 						if (ereg(":$", $tok) AND (!(eregi("^($field)", $tok))))
@@ -218,12 +218,12 @@ class DecodeMessage{
 				unset($is_multipart_alternative);
 				unset($best);
 				unset($found_best);
-				if (count($multiparts) > 0) :
+				if (isset($multiparts) && count($multiparts) > 0) :
 					$next_multipart = $this->my_array_shift($multiparts);
 					$this->InitMessage($next_multipart);
 				endif;
 			} while ($next_multipart != "");
-				if (chop($parts) != '') :
+				if (@chop($parts) != '') :
 
 					for ($i=0;$i<count($parts);$i++) {;
 						$this->InitMessage($parts[$i]);
@@ -289,7 +289,7 @@ class DecodeMessage{
 				unset($is_multpart_related);
 				unset($contentid);
 				unset($parts);
-				if (count($messages) > 0) :
+				if (isset($messages) && count($messages) > 0) :
 					$this->my_array_compact($messages);
 					$next_message = $this->my_array_shift($messages);
 					$this->InitMessage($next_message);
