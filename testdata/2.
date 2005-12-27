@@ -33,11 +33,11 @@ List-Post: <mailto:list@openmailadmin.org>
 In-Reply-To: <275957489@lists.openmailadmin.org>
 References: <275957489@lists.openmailadmin.org>
 Subject: Re: [openmailadmin] version 0.9?
-X-Spam-Checker-Version: SpamAssassin 3.0.4-gr0 (2005-06-05) on 
+X-Spam-Checker-Version: SpamAssassin 3.0.4-gr0 (2005-06-05) on
         neon.hurrikane.de
-X-Spam-Level: 
+X-Spam-Level:
 X-Spam-Status: No, score=-3.6 required=5.0 tests=AWL,LOCAL_SENDER_FROM,
-        RCVD_IN_NJABL_DUL,RCVD_IN_SORBS_DUL autolearn=unavailable 
+        RCVD_IN_NJABL_DUL,RCVD_IN_SORBS_DUL autolearn=unavailable
         version=3.0.4-gr0
 
 
@@ -45,7 +45,7 @@ Hi ethan,
 
 I can't definitely say when the new release comes out.
 
-Current working copies need still some testing and QA, therefore it 
+Current working copies need still some testing and QA, therefore it
 might take some days.
 
 Feel free to use a recent snapshot. The latest is known to be quite stable.
