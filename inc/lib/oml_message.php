@@ -58,31 +58,6 @@ class oml_message
 		return false;
 	}
 
-	public static function get_message_quoted_by(ADOConnection $db, oml_factory $factory, $tablename, oml_message $msg) {
-		try {
-			$row = $db->GetRow('SELECT * FROM '.$tablename.' WHERE message_id='.$db->qstr($msg->get_in_reply_to()));
-			if(!$row === false) {
-				$tmp		= $factory->get_message();
-				$tmp->become($row);
-				return $tmp;
-			} else if($msg->get_referenced() != '') {
-				$row = $db->GetRow(
-					'SELECT * FROM '.$tablename.
-					' WHERE '.$db->qstr($msg->get_referenced()).' LIKE CONCAT("%", message_id, "%") '.
-					'ORDER BY datereceived DESC'
-				);
-				if(!$row === false) {
-					$tmp		= $factory->get_message();
-					$tmp->become($row);
-					return $tmp;
-				}
-			}
-			trigger_error($msg->get_referenced());
-		} catch (exception $e) {
-		}
-		return false;
-	}
-
 	public function associate_with_thread(oml_thread $thread) {
 		return $this->setter('tid', $thread->get_unique_value());
 	}
