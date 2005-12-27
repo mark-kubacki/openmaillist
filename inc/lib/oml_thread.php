@@ -70,7 +70,7 @@ class oml_thread
 	 * Usefull at displaying threads' list.
 	 */
 	public function get_last_message() {
-		return $this->factory->get_thread_last_message($this->get_unique_value(), 'datereceived');
+		return $this->factory->get_thread_last_message($this->get_unique_value());
 	}
 
 	/* now come getters and setters */

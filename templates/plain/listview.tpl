@@ -19,7 +19,7 @@
 	    <td class="fig"><?= $list->number_of_messages() ?></td>
 	    <td class="date">
 		<?php if($list->number_of_messages() > 0) { ?>
-			<?php $post = $list->get_last_message('datereceived'); ?>
+			<?php $post = $list->get_last_message(); ?>
 			<?= $post->get_date_received($cfg['display']['date_format']) ?>
 		<?php } else { ?>
 			never
