@@ -38,7 +38,7 @@ class oml_factory
 			WHERE '.$list_id.'=th.lid
 			GROUP BY th.Threadname
 			HAVING posts > 0
-			ORDER BY tm.DateReceived DESC'
+			ORDER BY tm.datereceived DESC'
 		);
 		foreach($rs as $row) {
 			$tmp	= $this->get_thread();
@@ -134,13 +134,13 @@ class oml_factory
 	/**
 	 * @return	Message or false if none has been found.
 	 */
-	public function get_thread_last_message($thread_id, $order_by) {
+	public function get_thread_last_message($thread_id) {
 		$data = $this->db->GetRow(
 			'SELECT tm.*
 			FROM '.$this->tables['Messages'].' AS tm, '.$this->tables['Threads'].' AS tt
 			WHERE tt.tid = tm.tid
 			AND tt.tid ='.$thread_id.'
-			ORDER BY '.$order_by.' DESC'
+			ORDER BY tm.datereceived DESC'
 		);
 		if(!$data === false) {
 			$msg = $this->get_message();
@@ -153,13 +153,13 @@ class oml_factory
 	/**
 	 * @return	Message or false if none has been found.
 	 */
-	public function get_lists_last_message($list_id, $order_by) {
+	public function get_lists_last_message($list_id) {
 		$data = $this->db->GetRow(
 			'SELECT tm.*
 			FROM '.$this->tables['Messages'].' AS tm, '.$this->tables['Threads'].' AS tt
 			WHERE tt.tid = tm.tid
 			AND tt.lid ='.$list_id.'
-			ORDER BY tm'.$order_by.' DESC'
+			ORDER BY tm.datereceived DESC'
 		);
 		if(!$data === false) {
 			$msg = $this->get_message();

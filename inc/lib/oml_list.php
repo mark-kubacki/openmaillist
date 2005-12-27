@@ -110,8 +110,8 @@ class oml_list
 	}
 
 	/** for generating pverview of all lists */
-	public function get_last_message($order_by) {
-		return $this->factory->get_lists_last_message($this->get_unique_value(), $order_by);
+	public function get_last_message() {
+		return $this->factory->get_lists_last_message($this->get_unique_value());
 	}
 
 	/* now come getters and setters */
