@@ -70,10 +70,6 @@ class oml_factory
 		return oml_thread::get_thread_with_name($this->db, $this, $this->tables['Threads'], $list_id, $name);
 	}
 
-	public function get_message_quoted_by(oml_message $msg) {
-		return oml_message::get_message_quoted_by($this->db, $this, $this->tables['Messages'], $msg);
-	}
-
 	public function get_latest_msg_referred_to(oml_message $msg, $list_id) {
 		try {
 			$data = $this->db->GetRow(

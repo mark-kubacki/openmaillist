@@ -51,14 +51,6 @@ class oml_thread
 		return $this->getter('posts');
 	}
 
-	public function get_date_last_post() {
-		if(!$this->has('lastdate')) {
-			$tmp	= $this->get_last_message();
-			$this->setter('lastdate', $tmp->get_date_received());
-		}
-		return $this->getter('lastdate');
-	}
-
 	public function get_last_message() {
 		return $this->factory->get_thread_last_message($this->get_unique_value(), 'datereceived');
 	}
