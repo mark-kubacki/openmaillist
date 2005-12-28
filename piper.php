@@ -20,31 +20,7 @@ TXT
 $former_directory	= getcwd();
 chdir($argv[2]);
 
-/* copied from inc/_prepend.php */
-include('./inc/config.inc.php');
-@(include('./inc/config.local.inc.php'))
-	or die('You have to create an configuration file, first.');
-include('adodb/adodb.inc.php');
-include('./inc/functions.inc.php');
-
-// table names with prefixes
-$cfg['tablenames']
-	= array('Attachments'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Attachments',
-		'Lists'		=> $cfg['Servers']['DB'][0]['PREFIX'].'Lists',
-		'Messages'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Messages',
-		'Threads'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Threads',
-		);
-
-// set anything important to ADOdb
-$db	= ADONewConnection($cfg['Servers']['DB'][0]['TYPE']);
-$db->Connect(	$cfg['Servers']['DB'][0]['HOST'],
-		$cfg['Servers']['DB'][0]['USER'], $cfg['Servers']['DB'][0]['PASS'],
-		$cfg['Servers']['DB'][0]['DB']);
-$db->SetFetchMode(ADODB_FETCH_ASSOC);
-
-// include the backend
-$factory	= new oml_factory($db, $cfg['tablenames']);
-$oml		= new openmaillist($db, $factory);
+include('./inc/_prepend.php');
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -62,5 +38,6 @@ try {
 }
 
 chdir($former_directory);
+include('./inc/_append.php');
 
 ?>

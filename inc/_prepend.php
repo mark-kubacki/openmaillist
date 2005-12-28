@@ -12,9 +12,6 @@ include('./inc/config.inc.php');
 include('adodb/adodb.inc.php');
 include('./inc/functions.inc.php');
 
-// MAIN
-include('./templates/'.$cfg['theme'].'/common-header.tpl');
-
 // table names with prefixes
 $cfg['tablenames']
 	= array('Attachments'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Attachments',
