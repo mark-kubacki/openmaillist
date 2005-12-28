@@ -49,6 +49,8 @@
 </file>
 <file url="inc/functions.inc.php" id="107DD631B80L6050fcda0x24f9" name="functions.inc.php">
 </file>
+<file url="inc/config.local.inc.php" id="108723AA646L1437bc180x2742" name="config.local.inc.php">
+</file>
 </folder>
 <folder url="templates" id="107706CE8E4L7b51b0e00x786e" name="templates">
 <folder url="templates/plain" id="107706CE8E5L6c22f70c0x786e" name="plain">
@@ -63,6 +65,8 @@
 <file url="templates/plain/messagesview.tpl" id="1078B7F52B1L56ca104b0x2498" name="messagesview.tpl">
 </file>
 </folder>
+<file url="templates/rss_2.0.tpl" id="10872240239L69da1d0x2742" name="rss_2.0.tpl">
+</file>
 </folder>
 <file url="index.php" id="107709878DDL663984a10x2334" name="index.php">
 </file>
@@ -97,5 +101,7 @@
 <file url="piper.php" id="107D2D45CF8L6fb49a5c0x67d6" name="piper.php">
 </file>
 <file url="doxygen.conf" id="1086CD90F7DL2e498c550x2674" name="doxygen.conf">
+</file>
+<file url="rss.php" id="10872241E63L575981b30x2742" name="rss.php">
 </file>
 </project>

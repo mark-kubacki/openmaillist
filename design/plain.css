@@ -122,5 +122,21 @@ div.attachment ol {
 	padding-bottom: 0.5em;
 }
 span.quote {
-    color: #0000c0;
+	color: #0000c0;
+}
+
+/* extras for other standards */
+div.rss {
+	margin-top: 0.75em;
+}
+a.rss {
+	text-decoration: none;
+	font-size: smaller;
+}
+cite.rss {
+	background-color: #ff6600;
+	color: #ffffff;
+	padding-left: 2px;
+	padding-right: 1px;
+	font-style: normal;
 }

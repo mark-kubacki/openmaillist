@@ -21,3 +21,8 @@
 	</tr>
     <?php } ?>
 </table>
+<div class="rss">
+	<a href="rss.php?lid=<?= $list->get_unique_value() ?>" class="rss" title="This is a link to this list's RSS channel: <?= $list->get_name() ?>">
+		<img src="<?= $cfg['images_dir'] ?>/xml.gif" border="0" alt="XML" title="XML logo" /> RSS feed
+	</a>
+</div>

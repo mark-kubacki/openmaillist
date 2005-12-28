@@ -65,4 +65,16 @@ function format_quotings($text) {
 				$text);
 }
 
+/**
+ *
+ */
+function format_for_rss($text, $length = 0, $append = '...') {
+	$text	= strip_tags($text);
+	if($length - strlen($append) > 0 && strlen($text) > $length) {
+		$text	= substr($text, 0, $length - strlen($append)).$append;
+	}
+	$text	= utf8_encode(htmlspecialchars($text));
+
+	return $text;
+}
 ?>

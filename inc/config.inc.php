@@ -13,9 +13,15 @@ $cfg['force_default_language']	= false;
 $cfg['images_dir']	= 'images';		// This is where you store all the images
 $cfg['design_dir']	= 'design';		// CSS
 $cfg['upload_dir']	= 'uploads';		// such as attachments
+// This shall be the URL of this server, not the possible "other one":
+$cfg['AbsoluteUri']	= '';			// i.e.: http://lists.example.com/oml
 
 // Specify here how date shall be formatted by default. See function 'date' for possible values.
 $cfg['display']['date_format']	= 'Y-m-d H:i';
+
+// How many entries shall we display in RSS?
+$cfg['rss']['num_messages']		= 15;
+$cfg['rss']['max_description_length']	= 256;
 
 // Select one of: plain
 $cfg['theme']		= 'plain';
