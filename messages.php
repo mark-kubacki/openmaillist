@@ -1,5 +1,6 @@
 <?php
 include('./inc/_prepend.php');
+include('./templates/'.$cfg['theme'].'/common-header.tpl');
 
 // ------------------------------ Messages --------------------------------------------------------
 
@@ -12,5 +13,6 @@ $messages	= $thread->get_messages();
 // DISPLAY
 include('./templates/'.$cfg['theme'].'/messagesview.tpl');
 
+include('./templates/'.$cfg['theme'].'/common-footer.tpl');
 include('./inc/_append.php');
 ?>
