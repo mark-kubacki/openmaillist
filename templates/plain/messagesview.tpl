@@ -4,7 +4,7 @@
 </div>
 <ol class="messages">
 <?php foreach($messages as $msg) { ?>
-<li class="message">
+<li class="message" id="<?= $msg->get_unique_value() ?>">
     <div class="header">
 	<dl>
 	    <dt>Sender:</dt>

@@ -114,6 +114,16 @@ class oml_list
 		return $this->factory->get_lists_last_message($this->get_unique_value());
 	}
 
+	/**
+	 * This is handy for creating RSS output.
+	 *
+	 * @param	max	That many messages will be returned at most.
+	 * @return		Messages as array, from latest to oldest.
+	 */
+	public function get_num_latest_entries($max) {
+		return $this->factory->get_lists_latest_messages($this->get_unique_value(), $max);
+	}
+
 	/* now come getters and setters */
 	public function get_name() {
 		return $this->getter('lname');

@@ -154,19 +154,33 @@ class oml_factory
 	 * @return	Message or false if none has been found.
 	 */
 	public function get_lists_last_message($list_id) {
-		$data = $this->db->GetRow(
+		$tmp = $this->get_lists_latest_messages($list_id, 1);
+		if(isset($tmp[0])) {
+			return $tmp[0];
+		}
+		return false;
+	}
+
+	/**
+	 * @see		oml_list::get_num_latest_entries
+	 */
+	public function get_lists_latest_messages($list_id, $max) {
+		$ret	= array();
+		$data = $this->db->SelectLimit(
 			'SELECT tm.*
 			FROM '.$this->tables['Messages'].' AS tm, '.$this->tables['Threads'].' AS tt
 			WHERE tt.tid = tm.tid
 			AND tt.lid ='.$list_id.'
 			ORDER BY tm.datereceived DESC'
-		);
+			, $max);
 		if(!$data === false) {
-			$msg = $this->get_message();
-			$msg->become($data);
-			return $msg;
+			foreach($data as $row) {
+				$tmp	= $this->get_message();
+				$tmp->become($row);
+				$ret[]	= $tmp;
+			}
 		}
-		return false;
+		return $ret;
 	}
 
 	public function get_list($lid = null) {
