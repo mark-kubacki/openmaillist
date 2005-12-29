@@ -1,0 +1,13 @@
+#!/bin/env php
+<?php
+chdir('/var/www/localhost/htdocs/openmaillist');
+include('./inc/_prepend.php');
+
+if(!defined('PHPUnit2_MAIN_METHOD')) {
+	define('PHPUnit2_MAIN_METHOD',	'OML_Test_Suite::main');
+}
+
+require_once './tests/__init__.php';
+
+include('./inc/_append.php');
+?>
