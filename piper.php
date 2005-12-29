@@ -6,9 +6,9 @@ if(isset($_SERVER['SERVER_SOFTWARE'])) {
 	die('This is an executable, not suited for being served by any webserver.');
 }
 
-if($argc <= 2) {
+if($argc <= 1) {
 	die(<<<TXT
-Usage:		| piper.php LISTNAME DIRECTORY_OF_OML
+Usage:		| piper.php LISTNAME
 
 Will try to store the given message in openmaillist.
 The message in question has to be provided through STDIN.
@@ -18,7 +18,7 @@ TXT
 }
 ////////////////////////////////////////////////////////////////////////////////
 $former_directory	= getcwd();
-chdir($argv[2]);
+chdir(dirname($_ENV['_']));
 
 include('./inc/_prepend.php');
 
