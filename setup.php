@@ -42,9 +42,9 @@ echo('<br />');
 echo('<h3>example messages</h3>');
 try {
 	$myList = $factory->get_list_by_name('mylist');
-	$todo	= array('./testdata/1.',
-			'./testdata/2.',
-			'./testdata/3.',
+	$todo	= array($cfg['sample_msg'].'/1.',
+			$cfg['sample_msg'].'/2.',
+			$cfg['sample_msg'].'/3.',
 			);
 	foreach($todo as $filename) {
 		$email	= new oml_email(file_get_contents($filename));
