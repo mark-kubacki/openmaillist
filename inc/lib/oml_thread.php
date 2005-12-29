@@ -60,7 +60,7 @@ class oml_thread
 	 * @return		Integer greater than 0 as threads without messages cannot exist.
 	 */
 	public function number_of_messages() {
-		if(!$this->has('posts')) {
+		if(isset($this->posts)) {
 			$this->setter('posts', $this->factory->get_thread_num_messages($this->get_unique_value()));
 		}
 		return $this->getter('posts');
@@ -83,7 +83,7 @@ class oml_thread
 	}
 
 	public function get_views() {
-		if($this->has('views')) {
+		if(isset($this->views)) {
 			return (int) $this->getter('views');
 		} else {
 			return 0;

@@ -7,15 +7,15 @@ abstract class DataCarrier
 {
 	private		$data	= array();
 
-	protected function has($key) {
-		return isset($this->data[$key]);
+	protected function __isset($key) {
+		return array_key_exists($key, $this->data);
 	}
 
 	/**
 	 * @throw		If no value for $key has yet been set.
 	 */
 	protected function getter($key) {
-		if(isset($this->data[$key])) {
+		if(array_key_exists($key, $this->data)) {
 			return $this->data[$key];
 		} else {
 			throw new Exception('Container does not contain value for "'.$key.'".');
@@ -24,7 +24,7 @@ abstract class DataCarrier
 
 	protected function setter($key, $value) {
 		if(is_null($value)) {
-			if(isset($this->data[$key])) {
+			if(array_key_exists($key, $this->data)) {
 				unset($this->data[$key]);
 			}
 		} else {
