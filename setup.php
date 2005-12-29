@@ -2,6 +2,7 @@
 die('Uncomment this for setting up OML. After having done so, restore this line.');
 
 include('./inc/_prepend.php');
+include('./templates/'.$cfg['theme'].'/common-header.tpl');
 
 echo('<h2>Setup</h2>');
 echo('<h3>creation of tables</h3>');
@@ -54,5 +55,6 @@ try {
 	echo('<i>'.$e->getMessage().'</i>');
 }
 
+include('./templates/'.$cfg['theme'].'/common-footer.tpl');
 include('./inc/_append.php');
 ?>
