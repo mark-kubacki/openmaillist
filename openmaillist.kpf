@@ -78,24 +78,6 @@
 <file url="samples/config.local.inc.php" id="107709B94E5L61bdd8d0x2334" name="config.local.inc.php">
 </file>
 </folder>
-<folder id="107A00B40A5L7b8e6b740x3fa2" name="design">
-<file url="design/plain.css" id="107A00B5F31L30dba9e20x3fa2" name="plain.css">
-</file>
-</folder>
-<folder id="107C37D10C4L404c42360x250e" name="testdata">
-<file url="testdata/1." id="107C37D446CL66290ad10x250e" name="1.">
-</file>
-<file url="testdata/2." id="107C37D447AL2cae39ef0x250e" name="2.">
-</file>
-<file url="testdata/3." id="107D2D3F09CL757cf7170x67d6" name="3.">
-</file>
-<file url="testdata/4." id="1086CDA32EEL16fd9fed0x2674" name="4.">
-</file>
-<file url="testdata/82." id="1086CDA3307L1853e1330x2674" name="82.">
-</file>
-<file url="testdata/83." id="1086CDA3321L384d471f0x2674" name="83.">
-</file>
-</folder>
 <file url="setup.php" id="1080BA49D6ELae578fc0x267a" name="setup.php">
 </file>
 <file url="piper.php" id="107D2D45CF8L6fb49a5c0x67d6" name="piper.php">
@@ -104,4 +86,24 @@
 </file>
 <file url="rss.php" id="10872241E63L575981b30x2742" name="rss.php">
 </file>
+<folder id="10877EB87E9L3fc99e010x2f05" name="static">
+<folder id="107A00B40A5L7b8e6b740x3fa2" name="design">
+<file url="static/design/plain.css" id="107A00B5F31L30dba9e20x3fa2" name="plain.css">
+</file>
+</folder>
+<folder id="107C37D10C4L404c42360x250e" name="testdata">
+<file url="static/testdata/1." id="107C37D446CL66290ad10x250e" name="1.">
+</file>
+<file url="static/testdata/2." id="107C37D447AL2cae39ef0x250e" name="2.">
+</file>
+<file url="static/testdata/3." id="107D2D3F09CL757cf7170x67d6" name="3.">
+</file>
+<file url="static/testdata/4." id="1086CDA32EEL16fd9fed0x2674" name="4.">
+</file>
+<file url="static/testdata/82." id="1086CDA3307L1853e1330x2674" name="82.">
+</file>
+<file url="static/testdata/83." id="1086CDA3321L384d471f0x2674" name="83.">
+</file>
+</folder>
+</folder>
 </project>
