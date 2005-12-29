@@ -10,9 +10,10 @@ $cfg['force_default_language']	= false;
 // You may want to move some files to a second webserver
 // in order to decrease the load on your SSL-enabled one.
 // (Directories out of the client's browser's view.)
-$cfg['images_dir']	= 'images';		// This is where you store all the images
-$cfg['design_dir']	= 'design';		// CSS
-$cfg['upload_dir']	= 'uploads';		// such as attachments
+$cfg['images_dir']	= 'static/images';	// This is where you store all the images
+$cfg['design_dir']	= 'static/design';	// CSS
+$cfg['upload_dir']	= 'static/uploads';	// such as attachments
+$cfg['sample_msg']	= './static/testdata';	// sample emails
 // This shall be the URL of this server, not the possible "other one":
 $cfg['AbsoluteUri']	= '';			// i.e.: http://lists.example.com/oml
 
