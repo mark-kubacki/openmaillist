@@ -168,6 +168,9 @@ class oml_email
 	 * @return		Boolean.
 	 */
 	public function has_attachments() {
+		if(!$this->decoded) {
+			$this->decode();
+		}
 		return ($this->structure->ctype_secondary != 'plain');
 	}
 
