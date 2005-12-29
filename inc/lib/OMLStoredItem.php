@@ -15,7 +15,7 @@ abstract class OMLStoredItem
 	}
 
 	public function write_to_db() {
-		if(!$this->has($this->get_unique_key())) {
+		if(!isset($this->{$this->unique_key})) {
 			$result = $this->db->AutoExecute($this->table, $this->confess(), 'INSERT');
 			if($result) {
 				$this->setter($this->get_unique_key(), $this->db->Insert_ID());
@@ -32,7 +32,7 @@ abstract class OMLStoredItem
 	 * @return		true on success
 	 */
 	public function remove_from_db() {
-		if($this->has($this->get_unique_key())) {
+		if(isset($this->{$this->unique_key})) {
 			$this->db->Execute('DELETE FROM '.$this->table.' WHERE '.$this->get_unique_key().'='.$this->get_unique_value());
 			return ($this->db->Affected_Rows() > 0);
 		}
@@ -44,7 +44,7 @@ abstract class OMLStoredItem
 	}
 
 	public function get_unique_value() {
-		if(!$this->has($this->get_unique_key())) {
+		if(!isset($this->{$this->unique_key})) {
 			$this->write_to_db();
 		}
 		return $this->getter($this->get_unique_key());
