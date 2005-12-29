@@ -205,7 +205,7 @@ class DecodeMessage{
 						endif;
 						#echo "<pre>($i)###".htmlspecialchars($this->header)."</pre>--###<hr>";
 					}
-					if (chop($best) != '') :
+					if(isset($best) && chop($best) != '') :
 						$parts[] = $best;
 					endif;
 				else :
