@@ -129,6 +129,9 @@ span.quote {
 div.rss {
 	margin-top: 0.75em;
 }
+div.rss a.rss {
+	color: #ff6600;
+}
 a.rss {
 	text-decoration: none;
 	font-size: smaller;
