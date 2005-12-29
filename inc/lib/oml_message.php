@@ -64,7 +64,7 @@ class oml_message
 	 * @see		oml_list::register_message
 	 */
 	public function associate_with_thread(oml_thread $thread) {
-		return $this->setter('tid', $thread->get_unique_value());
+		return $this->tid	= $thread->get_unique_value();
 	}
 
 	/**
@@ -74,9 +74,9 @@ class oml_message
 	 */
 	public function get_text($strip_tags = false) {
 		if($strip_tags) {
-			return strip_tags(imap_qprint($this->getter('msgtext')));
+			return strip_tags(imap_qprint($this->msgtext));
 		} else {
-			return imap_qprint($this->getter('msgtext'));
+			return imap_qprint($this->msgtext);
 		}
 	}
 
@@ -87,7 +87,7 @@ class oml_message
 	 */
 	public function set_text($text) {
 		$text	= imap_qprint($text);
-		$this->setter('msgtext', $text);
+		$this->msgtext	= $text;
 	}
 
 	/**
@@ -96,36 +96,36 @@ class oml_message
 	 * @param	message_id	... of message this is the reply to. Need not exist in DB.
 	 */
 	public function set_in_reply_to($message_id) {
-		$this->setter('in_reply_to', $message_id);
+		$this->in_reply_to	= $message_id;
 	}
 
 	/**
 	 * @param	references	References as list of message_ids.
 	 */
 	public function set_referenced($references) {
-		$this->setter('refers', $references);
+		$this->refers	= $references;
 	}
 
 	/**
 	 * @return		message_id of message this one replies to
-	 * @warning		If this is not a reply an exception might be thrown by DataCarrier::getter.
+	 * @warning		If this is not a reply an exception might be thrown by DataCarrier::__get.
 	 */
 	public function get_in_reply_to() {
-		return $this->getter('in_reply_to');
+		return $this->in_reply_to;
 	}
 
 	/**
 	 * @return		References as list of message_ids.
 	 */
 	public function get_referenced() {
-		return $this->getter('refers');
+		return $this->refers;
 	}
 
 	/**
 	 * @return	String if successfully determined the sender's name, else false.
 	 */
 	public function get_senders_name() {
-		if(preg_match(self::$rex_name, $this->getter('sender'), $arr)) {
+		if(preg_match(self::$rex_name, $this->sender, $arr)) {
 			return trim($arr[1]);
 		}
 		return false;
@@ -135,7 +135,7 @@ class oml_message
 	 * @return	String if successfully determined the sender's email, else false.
 	 */
 	public function get_senders_email() {
-		if(preg_match(self::$rex_email, $this->getter('sender'), $arr)) {
+		if(preg_match(self::$rex_email, $this->sender, $arr)) {
 			return $arr[1];
 		}
 		return false;
@@ -164,7 +164,7 @@ class oml_message
 	 * Subject can also be called "topic".
 	 */
 	public function get_subject() {
-		return $this->getter('subject');
+		return $this->subject;
 	}
 
 	/**
@@ -188,9 +188,9 @@ class oml_message
 	 */
 	private function get_date($send_or_received, $format = null) {
 		if(is_null($format)) {
-			return $this->getter($send_or_received);
+			return $this->{$send_or_received};
 		} else {
-			return date($format, $this->getter($send_or_received));
+			return date($format, $this->{$send_or_received});
 		}
 	}
 
@@ -230,7 +230,7 @@ class oml_message
 	 * Used at displaying threads' messages.
 	 */
 	public function get_owning_thread() {
-		return $this->factory->get_thread($this->getter('tid'));
+		return $this->factory->get_thread($this->tid);
 	}
 
 }

@@ -126,27 +126,27 @@ class oml_list
 
 	/* now come getters and setters */
 	public function get_name() {
-		return $this->getter('lname');
+		return $this->lname;
 	}
 	public function get_address() {
-		return $this->getter('lemailto');
+		return $this->lemailto;
 	}
 	public function get_description() {
-		return $this->getter('ldescription');
+		return $this->ldescription;
 	}
 
 	public function set_name($txt) {
-		$this->setter('lname', $txt);
+		$this->lname	= $txt;
 	}
 	public function set_address($txt) {
 		if(preg_match('/([\w0-9][\w0-9\.\-\_\+]{1,}@[\w0-9\.\-\_]{2,}\.[\w]{2,})/i', $txt)) {
-			$this->setter('lemailto', $txt);
+			$this->lemailto	= $txt;
 		} else {
 			throw new Exception('Address has to be a valid email-alias.');
 		}
 	}
 	public function set_description($txt) {
-		$this->setter('ldescription', $txt);
+		$this->ldescription	= $txt;
 	}
 
 }
