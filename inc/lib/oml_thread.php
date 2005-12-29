@@ -61,9 +61,9 @@ class oml_thread
 	 */
 	public function number_of_messages() {
 		if(isset($this->posts)) {
-			$this->setter('posts', $this->factory->get_thread_num_messages($this->get_unique_value()));
+			$this->posts	= $this->factory->get_thread_num_messages($this->get_unique_value());
 		}
-		return $this->getter('posts');
+		return $this->posts;
 	}
 
 	/**
@@ -75,23 +75,23 @@ class oml_thread
 
 	/* now come getters and setters */
 	public function get_name() {
-		return $this->getter('threadname');
+		return $this->threadname;
 	}
 
 	public function get_owning_list() {
-		return $this->factory->get_list($this->getter('lid'));
+		return $this->factory->get_list($this->lid);
 	}
 
 	public function get_views() {
 		if(isset($this->views)) {
-			return (int) $this->getter('views');
+			return (int) $this->views;
 		} else {
 			return 0;
 		}
 	}
 
 	public function set_name($txt) {
-		$this->setter('threadname', $txt);
+		$this->threadname	= $txt;
 	}
 
 	/**
@@ -99,7 +99,7 @@ class oml_thread
 	 */
 	public function inc_views() {
 		$n = $this->get_views();
-		$this->setter('views', ++$n);
+		$this->views	= ++$n;
 		$this->write_to_db();
 	}
 
@@ -107,7 +107,7 @@ class oml_thread
 	 * Used in creation of new thread by oml_list.
 	 */
 	public function associate_with_list(oml_list $partner) {
-		$this->setter('lid', $partner->get_unique_value());
+		$this->lid	= $partner->get_unique_value();
 	}
 
 }

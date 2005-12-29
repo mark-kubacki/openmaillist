@@ -18,7 +18,7 @@ abstract class OMLStoredItem
 		if(!isset($this->{$this->unique_key})) {
 			$result = $this->db->AutoExecute($this->table, $this->confess(), 'INSERT');
 			if($result) {
-				$this->setter($this->get_unique_key(), $this->db->Insert_ID());
+				$this->{$this->get_unique_key()}	= $this->db->Insert_ID();
 				return true;
 			}
 			return false;
@@ -47,7 +47,7 @@ abstract class OMLStoredItem
 		if(!isset($this->{$this->unique_key})) {
 			$this->write_to_db();
 		}
-		return $this->getter($this->get_unique_key());
+		return $this->{$this->get_unique_key()};
 	}
 
 	/**

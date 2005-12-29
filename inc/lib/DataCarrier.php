@@ -14,15 +14,15 @@ abstract class DataCarrier
 	/**
 	 * @throw		If no value for $key has yet been set.
 	 */
-	protected function getter($key) {
+	protected function __get($key) {
 		if(array_key_exists($key, $this->data)) {
 			return $this->data[$key];
 		} else {
-			throw new Exception('Container does not contain value for "'.$key.'".');
+			throw new Exception('Variable does not exist or has not been set.');
 		}
 	}
 
-	protected function setter($key, $value) {
+	protected function __set($key, $value) {
 		if(is_null($value)) {
 			if(array_key_exists($key, $this->data)) {
 				unset($this->data[$key]);
