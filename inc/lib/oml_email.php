@@ -40,9 +40,7 @@ class oml_email
 		// Now we have to pick all the interesting values from the headers.
 		$this->hoi['message-id']	= substr($this->structure->headers['message-id'], 1, -1);
 		$this->hoi['from']		= $this->structure->headers['from'];
-		$this->hoi['date-received']	= strtotime(substr(strrchr($this->structure->headers['received'][0], ';'), 2));
 		$this->hoi['subject']		= $this->structure->headers['subject'];
-
 		$this->hoi['_recipient']	= $this->structure->headers['to'];
 
 		if(isset($this->structure->headers['in-reply-to'])) {
@@ -54,13 +52,22 @@ class oml_email
 			$this->hoi['references']	= $this->structure->headers['references'];
 		}
 
-		// Get the chronological first "Received"-entry.
-		$i = count($this->structure->headers['received']) - 1;
-		if($i > 0) {
-			$this->hoi['date-send']		= strtotime(substr(strrchr($this->structure->headers['received'][$i], ';'), 2));
-		}
-		else {
-			$this->hoi['date-send']		= $this->hoi['date-received'];
+		// make sure, date-send and date-received are set correctly
+		if(isset($this->structure->headers['received'])) {
+			$i = count($this->structure->headers['received']) - 1;
+			$this->hoi['date-received']	= strtotime(substr(strrchr($this->structure->headers['received'][0], ';'), 2));
+			if($i > 0) {
+				$this->hoi['date-send']		= strtotime(substr(strrchr($this->structure->headers['received'][$i], ';'), 2));
+			}
+			else {
+				$this->hoi['date-send']		= $this->hoi['date-received'];
+			}
+		} else {
+			// this could be the case when we got a draft for analyzation
+			if(isset($this->structure->headers['date'])) {
+				$this->hoi['date-send']		= strtotime($this->structure->headers['date']);
+				$this->hoi['date-received']	= strtotime($this->structure->headers['date']);
+			}
 		}
 
 		$this->studied = true;
