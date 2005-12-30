@@ -1,99 +1,60 @@
 <?php
-include('Mail/mimeDecode.php');
-include('mimedecode.php');
-
 /**
- * This class is an specialization for OML. It's purposes are:
- * - Taking raw messages and analyzing them.
- * - Be passed as parameter in OML methods.
+ * Every email can be seen as a MIME_Part with some special headers.
+ * This class is to make handling with it's recursive structure and headers easier.
  *
- * @version		$LastChangedDate$ by $LastChangedBy$
+ * @author		W-Mark Kubacki; wmark@hurrikane.de
+ * @version		$LastChangedDate$ $LastChangedBy$
  * @see			<a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a>
- * @todo		Refactor to less dependencies.
  */
 class oml_email
+	extends MIME_Part
 {
-	private	$mime_message;
-	private	$decode_message;
-	private	$structure;
-	private	$decode_result;
-	/** headers of interest */
-	private	$hoi		= array();
+	/** Additional information as auxiliary header to ease information extraction. */
+	protected	$aux_headers	= array();
+	/** We must know where to write the attachments. */
+	protected	$attachment_dir	= '/tmp';
 
-	private	$studied	= false;
-	private	$decoded	= false;
+	public function __construct($raw_part) {
+		parent::__construct($raw_part);
+		$this->aux_headers	= array();
 
-	function __construct($raw_message) {
-		$this->mime_message = new Mail_mimeDecode($raw_message, "\r\n");
-		$this->decode_message = new DecodeMessage();
+		$this->determine_datae();
+		$this->determine_recipient();
+		if(isset($this->header['message-id'])) {
+			$this->aux_headers['message-id']	= substr($this->header['message-id'], 1, -1);
+		}
 	}
 
 	/**
-	 * Splits the message in header and body and creates an array of containing all headers.
-	 *
-	 * @return		false; If the given message turns out to not comply with standards.
+	 * We don't trust any user's PC but we trust our server and the other servers a bit.
+	 * Therefore preferanly taking date/times from field 'received' is the consequence.
 	 */
-	private function study() {
-		// This way we receive an hash with headers.
-		$this->structure = $this->mime_message->decode();
-
-		// Now we have to pick all the interesting values from the headers.
-		$this->hoi['message-id']	= substr($this->structure->headers['message-id'], 1, -1);
-		$this->hoi['from']		= $this->structure->headers['from'];
-		$this->hoi['subject']		= $this->structure->headers['subject'];
-		$this->hoi['_recipient']	= $this->structure->headers['to'];
-
-		if(isset($this->structure->headers['in-reply-to'])) {
-			$this->hoi['in-reply-to']	= substr($this->structure->headers['in-reply-to'], 1, -1);
-		} else {
-			$this->hoi['in-reply-to']	= '';
-		}
-		if(isset($this->structure->headers['references'])) {
-			$this->hoi['references']	= $this->structure->headers['references'];
-		}
-
-		// make sure, date-send and date-received are set correctly
-		if(isset($this->structure->headers['received'])) {
-			$i = count($this->structure->headers['received']) - 1;
-			$this->hoi['date-received']	= strtotime(substr(strrchr($this->structure->headers['received'][0], ';'), 2));
+	private function determine_datae() {
+		if(isset($this->header['received'])) {
+			$i = count($this->header['received']) - 1;
+			$this->aux_headers['date-received']	= strtotime(trim(substr(strrchr($this->header['received'][0], ';'), 2)));
 			if($i > 0) {
-				$this->hoi['date-send']		= strtotime(substr(strrchr($this->structure->headers['received'][$i], ';'), 2));
+				$datum = trim(substr(strrchr($this->header['received'][$i], ';'), 2));
+				$this->aux_headers['date-send']		= strtotime($datum);
 			}
 			else {
-				$this->hoi['date-send']		= $this->hoi['date-received'];
+				$this->aux_headers['date-send']		= $this->aux_headers['date-received'];
 			}
 		} else {
 			// this could be the case when we got a draft for analyzation
-			if(isset($this->structure->headers['date'])) {
-				$this->hoi['date-send']		= strtotime($this->structure->headers['date']);
-				$this->hoi['date-received']	= strtotime($this->structure->headers['date']);
+			if(isset($this->header['date'])) {
+				$this->aux_headers['date-send']		= strtotime($this->header['date']);
+				$this->aux_headers['date-received']	= strtotime($this->header['date']);
 			}
 		}
-
-		$this->studied = true;
-
-		return true;
 	}
 
 	/**
-	 * Decodes given message and stores any attachments in the given directory.
-	 *
-	 * @warning		Currently always returns true.
-	 * @return		Will return whether decoding process was successfull.
+	 * What is in field 'to' need not be the true recipient.
 	 */
-	private function decode() {
-		if(!$this->studied) {
-			if(!$this->study()) {
-				return '';
-			}
-		}
-
-		$this->decode_message->InitHeaderAndBody($this->get_header_part(), $this->get_entire_body(), $this->get_entire_msg());
-
-		$this->decode_result = $this->decode_message->Result();
-		$this->decoded = true;
-
-		return true;
+	private function determine_recipient() {
+		$this->aux_headers['_recipient']	= $this->header['to'];
 	}
 
 	/**
@@ -105,20 +66,10 @@ class oml_email
 	 * @throw		If header-field does not exist or message is invalid.
 	 */
 	public function get_header($key) {
-		if(!$this->studied) {
-			if(!$this->study()) {
-				throw new Exception('Email cannot be studied.');
-			}
-		}
-
-		if(isset($this->hoi[$key])) {
-			return $this->hoi[$key];
-		}
-		else if(isset($this->structure->headers[$key])) {
-			return $this->structure->headers[$key];
-		}
-		else {
-			throw new Exception('Email does not contain that field in header.');
+		if(isset($this->aux_headers[$key])) {
+			return $this->aux_headers[$key];
+		} else {
+			return $this->header[$key];
 		}
 	}
 
@@ -126,106 +77,37 @@ class oml_email
 	 * In case you allow optional fields you could utilize this.
 	 */
 	public function has_header($key) {
-		try {
-			$this->get_header($key);
-			return true;
-		} catch(Exception $e) {
-			return false;
-		}
-	}
-
-	private function get_header_part() {
-		return $this->mime_message->_header;
-	}
-
-	private function get_entire_body() {
-		return $this->mime_message->_body;
+		return isset($this->header[$key]);
 	}
 
 	/**
-	 * @return		String with the entire message probably passed to the constructor.
-	 */
-	private function get_entire_msg() {
-		return $this->mime_message->_input;
-	}
-
-	/**
-	 * Methods for analysis always try to store attachments.
 	 * This functions set where attachments will be written to.
 	 *
 	 * @param $where	Has to be the absolute path without trailing slash to the location where the attachments will be stored.
 	 * @return		True if the given path exists, is a directory and writeable.
 	 */
 	public function set_attachment_storage($where) {
-		$this->decode_message->attachment_path = $where;
-		return is_dir($where) && is_writable($where);
+		if(is_dir($where) && is_writable($where)) {
+			$this->attachment_dir = $where;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
-	 * Call this after having set attachments' storage.
-	 *
-	 * @see			set_attachment_storage()
 	 * @return		Boolean.
 	 */
 	public function has_attachments() {
-		if(!$this->decoded) {
-			$this->decode();
-		}
-		return ($this->structure->ctype_secondary != 'plain');
-	}
-
-	/**
-	 * @return		An array with all (relative) paths to the attachments.
-	 */
-	public function get_attachments() {
-		if(! $this->has_attachments()) {
-			return array();
-		}
-
-		if(!$this->decoded) {
-			$this->decode();
-		}
-
-		$attachments = array();
-
-		if(isset($this->decode_result[0])) {
-			for($i = 0; isset($this->decode_result[0][$i]); $i++) {
-				if(isset($this->decode_result[0][$i]['attachments'])) {
-					$attachments[] = $this->decode_result[0][$i]['attachments'];
-				}
-			}
-		}
-
-		return $attachments;
+		return is_array($this->body);
 	}
 
 	/**
 	 * @param $strip_html	Whether to strip html and PHP tags if the first displayable part is marked as containing html.
 	 * @return		first displayable part or empty string
 	 */
-	public function get_first_displayable_part($strip_html = false) {
-		if(!$this->decoded) {
-			$this->decode();
-		}
-
-		if(isset($this->decode_result[0])) {
-			// this is faster than foreach
-			for($i = 0; isset($this->decode_result[0][$i]); $i++) {
-				if(isset($this->decode_result[0][$i]['body']['type'])
-				   && strstr($this->decode_result[0][$i]['body']['type'], 'text')) {
-
-					if(!$strip_html
-					   || strstr($this->decode_result[0][$i]['body']['type'], 'html')) {
-						return trim($this->decode_result[0][$i]['body']['body']);
-					}
-					else {
-						return strip_tags(trim($this->decode_result[0][$i]['body']['body']));
-					}
-				}
-			}
-		}
-
-		return '';
+	public function get_first_displayable_part() {
+		return $this->body;
 	}
 
 }
