@@ -28,7 +28,7 @@ class oml_thread
 	 *
 	 * @return		The thread or false.
 	 */
-	public static function get_thread_with_name(ADOConnection $db, oml_factory $factory, $tablename, $list_id, $name) {
+	public static function get_thread_with_name(ADOConnection $db, oml_manager $factory, $tablename, $list_id, $name) {
 		$result		= array();
 		$tid = $db->GetOne('SELECT tid FROM '.$tablename.' WHERE lid='.$list_id.' AND threadname='.$db->qstr($name));
 		if(!$tid === false) {

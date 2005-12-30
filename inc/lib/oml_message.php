@@ -37,7 +37,7 @@ class oml_message
 	 *
 	 * @return	array of oml_messages belonging to that thread_id
 	 */
-	public static function get_messages_of(ADOConnection $db, oml_factory $factory, $tablename, $thread_id) {
+	public static function get_messages_of(ADOConnection $db, oml_manager $factory, $tablename, $thread_id) {
 		$result = array();
 		$rs = $db->Execute('SELECT * FROM '.$tablename.' WHERE tid='.$thread_id);
 		foreach($rs as $row) {
@@ -51,7 +51,7 @@ class oml_message
 	/**
 	 * Registering messages needs this.
 	 */
-	public static function get_thread_with(ADOConnection $db, oml_factory $factory, $tablename, $message_id) {
+	public static function get_thread_with(ADOConnection $db, oml_manager $factory, $tablename, $message_id) {
 		$tid	= $db->GetOne('SELECT tid FROM '.$tablename.' WHERE message_id='.$db->qstr($message_id).' ORDER BY datereceived DESC');
 		if(!$tid === false) {
 			$tmp	= $factory->get_thread($tid);

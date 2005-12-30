@@ -4,7 +4,7 @@ final class openmaillist
 	private		$db;
 	private		$factory;
 
-	function __construct(ADOConnection $database_handler, oml_factory $factory) {
+	function __construct(ADOConnection $database_handler, oml_manager $factory) {
 		$this->db	= $database_handler;
 		$this->factory	= $factory;
 	}

@@ -28,7 +28,7 @@ class oml_list
 	/**
 	 * Necessary for displaying an overview of all lists.
 	 */
-	public static function get_all_lists(ADOConnection $db, oml_factory $factory, $tablename) {
+	public static function get_all_lists(ADOConnection $db, oml_manager $factory, $tablename) {
 		$result		= array();
 		$rs = $db->Execute('SELECT * FROM '.$tablename);
 		foreach($rs as $row){
@@ -43,7 +43,7 @@ class oml_list
 	 * This is because users can remember names easier than IDs.
 	 * Used by message collecting parts of OML.
 	 */
-	public static function get_list_by_name(ADOConnection $db, oml_factory $factory, $tablename, $listname) {
+	public static function get_list_by_name(ADOConnection $db, oml_manager $factory, $tablename, $listname) {
 		$row		= $db->GetRow('SELECT * FROM '.$tablename.' WHERE lname='.$db->qstr($listname));
 		if(!$row === false) {
 			$theList	= $factory->get_list();
@@ -62,7 +62,7 @@ class oml_list
 	}
 
 	/**
-	 * @see		oml_factory::get_all_threads_of
+	 * @see		oml_manager::get_all_threads_of
 	 */
 	public function get_threads() {
 		return $this->factory->get_all_threads_of($this->get_unique_value());
