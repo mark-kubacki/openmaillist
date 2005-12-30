@@ -4,20 +4,23 @@
 </div>
 <table class="threads">
 	<tr>
-		<th>Subject</th>
+		<th class="subj">Subject</th>
 		<th>Posts</th>
 		<th>Views</th>
-		<th>From</th>
+		<th>Author</th>
 		<th>Last Post</th>
 	</tr>
 	<?php foreach($threads as $thread) { ?>
 		<tr>
-			<td><a href="messages.php?tid=<?= $thread->get_unique_value() ?>" title="messages of"><?= $thread->get_name() ?></a></td>
+			<td class="subj"><a href="messages.php?tid=<?= $thread->get_unique_value() ?>" title="messages of"><?= $thread->get_name() ?></a></td>
 			<td class="fig"><?= $thread->number_of_messages() ?></td>
 			<td class="fig"><?= $thread->get_views() ?></td>
-			<?php $post = $thread->get_last_message(); ?>
-			<td><?= htmlentities($post->get_author()) ?></td>
-			<td class="date"><?= $post->get_date_received($cfg['display']['date_format']) ?></td>
+			<td><?= htmlentities($thread->get_first_message()->get_author()) ?></td>
+			<?php $last_msg = $thread->get_last_message(); ?>
+			<td class="date">
+				<?= $last_msg->get_date_received($cfg['display']['date_format']) ?>
+				by <?= htmlentities($last_msg->get_author()) ?>
+			</td>
 		</tr>
 	<?php } ?>
 </table>
