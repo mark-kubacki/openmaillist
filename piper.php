@@ -27,14 +27,14 @@ include('./inc/_prepend.php');
 $input = fread(STDIN, 64000);
 
 $myEmail = new oml_email($input);
-$myEmail->set_attachment_storage('/tmp');
-$myEmail->get_attachments();
 
-try {
-	$theList	= $factory->get_list_by_name($argv[1]);
-	$oml->put_email($theList, $myEmail);
-} catch(Exception $e) {
-	die($e->getMessage()."\n");
+if(!$myEmail->is_administrative()) {
+	try {
+		$theList	= $factory->get_list_by_name($argv[1]);
+		$oml->put_email($theList, $myEmail);
+	} catch(Exception $e) {
+		die($e->getMessage()."\n");
+	}
 }
 
 chdir($former_directory);

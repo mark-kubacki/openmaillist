@@ -1,0 +1,50 @@
+Return-Path: <ehrke@t-offline.de>
+Received: from murder ([unix socket])
+	 by oberon (Cyrus v2.2.11) with LMTPA;
+	 Sat, 24 Dec 2005 12:14:37 +0100
+Received: from mailout03.sul.t-online.com (mailout03.sul.t-online.com [194.25.134.81])
+	by oberon.example.com (Postfix) with ESMTP id 164E7C17BF9
+	for <xyxyxyxyxy@example.com>; Sat, 24 Dec 2005 12:14:32 +0100 (CET)
+Received: from fwd30.aul.t-online.de
+	by mailout03.sul.t-online.com with smtp
+	id 1Eq5o3-0002jo-04; Sat, 24 Dec 2005 10:35:15 +0100
+Received: from andrei4ai9ztz6 (bLQ8tTZpQe+9kQHOFLwiLXtq99DHSUY1DAWo1U+agwUq+9wDZvpT4c@[84.130.228.5]) by fwd30.sul.t-online.de
+	with esmtp id 1Eq5nw-0PBtnF0; Sat, 24 Dec 2005 10:35:08 +0100
+From: "Andre Gehrke" <andre-gehrke@t-online.de>
+To: "Nobody Seller" <xyxyxyxyxy@example.com>
+Subject: =?Windows-1252?Q?Lesebest=E4tigung:_Nix?=
+Date: Sat, 24 Dec 2005 10:35:07 +0100
+Organization: aehrke
+Message-ID: <000a01c6086d$54818670$6402a8c0@andrei4ai9ztz6>
+MIME-Version: 1.0
+Content-Type: multipart/report;
+	boundary="----=_NextPart_000_000B_01C60875.B645EE70";
+	report-type=disposition-notification
+X-Mailer: Microsoft Outlook, Build 10.0.2627
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.2180
+In-Reply-To: <43AC2042.5080306@example.com>
+X-ID: bLQ8tTZpQe+9kQHOFLwiLXtq99DHSUY1DAWo1U+agwUq+9wDZvpT4c
+X-TOI-MSGID: 722c50c1-0603-4621-b7c5-e99c0a703d84
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_000B_01C60875.B645EE70
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+
+Ihre Nachricht
+    An:  Bogus Newsletter
+    Betreff:  23.12.2005 17:05
+
+wurde am 24.12.2005 10:34 gelesen.
+------=_NextPart_000_000B_01C60875.B645EE70
+Content-Type: message/disposition-notification
+Content-Transfer-Encoding: 7bit
+
+Reporting-UA: andre-i4ai9ztz6; Microsoft Outlook, Build 10.0.2627
+Final-Recipient: rfc822;andre-ehrke@t-offline.de
+Original-Message-ID: <43AC2042.5080306@example.com>
+Disposition: manual-action/MDN-sent-manually; displayed
+
+------=_NextPart_000_000B_01C60875.B645EE70--

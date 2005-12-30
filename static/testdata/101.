@@ -1,0 +1,97 @@
+From - Sun Dec 11 16:38:55 2005
+X-Mozilla-Status: 0001
+X-Mozilla-Status2: 00000000
+Return-Path: <MAILER-DAEMON@neon.hurrikane.de>
+Received: from murder ([unix socket])
+	 by neon (Cyrus v2.2.12-Gentoo) with LMTPA;
+	 Sun, 11 Dec 2005 16:38:11 +0100
+X-Sieve: CMU Sieve 2.2
+X-Spam-Checker-Version: SpamAssassin 3.1.0-gr0 (2005-09-13) on
+	neon.hurrikane.de
+X-Spam-Level:
+X-Spam-Status: No, score=-0.9 required=5.0 tests=AWL,NO_RELAYS autolearn=ham
+	version=3.1.0-gr0
+Received: by neon.hurrikane.de (Postfix)
+	id D5A72C0B54E; Sun, 11 Dec 2005 16:38:10 +0100 (CET)
+Date: Sun, 11 Dec 2005 16:38:10 +0100 (CET)
+From: MAILER-DAEMON@neon.hurrikane.de (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: xyxyxy@hurrikane.de
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="08D1DC0B54C.1134315490/neon.hurrikane.de"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20051211153810.D5A72C0B54E@neon.hurrikane.de>
+
+This is a MIME-encapsulated message.
+
+--08D1DC0B54C.1134315490/neon.hurrikane.de
+Content-Description: Notification
+Content-Type: text/plain
+
+This is the Postfix program at host neon.hurrikane.de.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+			The Postfix program
+
+<omlgeneral@example.com> (expanded from <list@example.com>): data
+    format error. Command output: omlgeneral: Mailbox does not exist
+
+<omlist@example.com> (expanded from <list@example.com>): Command
+    died with status 1: "/.../openmailadmin.org/piper.php
+    openmaillist"
+
+--08D1DC0B54C.1134315490/neon.hurrikane.de
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; neon.hurrikane.de
+X-Postfix-Queue-ID: 08D1DC0B54C
+X-Postfix-Sender: rfc822; xyxyxyxyxy@hurrikane.de
+Arrival-Date: Sun, 11 Dec 2005 16:38:02 +0100 (CET)
+
+Final-Recipient: rfc822; omlgeneral@example.com
+Original-Recipient: rfc822; list@example.com
+Action: failed
+Status: 5.0.0
+Diagnostic-Code: X-Postfix; data format error. Command output: omlgeneral:
+    Mailbox does not exist
+
+Final-Recipient: rfc822; omlist@example.com
+Original-Recipient: rfc822; list@example.com
+Action: failed
+Status: 5.0.0
+Diagnostic-Code: X-Postfix; Command died with status 1:
+    "/.../openmailadmin.org/piper.php openmaillist"
+
+--08D1DC0B54C.1134315490/neon.hurrikane.de
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Received: from [192.168.1.34] (dslc-082-082-180-001.pools.arcor-ip.net [82.82.180.1])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by neon.hurrikane.de (Postfix) with ESMTP id 08D1DC0B54C
+	for <list@example.com>; Sun, 11 Dec 2005 16:38:02 +0100 (CET)
+Message-ID: <439C47F1.5040709@hurrikane.de>
+Disposition-Notification-To: W-Mark Kubacki <xyxyxyxyxy@hurrikane.de>
+Date: Sun, 11 Dec 2005 16:38:25 +0100
+From: W-Mark Kubacki <xyxyxyxyxy@hurrikane.de>
+User-Agent: Mail/News 1.4.1 (X11/20051030)
+MIME-Version: 1.0
+To:  list@example.com
+Subject: Fwd: Re: Openmaillist
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Nothing.
+
+--08D1DC0B54C.1134315490/neon.hurrikane.de--

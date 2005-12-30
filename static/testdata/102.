@@ -1,0 +1,78 @@
+From - Fri Dec 23 19:15:47 2005
+X-Mozilla-Status: 0001
+X-Mozilla-Status2: 00000000
+Return-Path: <MAILER-DAEMON@neon.hurrikane.de>
+Received: from murder ([unix socket])
+	 by neon (Cyrus v2.2.12-Gentoo) with LMTPA;
+	 Fri, 23 Dec 2005 17:21:25 +0100
+X-Sieve: CMU Sieve 2.2
+X-Spam-Checker-Version: SpamAssassin 3.1.0-gr0 (2005-09-13) on
+	neon.hurrikane.de
+X-Spam-Level:
+X-Spam-Status: No, score=0.3 required=5.0 tests=MAILTO_TO_SPAM_ADDR
+	autolearn=no version=3.1.0-gr0
+X-Greylist: delayed 977 seconds by postgrey-1.21 at neon; Fri, 23 Dec 2005 17:21:22 CET
+Received: from mail.west.de (mail.west.de [195.244.124.198])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by neon.hurrikane.de (Postfix) with ESMTP id A02CDC21D7B
+	for <krischna@hurrikane.de>; Fri, 23 Dec 2005 17:21:22 +0100 (CET)
+Received: from mail by mail.west.de with local (Exim 4.52)
+	id 1EppPl-0003yF-Cq
+	for krischna@hurrikane.de; Fri, 23 Dec 2005 17:05:05 +0100
+X-Failed-Recipients: julia81@west.de
+Auto-Submitted: auto-generated
+From: Mail Delivery System <Mailer-Daemon@west.de>
+To: krischna@hurrikane.de
+Subject: Mailversand fehlgeschlagen: Zurueck an Absender
+Message-Id: <E1EppPl-0003yF-Cq@mail.west.de>
+Date: Fri, 23 Dec 2005 17:05:05 +0100
+
+Diese Nachricht wurde automatisch vom Mailsystem erzeugt.
+[This message was created automatically by mail delivery software.]
+
+Eine Mail von Ihnen konnte nicht an alle Empfaenger ausgeliefert werden
+[A message that you sent could not be delivered to all of its recipients.]
+
+Bei folgenden Empfaengern traten Fehler auf:
+[This following address(es) failed:]
+
+  julia81@west.de
+    mailbox is full: retry timeout exceeded
+
+------ Hier eine Kopie der Nachricht, inklusive Header ------
+[----- This is a copy of the message, including all the headers. -----]
+
+Return-path: <krischna@hurrikane.de>
+Received: from [81.169.142.160] (helo=neon.hurrikane.de)
+	by mail.west.de with esmtps (TLSv1:DHE-RSA-AES256-SHA:256)
+	(Exim 4.52)
+	id 1EppPl-0003xy-68
+	for julia81@west.de; Fri, 23 Dec 2005 17:05:05 +0100
+Received: from [192.168.1.34] (dslc-082-082-183-194.pools.arcor-ip.net [82.82.183.194])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by neon.hurrikane.de (Postfix) with ESMTP id 8EC82C21D7B
+	for <was@example.com>; Fri, 23 Dec 2005 17:05:04 +0100 (CET)
+Message-ID: <43AC2042.5080306@hurrikane.de>
+Disposition-Notification-To: Nobody Seller <krischna@hurrikane.de>
+Date: Fri, 23 Dec 2005 17:05:22 +0100
+From: Nobody Seller <krischna@hurrikane.de>
+User-Agent: Mail/News 1.4.1 (X11/20051030)
+MIME-Version: 1.0
+To: general list <was@example.com>
+Subject: Weihnachten und Neujahr
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Virusscan: Scanned by west.de
+
+Hallo!
+
+Es gr=FC=DFt,
+
+Nobody
+
+--
+Don't nuy anything described in this email.
+
+
