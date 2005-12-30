@@ -43,6 +43,7 @@ class oml_emailTest
 	 * This method is called after a test is executed.
 	 */
 	protected function tearDown() {
+		@rmdir('/tmp/mytest');
 	}
 
 	public function testGetDateReceived() {
@@ -188,6 +189,47 @@ class oml_emailTest
 				$this->assertFalse($email->is_disposition_notification(), 'message number was '.$n.',');
 			}
 		}
+	}
+
+	public function testGet_AttachmentsIsArray() {
+		$arr	= $this->test_emails[4]->get_attachments();
+		$this->assertTrue(is_array($arr));
+	}
+
+	public function testGet_AttachmentsArrayContainsNumRequested() {
+		$arr	= $this->test_emails[4]->get_attachments();
+		$this->assertTrue(count($arr) == 2);
+	}
+
+	public function testGet_AttachmentsIsFilledArray() {
+		$arr	= $this->test_emails[4]->get_attachments();
+		$this->assertTrue(isset($arr['dsgesamt.pdf']));
+		$this->assertTrue(isset($arr['dsgesamt2.pdf']));
+	}
+
+	public function testGet_Attachments() {
+		$arr	= $this->test_emails[4]->get_attachments();
+		$this->assertEquals(strlen($arr['dsgesamt.pdf']), 528);
+		$this->assertEquals(strlen($arr['dsgesamt2.pdf']), 528);
+		foreach($arr as $content) {
+			$this->assertRegExp('/\<\!DOCTYPE.+\<html\>.+55 \(Unix\) mod_ssl\/2\.0\.55.+\<\/html\>/s', $content);
+		}
+	}
+
+	public function testRetrieveAttachments() {
+		mkdir('/tmp/mytest', 0777);
+		$this->test_emails[4]->set_attachment_storage('/tmp/mytest');
+		$this->assertTrue($this->test_emails[4]->write_attachments_to_disk(), 'could not write attachments to disk');
+
+		$this->assertTrue(is_file('/tmp/mytest/dsgesamt.pdf'));
+		$this->assertEquals(filesize('/tmp/mytest/dsgesamt.pdf'), 528);
+		unlink('/tmp/mytest/dsgesamt.pdf');
+
+		$this->assertTrue(is_file('/tmp/mytest/dsgesamt2.pdf'));
+		$this->assertEquals(filesize('/tmp/mytest/dsgesamt2.pdf'), 528);
+		unlink('/tmp/mytest/dsgesamt2.pdf');
+
+		rmdir('/tmp/mytest');
 	}
 
 }

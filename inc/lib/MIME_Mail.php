@@ -12,10 +12,10 @@ class MIME_Mail
 {
 	/** Additional information as auxiliary header to ease information extraction. */
 	protected	$aux_headers	= array();
-	/** We must know where to write the attachments. */
-	protected	$attachment_dir	= '/tmp';
 	/** Regexp, to be applied on 'received' fields for detecting the true recipient. */
 	const	rex_recevied_recipient	= '/for (\<.+\>)/s';
+	/** Regexp, for fetching filenames from field "content-disposition" */
+	const	rex_disposition_filename	= '/filename=(?:(?:\"(.+?)\")|(?:([^;\"]+?)\;))/s';
 
 	public function __construct($raw_part) {
 		parent::__construct($raw_part);
@@ -70,7 +70,7 @@ class MIME_Mail
 	 * This is a wrapper which ensures the message has already been processed
 	 * and this' class cache is used.
 	 *
-	 * @param $key		Field of the header. (Lowercase)
+	 * @param	key	Field of the header. (Lowercase)
 	 * @return		Value of that field.
 	 * @throw		If header-field does not exist or message is invalid.
 	 */
@@ -87,21 +87,6 @@ class MIME_Mail
 	 */
 	public function has_header($key) {
 		return isset($this->header[$key]);
-	}
-
-	/**
-	 * This functions set where attachments will be written to.
-	 *
-	 * @param $where	Has to be the absolute path without trailing slash to the location where the attachments will be stored.
-	 * @return		True if the given path exists, is a directory and writeable.
-	 */
-	public function set_attachment_storage($where) {
-		if(is_dir($where) && is_writable($where)) {
-			$this->attachment_dir = $where;
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	/**
@@ -126,6 +111,22 @@ class MIME_Mail
 			}
 			throw new UnderflowException();
 		}
+	}
+
+	/**
+	 * @return		Array with filename as key and the (binary) content as value.
+	 */
+	public function get_attachments() {
+		$ret	= array();
+		if($this->has_attachments()) {
+			foreach($this->body as $mime_part) {
+				if(isset($mime_part->{'content-disposition'})
+				   && preg_match(MIME_Mail::rex_disposition_filename, $mime_part->{'content-disposition'}, $arr)) {
+					$ret[$arr[1]]	= $mime_part->body;
+				}
+			}
+		}
+		return $ret;
 	}
 
 }
