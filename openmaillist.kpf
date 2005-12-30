@@ -20,7 +20,7 @@
 <folder url="inc/lib" id="107706CE8E3L69bcaad60x786e" name="lib">
 <file url="inc/lib/openmaillist.php" id="107706CE8DBL16bb30b50x786e" name="openmaillist.php">
 </file>
-<file url="inc/lib/oml_email.php" id="107C3982179L717983d0x250e" name="oml_email.php">
+<file url="inc/lib/MIME_Mail.php" id="107C3982179L717983d0x250e" name="MIME_Mail.php">
 </file>
 <file url="inc/lib/OMLObject.php" id="107ECA9BA1CL70d3a8ee0x27c6" name="OMLObject.php">
 </file>
