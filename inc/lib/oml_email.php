@@ -14,6 +14,8 @@ class oml_email
 	protected	$aux_headers	= array();
 	/** We must know where to write the attachments. */
 	protected	$attachment_dir	= '/tmp';
+	/** Regexp, to be applied on 'received' fields for detecting the true recipient. */
+	const	rex_recevied_recipient	= '/for (\<.+\>)/s';
 
 	public function __construct($raw_part) {
 		parent::__construct($raw_part);
@@ -55,6 +57,13 @@ class oml_email
 	 */
 	private function determine_recipient() {
 		$this->aux_headers['_recipient']	= $this->header['to'];
+		if(isset($this->header['received'])) {
+			foreach($this->header['received'] as $receive_line) {
+				if(preg_match(oml_email::rex_recevied_recipient, $receive_line, $arr)) {
+					$this->aux_headers['_recipient'] = $arr[1];
+				}
+			}
+		}
 	}
 
 	/**
@@ -103,11 +112,20 @@ class oml_email
 	}
 
 	/**
-	 * @param $strip_html	Whether to strip html and PHP tags if the first displayable part is marked as containing html.
 	 * @return		first displayable part or empty string
+	 * @throw		UnderflowException if no displayable part can be found.
 	 */
 	public function get_first_displayable_part() {
-		return $this->body;
+		if(!$this->has_attachments()) {
+			return $this->body;
+		} else {
+			foreach($this->body as $mime_part) {
+				if(strstr($mime_part->{'content-type'}, 'text/plain')) {
+					return $mime_part->body;
+				}
+			}
+			throw new UnderflowException();
+		}
 	}
 
 }
