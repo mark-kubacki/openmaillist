@@ -13,8 +13,6 @@ class MIME_Part
 
 	/** Regexp, divides header and body parts. */
 	const	rex_header_body_split	= '/(.*?)\r?\n\r?\n(.*)/s';
-	/** Regexp, detects "key: value" pairs without multiline values. */
-	const	rex_key_value_nm	= '/([^:\s]+):\s+(.*)/';
 	/** Regexp, detects "key: value" pairs with multiline values. */
 	const	rex_key_value_ml	= '/([^:\s]+):\s([^\r\n]+(?:\r?\n\s+[^\r\n]+)*)/';
 	/** This one catches boundaries. */
@@ -99,7 +97,7 @@ class MIME_Part
 				unset($arr_body[count($arr_body)]);
 				array_walk($arr_body,
 					create_function('&$item,$index',
-							'$item = new MIME_Part($item);'
+							'$item = new MIME_Part($item, false);'
 							));
 				$this->body	= $arr_body;
 				return true;
