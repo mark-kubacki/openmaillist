@@ -28,7 +28,7 @@ $db->Connect(	$cfg['Servers']['DB'][0]['HOST'],
 $db->SetFetchMode(ADODB_FETCH_ASSOC);
 
 // include the backend
-$factory	= new oml_factory($db, $cfg['tablenames']);
+$factory	= new oml_manager($db, $cfg['tablenames']);
 $oml		= new openmaillist($db, $factory);
 
 ?>
