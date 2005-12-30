@@ -30,7 +30,7 @@ $myEmail = new oml_email($input);
 
 if(!$myEmail->is_administrative()) {
 	try {
-		$theList	= $factory->get_list_by_name($argv[1]);
+		$theList	= $superior->get_list_by_name($argv[1]);
 		$oml->put_email($theList, $myEmail, './'.$cfg['upload_dir']);
 	} catch(Exception $e) {
 		die($e->getMessage()."\n");

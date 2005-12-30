@@ -6,7 +6,7 @@
 		<th>Posts</th>
 		<th>Last Post</th>
 	</tr>
-	<?php foreach($factory->get_all_lists() as $list) { ?>
+	<?php foreach($lists as $list) { ?>
 		<tr>
 			<td>
 				<dl>

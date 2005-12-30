@@ -28,17 +28,17 @@ class oml_thread
 	 *
 	 * @return		The thread or false.
 	 */
-	public static function get_thread_with_name(ADOConnection $db, oml_manager $factory, $tablename, $list_id, $name) {
+	public static function get_thread_with_name(ADOConnection $db, oml_manager $superior, $tablename, $list_id, $name) {
 		$result		= array();
 		$tid = $db->GetOne('SELECT tid FROM '.$tablename.' WHERE lid='.$list_id.' AND threadname='.$db->qstr($name));
 		if(!$tid === false) {
-			return $factory->get_thread($tid);
+			return $superior->get_thread($tid);
 		}
 		return false;
 	}
 
 	/**
-	 * Factory cannot know that we store list_id along with all data.
+	 * superior cannot know that we store list_id along with all data.
 	 * Don't mix this up with number_of_messages().
 	 *
 	 * @return		Unsigned integer.
@@ -51,7 +51,7 @@ class oml_thread
 	 * Used in displaying thread's contents.
 	 */
 	public function get_messages() {
-		return $this->factory->get_all_messages_of($this->get_unique_value());
+		return $this->superior->get_all_messages_of($this->get_unique_value());
 	}
 
 	/**
@@ -61,7 +61,7 @@ class oml_thread
 	 */
 	public function number_of_messages() {
 		if(isset($this->posts)) {
-			$this->posts	= $this->factory->get_thread_num_messages($this->get_unique_value());
+			$this->posts	= $this->superior->get_thread_num_messages($this->get_unique_value());
 		}
 		return $this->posts;
 	}
@@ -70,14 +70,14 @@ class oml_thread
 	 * Usefull at displaying threads' list.
 	 */
 	public function get_last_message() {
-		return $this->factory->get_thread_last_message($this->get_unique_value());
+		return $this->superior->get_thread_last_message($this->get_unique_value());
 	}
 
 	/**
 	 * Usefull at displaying threads' list.
 	 */
 	public function get_first_message() {
-		return $this->factory->get_thread_first_message($this->get_unique_value());
+		return $this->superior->get_thread_first_message($this->get_unique_value());
 	}
 
 	/* now come getters and setters */
@@ -86,7 +86,7 @@ class oml_thread
 	}
 
 	public function get_owning_list() {
-		return $this->factory->get_list($this->lid);
+		return $this->superior->get_list($this->lid);
 	}
 
 	public function get_views() {
