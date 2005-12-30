@@ -73,6 +73,13 @@ class oml_thread
 		return $this->factory->get_thread_last_message($this->get_unique_value());
 	}
 
+	/**
+	 * Usefull at displaying threads' list.
+	 */
+	public function get_first_message() {
+		return $this->factory->get_thread_first_message($this->get_unique_value());
+	}
+
 	/* now come getters and setters */
 	public function get_name() {
 		return $this->threadname;

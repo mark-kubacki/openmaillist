@@ -157,6 +157,25 @@ class oml_factory
 	/**
 	 * @return	Message or false if none has been found.
 	 */
+	public function get_thread_first_message($thread_id) {
+		$data = $this->db->GetRow(
+			'SELECT tm.*
+			FROM '.$this->tables['Messages'].' AS tm, '.$this->tables['Threads'].' AS tt
+			WHERE tt.tid = tm.tid
+			AND tt.tid ='.$thread_id.'
+			ORDER BY tm.datereceived ASC'
+		);
+		if(!$data === false) {
+			$msg = $this->get_message();
+			$msg->become($data);
+			return $msg;
+		}
+		return false;
+	}
+
+	/**
+	 * @return	Message or false if none has been found.
+	 */
 	public function get_lists_last_message($list_id) {
 		$tmp = $this->get_lists_latest_messages($list_id, 1);
 		if(isset($tmp[0])) {

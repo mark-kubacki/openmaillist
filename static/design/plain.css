@@ -58,7 +58,7 @@ table {
 	color: inherit;
 }
 
-/* -- listviw */
+/* -- listview */
 ul.post_def {
 	margin: 0;
 	padding: 0;
@@ -66,6 +66,11 @@ ul.post_def {
 }
 ul.post_def li.nh {
 	padding-left: 2em;
+}
+
+/* -- threadview */
+table.threads td.subj, table.threads th.subj {
+	width: 50%;
 }
 
 /* -- messages */
