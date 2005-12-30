@@ -7,7 +7,7 @@
  * @version		$LastChangedDate$ $LastChangedBy$
  * @see			<a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a>
  */
-class oml_email
+class MIME_Mail
 	extends MIME_Part
 {
 	/** Additional information as auxiliary header to ease information extraction. */
