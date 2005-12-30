@@ -8,7 +8,7 @@ abstract class OMLObject
 {
 	protected $factory;
 
-	function __construct(ADOConnection $database_handler, $preferred_tablename = null, oml_factory $factory = null) {
+	function __construct(ADOConnection $database_handler, $preferred_tablename = null, oml_manager $factory = null) {
 		$this->db	= $database_handler;
 		$this->table	= $preferred_tablename;
 		$this->factory	= $factory;
