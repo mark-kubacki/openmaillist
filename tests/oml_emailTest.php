@@ -219,7 +219,7 @@ class oml_emailTest
 	public function testRetrieveAttachments() {
 		mkdir('/tmp/mytest', 0777);
 		$this->test_emails[4]->set_attachment_storage('/tmp/mytest');
-		$this->assertTrue($this->test_emails[4]->write_attachments_to_disk(), 'could not write attachments to disk');
+		$this->assertTrue(is_array($this->test_emails[4]->write_attachments_to_disk()), 'could not write attachments to disk');
 
 		$this->assertTrue(is_file('/tmp/mytest/dsgesamt.pdf'));
 		$this->assertEquals(filesize('/tmp/mytest/dsgesamt.pdf'), 528);
