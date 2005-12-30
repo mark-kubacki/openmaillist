@@ -13,7 +13,7 @@ switch($factory->create_lists_table()) {
 }
 // some example lists
 $todo	= array(array('mylist', 'list@example.com', 'Please address your issues to this list.'),
-		array('mytest', 'test@example.com', 'Write to this list if you jsut want to test arrival of your messages.'),
+		array('mytest', 'test@example.com', 'Write to this list if you just want to test arrival of your messages.'),
 		);
 foreach($todo as $task) {
 	$myList	= $factory->get_list();
