@@ -19,6 +19,8 @@ class MIME_Part
 	const	rex_boundary		= '/boundary=\"(.*)\"/s';
 
 	/**
+	 * @param	raw_part	Mimepart as raw text.
+	 * @param	recursive	Whether to decode nested parts (true) or leave them as they are (false).
 	 * @throw		InvalidArgumentException if raw_message cannot be split into header and body.
 	 */
 	public function __construct($raw_part, $recursive = true) {
