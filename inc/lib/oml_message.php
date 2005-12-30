@@ -37,11 +37,11 @@ class oml_message
 	 *
 	 * @return	array of oml_messages belonging to that thread_id
 	 */
-	public static function get_messages_of(ADOConnection $db, oml_manager $factory, $tablename, $thread_id) {
+	public static function get_messages_of(ADOConnection $db, oml_manager $superior, $tablename, $thread_id) {
 		$result = array();
 		$rs = $db->Execute('SELECT * FROM '.$tablename.' WHERE tid='.$thread_id);
 		foreach($rs as $row) {
-			$tmp		= $factory->get_message();
+			$tmp		= $superior->get_message();
 			$tmp->become($row);
 			$result[]	= $tmp;
 		}
@@ -51,10 +51,10 @@ class oml_message
 	/**
 	 * Registering messages needs this.
 	 */
-	public static function get_thread_with(ADOConnection $db, oml_manager $factory, $tablename, $message_id) {
+	public static function get_thread_with(ADOConnection $db, oml_manager $superior, $tablename, $message_id) {
 		$tid	= $db->GetOne('SELECT tid FROM '.$tablename.' WHERE message_id='.$db->qstr($message_id).' ORDER BY datereceived DESC');
 		if(!$tid === false) {
-			$tmp	= $factory->get_thread($tid);
+			$tmp	= $superior->get_thread($tid);
 			return $tmp;
 		}
 		return false;
@@ -232,7 +232,7 @@ class oml_message
 	 * Used at displaying threads' messages.
 	 */
 	public function get_owning_thread() {
-		return $this->factory->get_thread($this->tid);
+		return $this->superior->get_thread($this->tid);
 	}
 
 	/**
@@ -263,7 +263,7 @@ class oml_message
 	 */
 	public function get_attachments() {
 		if($this->hasattachments == 1 && count($this->attachments) == 0) {
-			$this->attachments	= $this->factory->get_attachments_of_mid($this->get_unique_value());
+			$this->attachments	= $this->superior->get_attachments_of_mid($this->get_unique_value());
 		}
 		return	$this->attachments;
 	}

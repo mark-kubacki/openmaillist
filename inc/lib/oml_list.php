@@ -28,11 +28,11 @@ class oml_list
 	/**
 	 * Necessary for displaying an overview of all lists.
 	 */
-	public static function get_all_lists(ADOConnection $db, oml_manager $factory, $tablename) {
+	public static function get_all_lists(ADOConnection $db, oml_manager $superior, $tablename) {
 		$result		= array();
 		$rs = $db->Execute('SELECT * FROM '.$tablename);
 		foreach($rs as $row){
-			$tmp		= $factory->get_list();
+			$tmp		= $superior->get_list();
 			$tmp->become($row);
 			$result[]	= $tmp;
 		}
@@ -43,10 +43,10 @@ class oml_list
 	 * This is because users can remember names easier than IDs.
 	 * Used by message collecting parts of OML.
 	 */
-	public static function get_list_by_name(ADOConnection $db, oml_manager $factory, $tablename, $listname) {
+	public static function get_list_by_name(ADOConnection $db, oml_manager $superior, $tablename, $listname) {
 		$row		= $db->GetRow('SELECT * FROM '.$tablename.' WHERE lname='.$db->qstr($listname));
 		if(!$row === false) {
-			$theList	= $factory->get_list();
+			$theList	= $superior->get_list();
 			$theList->become($row);
 			return $theList;
 		} else {
@@ -55,7 +55,7 @@ class oml_list
 	}
 
 	public function create_new_thread($threadname) {
-		$thread = $this->factory->get_thread();
+		$thread = $this->superior->get_thread();
 		$thread->set_name($threadname);
 		$thread->associate_with_list($this);
 		return $thread;
@@ -65,7 +65,7 @@ class oml_list
 	 * @see		oml_manager::get_all_threads_of
 	 */
 	public function get_threads() {
-		return $this->factory->get_all_threads_of($this->get_unique_value());
+		return $this->superior->get_all_threads_of($this->get_unique_value());
 	}
 
 	/**
@@ -79,7 +79,7 @@ class oml_list
 	public function register_message(oml_message $msg, $group_same_subjects = true) {
 		$subject = $msg->get_essence_of_subject();
 
-		$pre	= $this->factory->get_latest_msg_referred_to($msg, $this->get_unique_value());
+		$pre	= $this->superior->get_latest_msg_referred_to($msg, $this->get_unique_value());
 		if(!$pre === false) {
 			$thread = $pre->get_owning_thread();
 			$msg->associate_with_thread($thread);
@@ -87,7 +87,7 @@ class oml_list
 		}
 
 		if($group_same_subjects) {
-			$thread = $this->factory->get_thread_with_name($this->get_unique_value(), $subject);
+			$thread = $this->superior->get_thread_with_name($this->get_unique_value(), $subject);
 			if(!$thread === false) {
 				$msg->associate_with_thread($thread);
 				return $thread;
@@ -101,17 +101,17 @@ class oml_list
 
 	/** for generating pverview of all lists */
 	public function number_of_threads() {
-		return $this->factory->get_num_threads_of($this->get_unique_value());
+		return $this->superior->get_num_threads_of($this->get_unique_value());
 	}
 
 	/** for generating pverview of all lists */
 	public function number_of_messages() {
-		return $this->factory->get_list_num_messages($this->get_unique_value());
+		return $this->superior->get_list_num_messages($this->get_unique_value());
 	}
 
 	/** for generating pverview of all lists */
 	public function get_last_message() {
-		return $this->factory->get_lists_last_message($this->get_unique_value());
+		return $this->superior->get_lists_last_message($this->get_unique_value());
 	}
 
 	/**
@@ -121,7 +121,7 @@ class oml_list
 	 * @return		Messages as array, from latest to oldest.
 	 */
 	public function get_num_latest_entries($max) {
-		return $this->factory->get_lists_latest_messages($this->get_unique_value(), $max);
+		return $this->superior->get_lists_latest_messages($this->get_unique_value(), $max);
 	}
 
 	/* now come getters and setters */

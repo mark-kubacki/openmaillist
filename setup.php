@@ -7,7 +7,7 @@ include('./templates/'.$cfg['theme'].'/common-header.tpl');
 echo('<h2>Setup</h2>');
 echo('<h3>creation of tables</h3>');
 // lists' table
-switch($factory->create_lists_table()) {
+switch($superior->create_lists_table()) {
 	case '1':	echo('Table already exists.');	break;
 	case '2':	echo('Table created.');		break;
 }
@@ -16,7 +16,7 @@ $todo	= array(array('mylist', 'list@example.com', 'Please address your issues to
 		array('mytest', 'test@example.com', 'Write to this list if you just want to test arrival of your messages.'),
 		);
 foreach($todo as $task) {
-	$myList	= $factory->get_list();
+	$myList	= $superior->get_list();
 	$myList->set_name($task[0]);
 	$myList->set_address($task[1]);
 	$myList->set_description($task[2]);
@@ -25,21 +25,21 @@ foreach($todo as $task) {
 echo('<br />');
 
 // threads' table
-switch($factory->create_threads_table()) {
+switch($superior->create_threads_table()) {
 	case '1':	echo('Table already exists.');	break;
 	case '2':	echo('Table created.');		break;
 }
 echo('<br />');
 
 // messages' table
-switch($factory->create_messages_table()) {
+switch($superior->create_messages_table()) {
 	case '1':	echo('Table already exists.');	break;
 	case '2':	echo('Table created.');		break;
 }
 echo('<br />');
 
 // attachments' table
-switch($factory->create_attachments_table()) {
+switch($superior->create_attachments_table()) {
 	case '1':	echo('Table already exists.');	break;
 	case '2':	echo('Table created.');		break;
 }
@@ -48,7 +48,7 @@ echo('<br />');
 // now insert example messages
 echo('<h3>example messages</h3>');
 try {
-	$myList = $factory->get_list_by_name('mylist');
+	$myList = $superior->get_list_by_name('mylist');
 	$todo	= array($cfg['sample_msg'].'/1.',
 			$cfg['sample_msg'].'/2.',
 			$cfg['sample_msg'].'/3.',
