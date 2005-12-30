@@ -67,6 +67,10 @@ final class openmaillist
 	 * @throw			Several exceptions. You can use their text as error message.
 	 */
 	public function put_email(oml_list $list, oml_email $input) {
+		if($input->is_administrative()) {
+			return;
+		}
+
 		try {
 			$myMsg	= $this->factory->get_message();
 			$myMsg->let(	$input->get_header('message-id'), $input->get_header('date-send'), $input->get_header('date-received'),

@@ -1,0 +1,57 @@
+From - Fri Dec  9 12:00:39 2005
+X-Mozilla-Status: 0001
+X-Mozilla-Status2: 00000000
+Return-Path: <MAILER-DAEMON@neon.hurrikane.de>
+Received: from murder ([unix socket])
+	 by neon (Cyrus v2.2.12-Gentoo) with LMTPA;
+	 Fri, 09 Dec 2005 10:05:12 ?
+X-Sieve: CMU Sieve 2.2
+X-Spam-Checker-Version: SpamAssassin 3.1.0-gr0 (2005-09-13) on
+	neon.hurrikane.de
+X-Spam-Level:
+X-Spam-Status: No, score=0.6 required=5.0 tests=NO_REAL_NAME autolearn=no
+	version=3.1.0-gr0
+Received: from bay0-omc3-s34.bay0.hotmail.com (bay0-omc3-s34.bay0.hotmail.com [65.54.246.234])
+	by neon.hurrikane.de (Postfix) with ESMTP id F06A8C0E87C
+	for <postmaster@hurrikane.info>; Fri,  9 Dec 2005 10:05:09 ? (CET)
+Received: from bay0-mc2-f1.bay0.hotmail.com ([65.54.246.254]) by bay0-omc3-s34.bay0.hotmail.com with Microsoft SMTPSVC(6.0.3790.211);
+	 Fri, 9 Dec 2005 01:05:07 -0800
+From: postmaster@hotmail.com
+To: postmaster@hurrikane.info
+Date: Fri, 9 Dec 2005 01:04:18 -0800
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="9B095B5ADSN=_01C5FA1F97F51BFA00074DA8bay0?mc2?f1.bay0"
+X-DSNContext: 335a7efd - 4464 - 00000001 - 80040546
+Message-ID: <YGpmIQT5C00052908@bay0-mc2-f1.bay0.hotmail.com>
+Subject: Delivery Status Notification (Failure)
+X-OriginalArrivalTime: 09 Dec 2005 09:05:07.0424 (UTC) FILETIME=[A68DD600:01C5FC9F]
+
+This is a MIME-formatted message.
+Portions of this message may be unreadable without a MIME-capable mail program.
+
+--9B095B5ADSN=_01C5FA1F97F51BFA00074DA8bay0?mc2?f1.bay0
+Content-Type: text/plain; charset=unicode-1-1-utf-7
+
+This is an automatically generated Delivery Status Notification.
+
+Delivery to the following recipients failed.
+
+       apluswireless@hotmail.com
+
+
+
+
+--9B095B5ADSN=_01C5FA1F97F51BFA00074DA8bay0?mc2?f1.bay0
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;bay0-mc2-f1.bay0.hotmail.com
+Received-From-MTA: dns;ouwvbjk.info
+Arrival-Date: Fri, 9 Dec 2005 01:04:07 -0800
+
+Final-Recipient: rfc822;apluswireless@hotmail.com
+Action: failed
+Status: 5.5.0
+Diagnostic-Code: smtp;550 Requested action not taken: mailbox unavailable (-640593812:1337:0)
+
+--9B095B5ADSN=_01C5FA1F97F51BFA00074DA8bay0?mc2?f1.bay0--

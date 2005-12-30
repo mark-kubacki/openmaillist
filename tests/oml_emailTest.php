@@ -31,6 +31,10 @@ class oml_emailTest
 			4	=> new oml_email(file_get_contents($cfg['sample_msg'].'/4.')),
 			82	=> new oml_email(file_get_contents($cfg['sample_msg'].'/82.')),
 			83	=> new oml_email(file_get_contents($cfg['sample_msg'].'/83.')),
+			100	=> new oml_email(file_get_contents($cfg['sample_msg'].'/100.')),
+			101	=> new oml_email(file_get_contents($cfg['sample_msg'].'/101.')),
+			102	=> new oml_email(file_get_contents($cfg['sample_msg'].'/102.')),
+			150	=> new oml_email(file_get_contents($cfg['sample_msg'].'/150.')),
 		);
 	}
 
@@ -52,6 +56,7 @@ class oml_emailTest
 		);
 
 		foreach($this->test_emails as $n => $email) {
+			if(!isset($cmp[$n]))	continue;
 			$this->assertEquals($email->get_header('date-received'), strtotime($cmp[$n]), 'message number was '.$n.',');
 		}
 	}
@@ -67,6 +72,7 @@ class oml_emailTest
 		);
 
 		foreach($this->test_emails as $n => $email) {
+			if(!isset($cmp[$n]))	continue;
 			$this->assertEquals($email->get_header('date-send'), strtotime($cmp[$n]), 'message number was '.$n.',');
 		}
 	}
@@ -82,6 +88,7 @@ class oml_emailTest
 		);
 
 		foreach($this->test_emails as $n => $email) {
+			if(!isset($cmp[$n]))	continue;
 			$this->assertEquals($email->get_header('message-id'), $cmp[$n], 'message number was '.$n.',');
 		}
 	}
@@ -97,6 +104,7 @@ class oml_emailTest
 		);
 
 		foreach($this->test_emails as $n => $email) {
+			if(!isset($cmp[$n]))	continue;
 			$this->assertEquals($email->get_header('from'), $cmp[$n], 'message number was '.$n.',');
 		}
 	}
@@ -112,6 +120,7 @@ class oml_emailTest
 		);
 
 		foreach($this->test_emails as $n => $email) {
+			if(!isset($cmp[$n]))	continue;
 			$this->assertEquals($email->get_header('_recipient'), $cmp[$n], 'message number was '.$n.',');
 		}
 	}
@@ -127,6 +136,7 @@ class oml_emailTest
 		);
 
 		foreach($this->test_emails as $n => $email) {
+			if(!isset($cmp[$n]))	continue;
 			$this->assertEquals($email->get_header('subject'), $cmp[$n], 'message number was '.$n.',');
 		}
 	}
@@ -155,9 +165,31 @@ class oml_emailTest
 		);
 
 		foreach($this->test_emails as $n => $email) {
+			if(!isset($cmp[$n]))	continue;
 			$this->assertRegExp($cmp[$n], $email->get_first_displayable_part(), 'message number was '.$n.',');
 		}
 	}
+
+	public function testDetectAdministrativeEmails() {
+		foreach($this->test_emails as $n => $email) {
+			if($n == 100 || $n == 101 || $n == 102 || $n == 150) {
+				$this->assertTrue($email->is_administrative(), 'message number was '.$n.',');
+			} else {
+				$this->assertFalse($email->is_administrative(), 'message number was '.$n.',');
+			}
+		}
+	}
+
+	public function testDetectDispositionNotifications() {
+		foreach($this->test_emails as $n => $email) {
+			if($n == 150) {
+				$this->assertTrue($email->is_disposition_notification(), 'message number was '.$n.',');
+			} else {
+				$this->assertFalse($email->is_disposition_notification(), 'message number was '.$n.',');
+			}
+		}
+	}
+
 }
 
 ?>
