@@ -58,11 +58,11 @@ class oml_email
 	}
 
 	/**
-	 * @return		Boolean whether writing was successfull.
+	 * @return		Array with filenames of the successfully written attachments.
 	 */
 	public function write_attachments_to_disk() {
 		$att	= $this->get_attachments();
-		$t	= true;
+		$t	= array();
 
 		foreach($att as $name=>$data) {
 			$filename = $this->attachment_dir.'/'.$name;
@@ -70,6 +70,7 @@ class oml_email
 				$t	= false;
 			} else {
 				file_put_contents($filename, $data);
+				$t[]	= $name;
 			}
 		}
 		return $t;
