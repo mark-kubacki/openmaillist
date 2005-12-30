@@ -5,29 +5,29 @@
 <ol class="messages">
 <?php foreach($messages as $msg) { ?>
 <li class="message" id="<?= $msg->get_unique_value() ?>">
-    <div class="header">
-	<dl>
-	    <dt>Sender:</dt>
-	    <dd><?= htmlentities($msg->get_author()) ?></dd>
-	    <dt>Received:</dt>
-	    <dd><?= $msg->get_date_received($cfg['display']['date_format']) ?><dd>
-	    <dt>Subject:</dt>
-	    <dd><?= $msg->get_subject() ?><dd>
-	</dl>
-    </div>
-    <div class="body">
-	<pre><blockquote><?= format_quotings(htmlentities($msg->get_text())) ?></blockquote></pre>
-    </div>
+	<div class="header">
+		<dl>
+			<dt>Sender:</dt>
+			<dd><?= htmlentities($msg->get_author()) ?></dd>
+			<dt>Received:</dt>
+			<dd><?= $msg->get_date_received($cfg['display']['date_format']) ?><dd>
+			<dt>Subject:</dt>
+			<dd><?= $msg->get_subject() ?><dd>
+		</dl>
+	</div>
+	<div class="body">
+		<pre><blockquote><?= format_quotings(htmlentities($msg->get_text())) ?></blockquote></pre>
+	</div>
 <?php if($msg->has_attachments()) { ?>
-    <div class="attachment">
-	<ol>
-	<?php foreach($msg->get_attachments() as $attachment) { ?>
-	    <li>
-		<a href="<?= $cfg['upload_dir'].$attachment->get_storage_name() ?>" title="attachment"><?= $attachment->get_filename() ?></a>
-	    </li>
-	<?php } ?>
-	</ol>
-    </div>
+	<div class="attachment">
+		<ol>
+		<?php foreach($msg->get_attachments() as $attachment) { ?>
+			<li>
+				<a href="<?= $cfg['upload_dir'].$attachment->get_storage_name() ?>" title="attachment"><?= $attachment->get_filename() ?></a>
+			</li>
+		<?php } ?>
+		</ol>
+	</div>
 <?php } ?>
 </li>
 <?php } ?>
