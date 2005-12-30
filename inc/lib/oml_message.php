@@ -11,6 +11,8 @@ class oml_message
 	private static $rex_email	= '/\<([\w0-9][\w0-9\.\-\_\+]{1,}@[\w0-9\.\-\_]{2,}\.[\w]{2,})\>/i';
 	private static $essen_subject	= '/(?:re|aw|fwd)?:?\s?(?:\[.*\])?\s?(.+)\s*(?:\(was:.*\))?/i';
 
+	private $attachments		= array();
+
 	public static function create_your_table(ADOConnection $db, $tablename) {
 		$flds		= file_get_contents(self::$schema_file);
 		$taboptarray	= array('mysql' => 'ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci');
@@ -231,6 +233,39 @@ class oml_message
 	 */
 	public function get_owning_thread() {
 		return $this->factory->get_thread($this->tid);
+	}
+
+	/**
+	 * @return		Boolean
+	 */
+	public function has_attachments() {
+		return ($this->hasattachments == 1);
+	}
+
+	public function add_attachment(oml_attachment $att) {
+		$att->register_message($this);
+		$this->attachments[$att->get_unique_value()]	= $att;
+		$this->hasattachments	= 1;
+		$this->write_to_db();
+	}
+
+	public function remove_attachment(oml_attachment $att) {
+		if(isset($this->attachments[$att->get_unique_value()])) {
+			unset($this->attachments[$att->get_unique_value()]);
+			if(count($this->attachments < 1)) {
+				$this->hasattachments	= 0;
+			}
+		}
+	}
+
+	/**
+	 * @return		Attachments as array, unique_id as key and oml_attachment objects as value.
+	 */
+	public function get_attachments() {
+		if($this->hasattachments == 1 && count($this->attachments) == 0) {
+			$this->attachments	= $this->factory->get_attachments_of_mid($this->get_unique_value());
+		}
+		return	$this->attachments;
 	}
 
 }
