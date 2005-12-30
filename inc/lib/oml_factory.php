@@ -25,6 +25,10 @@ class oml_factory
 		return oml_message::create_your_table($this->db, $this->tables['Messages']);
 	}
 
+	public function create_attachments_table() {
+		return oml_attachment::create_your_table($this->db, $this->tables['Attachments']);
+	}
+
 	public function get_all_lists() {
 		return oml_list::get_all_lists($this->db, $this, $this->tables['Lists']);
 	}
@@ -183,6 +187,28 @@ class oml_factory
 		return $ret;
 	}
 
+	public function get_attachments_of_mid($mid) {
+		$att	= array();
+		$rs = $this->db->Execute(
+			'SELECT ta.*
+			FROM '.$this->tables['Attachments'].' AS ta
+			WHERE '.$mid.'=ta.mid'
+		);
+		foreach($rs as $row) {
+			$tmp	= $this->get_attachment();
+			$tmp->become($row);
+			$att[]	= $tmp;
+		}
+		return $att;
+	}
+
+	public function create_attachment($filename, $storage_name) {
+		$tmp	= $this->get_attachment();
+		$tmp->set_filename($filename);
+		$tmp->set_storage_name($storage_name);
+		return $tmp;
+	}
+
 	public function get_list($lid = null) {
 		$tmp = new oml_list($this->db, $this->tables['Lists'], $this);
 		if(!is_null($lid)) {
@@ -203,6 +229,14 @@ class oml_factory
 		$tmp = new oml_message($this->db, $this->tables['Messages'], $this);
 		if(!is_null($mid)) {
 			$tmp->set_unique_value($mid);
+		}
+		return $tmp;
+	}
+
+	public function get_attachment($aid = null) {
+		$tmp = new oml_attachment($this->db, $this->tables['Attachments'], $this);
+		if(!is_null($aid)) {
+			$tmp->set_unique_value($aid);
 		}
 		return $tmp;
 	}

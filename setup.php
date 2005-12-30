@@ -38,6 +38,13 @@ switch($factory->create_messages_table()) {
 }
 echo('<br />');
 
+// attachments' table
+switch($factory->create_attachments_table()) {
+	case '1':	echo('Table already exists.');	break;
+	case '2':	echo('Table created.');		break;
+}
+echo('<br />');
+
 // now insert example messages
 echo('<h3>example messages</h3>');
 try {
@@ -47,8 +54,9 @@ try {
 			$cfg['sample_msg'].'/3.',
 			);
 	foreach($todo as $filename) {
+		echo('.');
 		$email	= new oml_email(file_get_contents($filename));
-		$oml->put_email($myList, $email);
+		$oml->put_email($myList, $email, $cfg['upload_dir']);
 	}
 } catch (Exception $e) {
 	echo('Some example messages could not be inserted into list <cite>mylist</cite>:');

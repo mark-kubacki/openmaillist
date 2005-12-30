@@ -16,6 +16,8 @@
 </file>
 <file url="inc/database/thread.adodb.txt" id="1080BD6BCAEL4704447e0x267a" name="thread.adodb.txt">
 </file>
+<file url="inc/database/attachment.adodb.txt" id="1087CEFAC20L756037ad0x261f" name="attachment.adodb.txt">
+</file>
 </folder>
 <folder url="inc/lib" id="107706CE8E3L69bcaad60x786e" name="lib">
 <file url="inc/lib/openmaillist.php" id="107706CE8DBL16bb30b50x786e" name="openmaillist.php">
@@ -43,6 +45,8 @@
 <file url="inc/lib/MIME_Part.php" id="1087BCFC93BL386f30da0x261f" name="MIME_Part.php">
 </file>
 <file url="inc/lib/oml_email.php" id="1087C4FEB20L98454f40x261f" name="oml_email.php">
+</file>
+<file url="inc/lib/oml_attachment.php" id="1087CECAF5BL159422af0x261f" name="oml_attachment.php">
 </file>
 </folder>
 <file url="inc/_append.php" id="10770989D20L616d11290x2334" name="_append.php">

@@ -18,6 +18,17 @@
     <div class="body">
 	<pre><blockquote><?= format_quotings(htmlentities($msg->get_text())) ?></blockquote></pre>
     </div>
+<?php if($msg->has_attachments()) { ?>
+    <div class="attachment">
+	<ol>
+	<?php foreach($msg->get_attachments() as $attachment) { ?>
+	    <li>
+		<a href="<?= $cfg['upload_dir'].$attachment->get_storage_name() ?>" title="attachment"><?= $attachment->get_filename() ?></a>
+	    </li>
+	<?php } ?>
+	</ol>
+    </div>
+<?php } ?>
 </li>
 <?php } ?>
 </ol>

@@ -66,7 +66,7 @@ final class openmaillist
 	 * @param	input		String with the email-message.
 	 * @throw			Several exceptions. You can use their text as error message.
 	 */
-	public function put_email(oml_list $list, oml_email $input) {
+	public function put_email(oml_list $list, oml_email $input, $upload_dir) {
 		if($input->is_administrative()) {
 			return;
 		}
@@ -92,9 +92,29 @@ final class openmaillist
 
 		if($myMsg->write_to_db()) {
 			$this->put_message($list, $myMsg);
+			$this->add_attachments_to_msg($myMsg, $input, $upload_dir);
 		} else {
 			throw new Exception('Email could not be saved. Duplicate? Inproper Message-ID?');
 		}
+	}
+
+	/**
+	 * @returns		Boolean whether writing and adding attachments was successfull.
+	 */
+	private function add_attachments_to_msg(oml_message $msg, oml_email $email, $upload_dir) {
+		if($email->has_attachments()) {
+			$storage_part	= '/'.md5(rand().$msg->get_unique_value());
+			mkdir($upload_dir.$storage_part);
+			if(!$email->set_attachment_storage($upload_dir.$storage_part)) {
+				@rmdir($upload_dir.$storage_part);
+				return false;
+			}
+			foreach($email->write_attachments_to_disk() as $filename) {
+				$tmp	= $this->factory->create_attachment($filename, $storage_part.'/'.$filename);
+				$msg->add_attachment($tmp);
+			}
+		}
+		return true;
 	}
 
 	/**
