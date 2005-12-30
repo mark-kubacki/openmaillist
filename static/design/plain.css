@@ -58,6 +58,16 @@ table {
 	color: inherit;
 }
 
+/* -- listviw */
+ul.post_def {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+ul.post_def li.nh {
+	padding-left: 2em;
+}
+
 /* -- messages */
 ol.messages {
 	list-style: none;
