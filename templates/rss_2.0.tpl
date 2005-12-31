@@ -9,10 +9,11 @@
 <?php if(is_array($messages)) foreach($messages as $item) { ?>
 	<item>
 		<title><?= $item->get_subject() ?></title>
-		<link><?= $cfg['AbsoluteUri'] ?>messages.php?tid=<?= $item->get_owning_thread()->get_unique_value() ?>#<?= $item->get_unique_value() ?></link>
+		<link><?= $cfg['AbsoluteUri'] ?>messages.php?tid=<?= $item->get_owning_thread()->get_unique_value() ?>#mid<?= $item->get_unique_value() ?></link>
 		<description><?= format_for_rss($item->get_text(), $cfg['rss']['max_description_length']) ?></description>
 		<pubDate><?= $item->get_date_received('r'); ?></pubDate>
-		<author><?= format_for_rss($item->get_author()) ?></author>
+		<author><?= $list->get_address() ?> (<?= format_for_rss($item->get_author()) ?>)</author>
+		<guid isPermaLink="false">&lt;<?= format_for_rss($item->get_message_id()) ?>&gt;</guid>
 	</item>
 <?php } ?>
 </channel>
