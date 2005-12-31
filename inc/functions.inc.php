@@ -55,7 +55,7 @@ function __autoload($class_name) {
 
 function format_quotings($text) {
 	for($i = 1; $i < 6; $i++) {
-		$text	= preg_replace(	'/((?:^(?:\>|&gt;|\#|\|){'.$i.'}[^\n\r]+\r?\n?)+)/m',
+		$text	= preg_replace(	'/((?:^(?:(?:\>|&gt;|\#|\|) ?){'.$i.'}.*\r?\n?)+)/m',
 					'<span class="quote level'.$i.'">\1</span>',
 					$text);
 	}
