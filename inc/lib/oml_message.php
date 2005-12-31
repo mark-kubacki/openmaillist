@@ -92,6 +92,15 @@ class oml_message
 	}
 
 	/**
+	 * Mesage ID is the identifier for references in normal email threads.
+	 *
+	 * @return	string	With message_id, without brackets.
+	 */
+	public function get_message_id() {
+		return $this->message_id;
+	}
+
+	/**
 	 * The given message_id is necessary for keeping track of threads.
 	 *
 	 * @param	message_id	... of message this is the reply to. Need not exist in DB.
