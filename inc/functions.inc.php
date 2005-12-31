@@ -60,7 +60,7 @@ function format_quotings($text) {
 				),
 				array(	'',
 					'<span class="quote">\1</span>',
-					'<a href="\1" rel="nofollow" title="URL">\1</a>',
+					'<a href="\1" title="URL">\1</a>',
 				),
 				$text);
 }
