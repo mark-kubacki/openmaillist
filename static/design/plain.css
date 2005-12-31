@@ -136,8 +136,23 @@ div.attachment ol {
 	padding-top: 0.5em;
 	padding-bottom: 0.5em;
 }
-span.quote {
+span.level1 {
 	color: #0000c0;
+}
+span.level2 {
+	color: #8016ed;
+}
+span.level3 {
+	color: #c000a0;
+}
+span.level4 {
+	color: #ed6216;
+}
+span.level5 {
+	color: #edc216;
+}
+span.level6 {
+	color: #e2e9ba;
 }
 
 /* extras for other standards */
