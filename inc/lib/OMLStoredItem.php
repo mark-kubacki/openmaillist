@@ -8,10 +8,12 @@ abstract class OMLStoredItem
 {
 	protected $db;
 	protected $table;
+	protected $superior;
 
-	function __construct(ADOConnection $database_handler, $preferred_tablename) {
+	function __construct(ADOConnection $database_handler, $preferred_tablename, oml_manager $superior = null) {
 		$this->db	= $database_handler;
 		$this->table	= $preferred_tablename;
+		$this->superior	= $superior;
 	}
 
 	public function write_to_db() {

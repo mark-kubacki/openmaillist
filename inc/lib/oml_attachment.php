@@ -1,8 +1,7 @@
 <?php
 class oml_attachment
-	extends OMLObject
+	extends OMLStoredItem
 {
-	// due to OMLObject:
 	public static $schema_file	= './inc/database/attachment.adodb.txt';
 	protected $unique_key		= 'aid';
 

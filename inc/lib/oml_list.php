@@ -1,8 +1,7 @@
 <?php
 class oml_list
-	extends OMLObject
+	extends OMLStoredItem
 {
-	// due to OMLObject:
 	public static $schema_file	= './inc/database/list.adodb.txt';
 	protected $unique_key		= 'lid';
 

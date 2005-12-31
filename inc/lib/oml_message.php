@@ -1,8 +1,7 @@
 <?php
 class oml_message
-	extends OMLObject
+	extends OMLStoredItem
 {
-	// due to OMLObject:
 	public static $schema_file	= './inc/database/message.adodb.txt';
 	protected $unique_key		= 'mid';
 

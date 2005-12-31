@@ -1,8 +1,7 @@
 <?php
 class oml_thread
-	extends OMLObject
+	extends OMLStoredItem
 {
-	// due to OMLObject:
 	public static $schema_file	= './inc/database/thread.adodb.txt';
 	protected $unique_key		= 'tid';
 
