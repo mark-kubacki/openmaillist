@@ -2,7 +2,7 @@
 include('./inc/_prepend.php');
 
 // DATA
-header('Content-Type: text/xml');
+header('Content-Type: text/xml; charset=UTF-8');
 $list		= $oml->get_list($_GET['lid']);
 $messages	= $list->get_num_latest_entries($cfg['rss']['num_messages']);
 
