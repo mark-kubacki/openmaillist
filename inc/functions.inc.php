@@ -1,10 +1,10 @@
 <?php
 /**
- * Codiert einen String in Unicode-Schreibweise. (Dezimal oder Hex-Schreibweise)
+ * Converts a given string character by character in its HTML unicode entities.
  *
- * @param $string	die umzuwandelnde Zeichenkette
- * @param $hex		soll die Ausgabe als Hex-Code erfolgen? sonst Zahl
- * @return		html unicode entities der Zeichenkette (in iso8859-1)
+ * @param	string	the string to be converted
+ * @param	hex	True for hex- and false for numeric representation.
+ * @return		String with unicode representations. (in iso8859-1)
  */
 function UniCodeString($string, $hex = true) {
 	$len = strlen($string);
@@ -13,8 +13,7 @@ function UniCodeString($string, $hex = true) {
 		for($i = 0; $i < $len; $i++) {
 			$encoded .= '&#x'.base_convert(ord(substr($string,$i)), 10, 16).';';
 		}
-	}
-	else {
+	} else {
 		for($i = 0; $i < $len; $i++) {
 			$encoded .= '&#'.ord(substr($string,$i)).';';
 		}
@@ -23,25 +22,22 @@ function UniCodeString($string, $hex = true) {
 }
 
 /**
- * Wandelt einen String in Unicode um, auf dass Spam-Crawler ihn nicht erfassen.
- * Ein wrapper für UniCodeString.
+ * In order to prevent email harverster to steal addresses we are expected to protect them.
  *
- * @param $string	die umzuwandelnde Zeichenkette
- * @return		html unicode entities der Zeichenkette (in iso8859-1)
+ * @see			UniCodeString
  */
 function EncodeEmail($string) {
 	return UniCodeString($string, true);
 }
 
 /**
- * Makes the first letter an uppercase one.
+ * Makes the first character an uppercase one.
  *
  * @return		Capitalized string.
  */
 function str_capitalize($string) {
 	if(strlen($string) > 0) {
 		$string{0}	= strtoupper($string{0});
-		return $string;
 	}
 	return $string;
 }
@@ -53,6 +49,9 @@ function __autoload($class_name) {
 	require_once('./inc/lib/'.$class_name.'.php');
 }
 
+/**
+ * Formats plain text to be more pleasant for the user by adding colors, links and other things.
+ */
 function format_quotings($text) {
 	for($i = 1; $i < 6; $i++) {
 		$text	= preg_replace(	'/((?:^(?:(?:\>|&gt;|\#|\|) ?){'.$i.'}.*\r?\n?)+)/m',
@@ -69,7 +68,11 @@ function format_quotings($text) {
 }
 
 /**
+ * Makes all necessary conversions of given string for being included in RSS feeds.
  *
+ * @param	text	The text to be formatted and converted.
+ * @param	length	If not 0, makes sure the string is no longer than given amount of characters.
+ * @param	append	If length is set and given string needs to be cropped, this is appended. It's length is taken into account at cropping.
  */
 function format_for_rss($text, $length = 0, $append = '...') {
 	$text	= strip_tags($text);
@@ -80,4 +83,5 @@ function format_for_rss($text, $length = 0, $append = '...') {
 
 	return $text;
 }
+
 ?>
