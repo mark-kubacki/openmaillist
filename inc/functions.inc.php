@@ -54,12 +54,15 @@ function __autoload($class_name) {
 }
 
 function format_quotings($text) {
+	for($i = 1; $i < 6; $i++) {
+		$text	= preg_replace(	'/((?:^(?:\>|&gt;|\#|\|){'.$i.'}[^\n\r]+\r?\n?)+)/m',
+					'<span class="quote level'.$i.'">\1</span>',
+					$text);
+	}
 	return preg_replace(	array(	'/(\s*(?:^_{5,}|^--\s?\n\w)(?:.*\s?)*)/m',
-					'/((?:^(\>|&gt;|\#|\|).*\s*)+)(?:\s|$)/m',
 					'/((?:http|https|svn|ftp):\/\/\S{5,})/',
 				),
 				array(	'',
-					'<span class="quote">\1</span>',
 					'<a href="\1" title="URL">\1</a>',
 				),
 				$text);
