@@ -9,7 +9,7 @@
 		<dl>
 			<dt>Sender:</dt>
 			<dd>
-				<a href="mailto:<?= EncodeEmail($list->get_address()) ?>?subject=<?= rawurlencode($msg->get_subject()) ?>&amp;in-reply-to=&lt;<?= rawurlencode($msg->get_message_id()) ?>&gt;" title="respond to this message by email">
+				<a href="mailto:<?= EncodeEmail($list->get_address()) ?>?subject=<?= rawurlencode($msg->get_subject()) ?>&amp;in-reply-to=<?= rawurlencode($msg->get_message_id()) ?>" title="respond to this message by email">
 					<?= htmlentities($msg->get_author()) ?>
 				</a>
 			</dd>
