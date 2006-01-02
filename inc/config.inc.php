@@ -23,6 +23,7 @@ $cfg['display']['date_format']	= 'Y-m-d H:i';
 // How many entries shall we display in RSS?
 $cfg['rss']['num_messages']		= 15;
 $cfg['rss']['max_description_length']	= 256;
+$cfg['rss']['min_age']			= 10;		// in minutes
 
 // Select one of: plain
 $cfg['theme']		= 'plain';
