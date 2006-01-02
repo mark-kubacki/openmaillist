@@ -14,17 +14,18 @@ include('./inc/functions.inc.php');
 
 // table names with prefixes
 $cfg['tablenames']
-	= array('Attachments'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Attachments',
-		'Lists'		=> $cfg['Servers']['DB'][0]['PREFIX'].'Lists',
-		'Messages'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Messages',
-		'Threads'	=> $cfg['Servers']['DB'][0]['PREFIX'].'Threads',
+	= array('Attachments'	=> $cfg['DB']['PREFIX'].'Attachments',
+		'Lists'		=> $cfg['DB']['PREFIX'].'Lists',
+		'Messages'	=> $cfg['DB']['PREFIX'].'Messages',
+		'Threads'	=> $cfg['DB']['PREFIX'].'Threads',
 		);
 
 // set anything important to ADOdb
-$db	= ADONewConnection($cfg['Servers']['DB'][0]['TYPE']);
-$db->Connect(	$cfg['Servers']['DB'][0]['HOST'],
-		$cfg['Servers']['DB'][0]['USER'], $cfg['Servers']['DB'][0]['PASS'],
-		$cfg['Servers']['DB'][0]['DB']);
+$db	= ADONewConnection($cfg['DB']['TYPE']);
+$db->Connect(	$cfg['DB']['HOST'],
+		$cfg['DB']['USER'],
+		$cfg['DB']['PASS'],
+		$cfg['DB']['DB']);
 $db->SetFetchMode(ADODB_FETCH_ASSOC);
 
 // include the backend
