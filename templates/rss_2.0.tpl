@@ -4,6 +4,7 @@
 	<title>Openmaillist: <?= $list->get_name() ?></title>
 	<link><?= $cfg['AbsoluteUri'] ?>threads.php?lid=<?= $list->get_unique_value() ?></link>
 	<description><?= $list->get_description() ?></description>
+	<ttl><?= $cfg['rss']['min_age'] ?></ttl>
 	<docs>http://blogs.law.harvard.edu/tech/rss</docs>
 	<generator>Openmaillist <?= $version ?></generator>
 <?php if(is_array($messages)) foreach($messages as $item) { ?>
