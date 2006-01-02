@@ -3,10 +3,7 @@
 
 $cfg['AbsoluteUri']	= 'http://127.0.0.1/openmaillist/';
 
-$i = 0;
-$cfg['Servers']['verbose'][] = 'localhost';
-$cfg['Servers']['number'][] = $i++;
-$cfg['Servers']['DB'][] = array(
+$cfg['DB'] = array(
 	'TYPE'	=> 'mysql',
 	'HOST'	=> 'localhost',
 	'USER'	=> '##MysqlUser##',

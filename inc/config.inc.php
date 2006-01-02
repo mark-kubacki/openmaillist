@@ -29,11 +29,8 @@ $cfg['theme']		= 'plain';
 
 // Copy this line and change it according to your environment.
 /*
-$i = 0;
-$cfg['Servers']['verbose'][] = 'localhost';
-$cfg['Servers']['number'][] = $i++;
-$cfg['Servers']['DB'][] = array(
-	'TYPE'	=> 'mysql',			// currently only mysql
+$cfg['DB'] = array(
+	'TYPE'	=> 'mysql',
 	'HOST'	=> 'localhost',
 	'USER'	=> '##MysqlUser##',
 	'PASS'	=> '##MysqlSecret##',
