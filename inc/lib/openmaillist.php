@@ -4,6 +4,9 @@ final class openmaillist
 	private		$db;
 	private		$superior;
 
+	/** This is the directory uploads shall be stored in. Subdirs will be created in it, so make sure it is writeable by OML. */
+	public		$upload_dir;
+
 	function __construct(ADOConnection $database_handler, oml_manager $superior) {
 		$this->db	= $database_handler;
 		$this->superior	= $superior;
@@ -66,7 +69,7 @@ final class openmaillist
 	 * @param	input		String with the email-message.
 	 * @throw			Several exceptions. You can use their text as error message.
 	 */
-	public function put_email(oml_list $list, oml_email $input, $upload_dir) {
+	public function put_email(oml_list $list, oml_email $input) {
 		if($input->is_administrative()) {
 			return;
 		}
@@ -92,7 +95,7 @@ final class openmaillist
 
 		if($myMsg->write_to_db()) {
 			$this->put_message($list, $myMsg);
-			$this->add_attachments_to_msg($myMsg, $input, $upload_dir);
+			$this->add_attachments_to_msg($myMsg, $input);
 		} else {
 			throw new Exception('Email could not be saved. Duplicate? Inproper Message-ID?');
 		}
@@ -101,12 +104,12 @@ final class openmaillist
 	/**
 	 * @returns		Boolean whether writing and adding attachments was successfull.
 	 */
-	private function add_attachments_to_msg(oml_message $msg, oml_email $email, $upload_dir) {
+	private function add_attachments_to_msg(oml_message $msg, oml_email $email) {
 		if($email->has_attachments()) {
 			$storage_part	= '/'.md5(rand().$msg->get_unique_value());
-			mkdir($upload_dir.$storage_part);
-			if(!$email->set_attachment_storage($upload_dir.$storage_part)) {
-				@rmdir($upload_dir.$storage_part);
+			mkdir($this->upload_dir.$storage_part);
+			if(!$email->set_attachment_storage($this->upload_dir.$storage_part)) {
+				@rmdir($this->upload_dir.$storage_part);
 				return false;
 			}
 			foreach($email->write_attachments_to_disk() as $filename) {

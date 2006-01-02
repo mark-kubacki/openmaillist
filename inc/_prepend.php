@@ -31,5 +31,6 @@ $db->SetFetchMode(ADODB_FETCH_ASSOC);
 // include the backend
 $superior	= new oml_manager($db, $cfg['tablenames']);
 $oml		= new openmaillist($db, $superior);
+$oml->upload_dir	= './'.$cfg['upload_dir'];
 
 ?>
