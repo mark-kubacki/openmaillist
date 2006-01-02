@@ -18,7 +18,7 @@ class oml_manager
 			WHERE '.$list_id.'=th.lid
 			GROUP BY th.Threadname
 			HAVING posts > 0
-			ORDER BY tm.datereceived DESC'
+			ORDER BY lastdate DESC'
 		);
 		foreach($rs as $row) {
 			$tmp	= $this->get_thread();
