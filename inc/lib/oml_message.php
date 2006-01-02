@@ -31,23 +31,6 @@ class oml_message
 	}
 
 	/**
-	 * A thread or other structure might be interested in getting a lot of messages.
-	 * This function is to suit that purpose.
-	 *
-	 * @return	array of oml_messages belonging to that thread_id
-	 */
-	public static function get_messages_of(ADOConnection $db, oml_manager $superior, $tablename, $thread_id) {
-		$result = array();
-		$rs = $db->Execute('SELECT * FROM '.$tablename.' WHERE tid='.$thread_id);
-		foreach($rs as $row) {
-			$tmp		= $superior->get_message();
-			$tmp->become($row);
-			$result[]	= $tmp;
-		}
-		return $result;
-	}
-
-	/**
 	 * Registering messages needs this.
 	 */
 	public static function get_thread_with(ADOConnection $db, oml_manager $superior, $tablename, $message_id) {

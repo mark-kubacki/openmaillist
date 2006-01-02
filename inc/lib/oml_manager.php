@@ -29,7 +29,22 @@ class oml_manager
 	}
 
 	public function get_all_messages_of($thread_id) {
-		return oml_message::get_messages_of($this->db, $this, $this->tables['Messages'], $thread_id);
+		$messages	= array();
+		$data = $this->db->Execute(
+			'SELECT tm.*
+			FROM '.$this->tables['Messages'].' AS tm, '.$this->tables['Threads'].' AS tt
+			WHERE tt.tid = tm.tid
+			AND tt.tid ='.$thread_id.'
+			ORDER BY tm.datereceived ASC'
+		);
+		if(!$data === false) {
+			foreach($data as $row) {
+				$tmp	= $this->get_message();
+				$tmp->become($row);
+				$messages[]	= $tmp;
+			}
+		}
+		return $messages;
 	}
 
 	public function get_list_by_name($listname) {
