@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains specific methods for OML which need not be general applicable to emails.
+ * Custom methods for OML reside here.
  *
  * @see		<a href="http://www.ietf.org/rfc/rfc2183.txt">RFC 2183</a>
  * @see		<a href="http://www.emaillab.org/essay/japanese-filename.html">Japanese Filename</a>
@@ -13,13 +13,13 @@ class oml_email
 	protected	$attachment_dir	= '/tmp';
 
 	/**
-	 * This functions set where attachments will be written to.
+	 * Makes sure the directory for storing attachments is writeable by OML.
 	 *
 	 * @param $where	Has to be the absolute path without trailing slash to the location where the attachments will be stored.
 	 * @return		True if the given path exists, is a directory and writeable.
 	 */
 	public function set_attachment_storage($where) {
-		if(is_dir($where) && is_writable($where)) {
+		if(is_dir($where) && is_writeable($where)) {
 			$this->attachment_dir = $where;
 			return true;
 		} else {
