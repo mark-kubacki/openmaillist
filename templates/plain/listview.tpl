@@ -13,9 +13,9 @@
 					<dt><a href="threads.php?lid=<?= $list->get_unique_value() ?>" title="threads of"><?= $list->get_name() ?></a></dt>
 					<dd><?= $list->get_description() ?></dd>
 					<dd>
-						write to <a href="mailto:<?= EncodeEmail($list->get_address()) ?>" title="lists' email"><?= EncodeEmail($list->get_address()) ?></a>;
+						write to <a href="mailto:<?= EncodeEmail($list->get_address()) ?>" title="lists' email"><?= EncodeEmail($list->get_address()) ?></a>
 						<a href="rss.php?lid=<?= $list->get_unique_value() ?>" class="rss" title="This is a link to this list's RSS channel: <?= $list->get_name() ?>">
-							RSS feed <cite class="rss">XML</cite>
+							- RSS feed <cite class="rss">XML</cite>
 						</a>
 					</dd>
 				</dl>

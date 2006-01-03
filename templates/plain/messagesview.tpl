@@ -9,12 +9,12 @@
 		<dl>
 			<dt>Sender:</dt>
 			<dd>
-				<a href="mailto:<?= EncodeEmail($list->get_address()) ?>?subject=<?= rawurlencode($msg->get_subject()) ?>&amp;in-reply-to=<?= rawurlencode($msg->get_message_id()) ?>" title="respond to this message by email">
+				<a href="mailto:<?= EncodeEmail($list->get_address()) ?>?subject=<?= rawurlencode($msg->get_subject()) ?>&amp;in-reply-to=<?= rawurlencode($msg->get_message_id()) ?>" title="respond to this message by email" class="nowrap">
 					<?= htmlentities($msg->get_author()) ?>
 				</a>
 			</dd>
 			<dt>Received:</dt>
-			<dd><?= $msg->get_date_received($cfg['display']['date_format']) ?></dd>
+			<dd class="nowrap"><?= $msg->get_date_received($cfg['display']['date_format']) ?></dd>
 			<dt>Subject:</dt>
 			<dd><?= $msg->get_subject() ?></dd>
 		</dl>
