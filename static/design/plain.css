@@ -58,6 +58,10 @@ table {
 	color: inherit;
 }
 
+.nowrap, ul.post_def li {
+	white-space: nowrap;
+}
+
 /* -- listview */
 ul.post_def {
 	margin: 0;
@@ -82,6 +86,7 @@ ol.messages {
 li.message {
 	border-collapse: collapse;
 	border: 1px solid #cccccc;
+	min-width: 580px;
 }
 li.message dl {
 	border-bottom: 1px dashed #cccccc;
@@ -115,16 +120,7 @@ div.path a {
 }
 div.body pre {
 	width: 88%;
-	/* some very ugly hacks, but as far to browser seems to care about CSS 2.1 */
-	white-space: -moz-pre-wrap;	/* Mozilla */
-	white-space: -hp-pre-wrap;	/* HP printers */
-	white-space: -o-pre-wrap;	/* Opera 7 */
-	white-space: -pre-wrap;		/* Opera 4-6 */
-	white-space: pre-wrap;		/* CSS 2.1 */
-	white-space: pre-line;		/* CSS 3 (and 2.1 as well, actually) */
-	word-wrap: break-word;		/* IE */
 }
-
 div.attachment {
 	margin-top: 1.5em;
 	margin-left: 4em;
@@ -165,6 +161,7 @@ div.rss a.rss {
 a.rss {
 	text-decoration: none;
 	font-size: smaller;
+	white-space: nowrap;
 }
 cite.rss {
 	background-color: #ff6600;
@@ -172,4 +169,15 @@ cite.rss {
 	padding-left: 2px;
 	padding-right: 1px;
 	font-style: normal;
+}
+
+@media print,aural,braille {
+	#footer {
+		display: none;
+	}
+}
+@media print {
+	.rss {
+		display: none;
+	}
 }

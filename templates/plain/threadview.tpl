@@ -15,11 +15,11 @@
 			<td class="subj"><a href="messages.php?tid=<?= $thread->get_unique_value() ?>" title="messages of"><?= $thread->get_name() ?></a></td>
 			<td class="fig"><?= $thread->number_of_messages() ?></td>
 			<td class="fig"><?= $thread->get_views() ?></td>
-			<td><?= htmlentities($thread->get_first_message()->get_author()) ?></td>
+			<td class="nowrap"><?= htmlentities($thread->get_first_message()->get_author()) ?></td>
 			<?php $last_msg = $thread->get_last_message(); ?>
 			<td class="date">
-				<?= $last_msg->get_date_received($cfg['display']['date_format']) ?>
-				by <?= htmlentities($last_msg->get_author()) ?>
+				<span class="nowrap"><?= $last_msg->get_date_received($cfg['display']['date_format']) ?></span>
+				<span class="nowrap">by <?= htmlentities($last_msg->get_author()) ?></span>
 			</td>
 		</tr>
 	<?php } ?>

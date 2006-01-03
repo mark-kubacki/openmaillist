@@ -96,6 +96,8 @@
 <folder id="107A00B40A5L7b8e6b740x3fa2" name="design">
 <file url="static/design/plain.css" id="107A00B5F31L30dba9e20x3fa2" name="plain.css">
 </file>
+<file url="static/design/plain_hacks.css" id="1088D9D9449L70a5a6d80x289e" name="plain_hacks.css">
+</file>
 </folder>
 <folder id="107C37D10C4L404c42360x250e" name="testdata">
 <file url="static/testdata/1." id="107C37D446CL66290ad10x250e" name="1.">
