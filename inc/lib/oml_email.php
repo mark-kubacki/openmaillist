@@ -65,7 +65,7 @@ class oml_email
 		$t	= array();
 
 		foreach($att as $name=>$data) {
-			$filename = $this->attachment_dir.'/'.$name;
+			$filename = $this->attachment_dir.'/'.basename($name);
 			if(is_file($filename)) {
 				$t	= false;
 			} else {
