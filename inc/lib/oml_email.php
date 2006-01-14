@@ -76,5 +76,22 @@ class oml_email
 		return $t;
 	}
 
+	/**
+	 * Wrapper for malformed headers.
+	 * @see			MIME_Mail::get_header
+	 */
+	public function get_header($key) {
+		if('message-id' == $key) {
+			$tmp	= parent::get_header($key);
+			if(preg_match('/\<([^\<]+?@[^\>]+)\>/', $tmp, $arr)) {
+				return $arr[1];
+			} else {
+				return $tmp;
+			}
+		} else {
+			return parent::get_header($key);
+		}
+	}
+
 }
 ?>
