@@ -81,7 +81,7 @@ class oml_email
 	 * @see			MIME_Mail::get_header
 	 */
 	public function get_header($key) {
-		if('message-id' == $key) {
+		if('in-reply-to' == $key) {
 			$tmp	= parent::get_header($key);
 			if(preg_match('/\<([^\<]+?@[^\>]+)\>/', $tmp, $arr)) {
 				return $arr[1];
