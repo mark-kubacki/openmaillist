@@ -81,16 +81,19 @@ class oml_email
 	 * @see			MIME_Mail::get_header
 	 */
 	public function get_header($key) {
-		if('in-reply-to' == $key) {
-			$tmp	= parent::get_header($key);
-			if(preg_match('/\<([^\<]+?@[^\>]+)\>/', $tmp, $arr)) {
-				return $arr[1];
-			} else {
-				return $tmp;
-			}
-		} else {
-			return parent::get_header($key);
+		switch($key) {
+			case 'in-reply-to':
+				if(preg_match('/\<([^\<]+?@[^\>]+)\>/', parent::get_header($key), $arr)) {
+					return $arr[1];
+				}
+				break;
+			case 'references':
+				if(preg_match_all('/\<([^\<]+?@[^\>]+)\>/', parent::get_header($key), $arr)) {
+					return implode(' ', $arr[0]);
+				}
+				break;
 		}
+		return parent::get_header($key);
 	}
 
 }

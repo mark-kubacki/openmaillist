@@ -34,6 +34,7 @@ class oml_emailTest
 			100	=> new oml_email(file_get_contents($cfg['sample_msg'].'/100.')),
 			101	=> new oml_email(file_get_contents($cfg['sample_msg'].'/101.')),
 			102	=> new oml_email(file_get_contents($cfg['sample_msg'].'/102.')),
+			103	=> new oml_email(file_get_contents($cfg['sample_msg'].'/103.')),
 			150	=> new oml_email(file_get_contents($cfg['sample_msg'].'/150.')),
 		);
 	}
@@ -54,6 +55,7 @@ class oml_emailTest
 			4	=> 'Sun, 27 Nov 2005 18:27:45 +0100',
 			82	=> 'Sat, 17 Dec 2005 16:35:18 +0100',
 			83	=> 'Sun, 18 Dec 2005 02:08:44 +0100',
+			103	=> 'Sat, 21 Jan 2006 00:33:09 +0100',
 		);
 
 		foreach($this->test_emails as $n => $email) {
@@ -70,6 +72,7 @@ class oml_emailTest
 			4	=> 'Sun, 27 Nov 2005 18:27:43 +0100 (CET)',
 			82	=> 'Sat, 17 Dec 2005 07:35:14 -0800 (PST)',
 			83	=> 'Sun, 18 Dec 2005 02:08:44 +0100',
+			103	=> 'Sat, 21 Jan 2006 00:33:09 +0100',
 		);
 
 		foreach($this->test_emails as $n => $email) {
@@ -91,6 +94,33 @@ class oml_emailTest
 		foreach($this->test_emails as $n => $email) {
 			if(!isset($cmp[$n]))	continue;
 			$this->assertEquals($email->get_header('message-id'), $cmp[$n], 'message number was '.$n.',');
+		}
+	}
+
+	public function testGetMessageReplyTos() {
+		$cmp
+		= array(2	=> '200510281111.13579.user1@example.com',
+			83	=> '20051217223855.06EC61680E1@mail.on-topic.de',
+			103	=> '43CF8768.3060909@rp-r.de',
+			150	=> '43AC2042.5080306@example.com',
+		);
+
+		foreach($this->test_emails as $n => $email) {
+			if(!isset($cmp[$n]))	continue;
+			$this->assertEquals($email->get_header('in-reply-to'), $cmp[$n], 'message number was '.$n.',');
+		}
+	}
+
+	public function testGetMessageReferences() {
+		$cmp
+		= array(2	=> '<200510281111.13579.user1@example.com>',
+			83	=> '<20051217201711.E453.REICHERT@on-topic.de> <43A47A62.9070909@hurrikane.de> <20051217223855.06EC61680E1@mail.on-topic.de>',
+			103	=> '<43CF8768.3060909@rp-r.de>',
+		);
+
+		foreach($this->test_emails as $n => $email) {
+			if(!isset($cmp[$n]))	continue;
+			$this->assertEquals($cmp[$n], $email->get_header('references'), 'message number was '.$n.',');
 		}
 	}
 

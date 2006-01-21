@@ -1,0 +1,44 @@
+Return-Path: <wmark@hurrikane.de>
+Received: from murder ([unix socket])
+         by neon (Cyrus v2.2.12-Gentoo) with LMTPA;
+         Sat, 21 Jan 2006 00:33:17 +0100
+X-Sieve: CMU Sieve 2.2
+X-Spam-Checker-Version: SpamAssassin 3.1.0-gr0 (2005-09-13) on
+        neon.hurrikane.de
+X-Spam-Level:
+X-Spam-Status: No, score=-1.6 required=5.0 tests=AWL,LOCAL_SENDER_FROM,
+        RCVD_IN_NJABL_DUL,RCVD_IN_SORBS_DUL,RCVD_IN_SORBS_WEB autolearn=ham
+        version=3.1.0-gr0
+Received: from [192.168.1.33] (dslc-082-082-164-050.pools.arcor-ip.net [82.82.164.50])
+        (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by neon.hurrikane.de (Postfix) with ESMTP id E4C6DC0AABE
+        for <list@openmailadmin.org>; Sat, 21 Jan 2006 00:33:09 +0100 (CET)
+Message-ID: <43D17338.7070701@hurrikane.de>
+Disposition-Notification-To: W-Mark Kubacki <wmark@hurrikane.de>
+Date: Sat, 21 Jan 2006 00:33:12 +0100
+From: W-Mark Kubacki <wmark@hurrikane.de>
+User-Agent: Thunderbird 1.5 (X11/20051201)
+MIME-Version: 1.0
+To: Sfroehlich from Rp <list@openmailadmin.org>
+Subject: Re: Problems with AdoDB in relation to OMA
+References: <<43CF8768.3060909@rp-r.de>@localhost.localdomain>
+In-Reply-To: <43CF8768.3060909@rp-r.de>@localhost.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Guten morgen,
+
+If you have in mind "setup" of OMA you will have to make sure PHP is
+build with MySQL or MySQLi support. Else It won't be found.
+The detection is independent from any ADOdb checks.
+
+
+Debian doesn't have my sympathy, therefore I don't have a installation
+at hand. (May I encourage Debian users to move to Gentoo or Arch?)
+
+If you used Gentoo you could simply "emerge" "dev-lang/php" with these
+useflags: "mysqli imap" and add "adodb-ext".
+
+
+Mark
