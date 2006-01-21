@@ -60,7 +60,7 @@ class oml_emailTest
 
 		foreach($this->test_emails as $n => $email) {
 			if(!isset($cmp[$n]))	continue;
-			$this->assertEquals($email->get_header('date-received'), strtotime($cmp[$n]), 'message number was '.$n.',');
+			$this->assertEquals((float) $email->get_header('date-received'), (float) strtotime($cmp[$n]), 'message number was '.$n.',', 20.0);
 		}
 	}
 
@@ -77,7 +77,7 @@ class oml_emailTest
 
 		foreach($this->test_emails as $n => $email) {
 			if(!isset($cmp[$n]))	continue;
-			$this->assertEquals($email->get_header('date-send'), strtotime($cmp[$n]), 'message number was '.$n.',');
+			$this->assertEquals((float) $email->get_header('date-send'), (float) strtotime($cmp[$n]), 'message number was '.$n.',', 20.0);
 		}
 	}
 
