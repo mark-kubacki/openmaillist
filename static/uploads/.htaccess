@@ -1,3 +1,2 @@
 php_flag php_engine Off
-AllowOverride None
-Opions -All
+Options -All
