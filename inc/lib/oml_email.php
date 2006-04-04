@@ -82,6 +82,9 @@ class oml_email
 	 */
 	public function get_header($key) {
 		switch($key) {
+			case 'subject':
+				return rawurldecode(parent::get_header($key));
+				break;
 			case 'in-reply-to':
 				if(preg_match('/\<([^\<]+?@[^\>]+)\>/', parent::get_header($key), $arr)) {
 					return $arr[1];
