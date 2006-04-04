@@ -30,12 +30,15 @@ class MIME_Mail
 
 	/**
 	 * We don't trust any user's PC but we trust our server and the other servers a bit.
-	 * Therefore preferanly taking date/times from field 'received' is the consequence.
+	 * Therefore taking date/times from field 'received' is the consequence.
 	 */
 	private function determine_datae() {
 		if(isset($this->header['received'])) {
 			$i = count($this->header['received']) - 1;
 			$this->aux_headers['date-received']	= strtotime(trim(substr(strrchr($this->header['received'][0], ';'), 2)));
+			if($this->aux_headers['date-received'] == '' || $this->aux_headers['date-received'] == 0) {
+				$this->aux_headers['date-received'] = time();
+			}
 			if($i > 0) {
 				$datum = trim(substr(strrchr($this->header['received'][$i], ';'), 2));
 				$this->aux_headers['date-send']		= strtotime($datum);
