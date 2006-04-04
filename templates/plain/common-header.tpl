@@ -5,6 +5,7 @@
 	<title>Openmaillist</title>
 	<link rel="stylesheet" href="<?= $cfg['design_dir'] ?>/plain.css" type="text/css" title="plain" />
 	<link rel="stylesheet" href="<?= $cfg['design_dir'] ?>/plain_hacks.css" type="text/css" title="plain" />
+	<meta name="robots" content="noindex,nofollow" />
 <?php if(isset($list)) { ?>
 	<link rel="alternate" href="rss.php?lid=<?= $list->get_unique_value() ?>" title="RSS Feed" type="application/rss+xml" />
 <?php } ?>
