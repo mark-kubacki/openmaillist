@@ -26,7 +26,7 @@ class MIME_Part
 	public function __construct($raw_part, $recursive = true) {
 		if(preg_match(MIME_Part::rex_header_body_split, $raw_part, $arr)) {
 			unset($arr[0]);
-			$this->header	= $this->make_header_hash($arr[1]);
+			$this->header	= $this->make_header_hash(trim($arr[1]));
 			$this->body	= trim($arr[2]);
 			unset($arr);
 			$this->decode_body();
@@ -39,14 +39,16 @@ class MIME_Part
 	}
 
 	/**
+	 * This one is to be called if iconv_mime_decode_headers does not exist.
+	 * 
 	 * @return		Hash with headers.
 	 */
-	private function make_header_hash($raw_header_part) {
+	private function decode_headers($raw_header_part) {
 		$tmp	= array();
 		if(preg_match_all(MIME_Part::rex_key_value_ml, $raw_header_part, $arr)) {
 			unset($arr[0]);
 			for($i = 0; isset($arr[1][$i]); $i++) {
-				$key	= strtolower($arr[1][$i]);
+				$key	= $arr[1][$i];
 				$value	= $arr[2][$i];
 				if(isset($tmp[$key])) {
 					if(!is_array($tmp[$key])) {
@@ -59,6 +61,20 @@ class MIME_Part
 			}
 		}
 		return $tmp;
+	}
+
+	/**
+	 * @return		Hash with headers and lowercase keys.
+	 */
+	private function make_header_hash($raw_header_part) {
+		if(function_exists('iconv_mime_decode_headers')) {
+			$tmp = iconv_mime_decode_headers($raw_header_part, 2);
+		} else {
+			$tmp = $this->decode_headers($raw_header_part);
+		}
+		if(is_array($tmp)) {
+			return array_change_key_case($tmp, CASE_LOWER);
+		}
 	}
 
 	private function decode_body() {
