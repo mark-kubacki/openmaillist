@@ -29,6 +29,7 @@ class oml_emailTest
 			2	=> new oml_email(file_get_contents($cfg['sample_msg'].'/2.')),
 			3	=> new oml_email(file_get_contents($cfg['sample_msg'].'/3.')),
 			4	=> new oml_email(file_get_contents($cfg['sample_msg'].'/4.')),
+			5	=> new oml_email(file_get_contents($cfg['sample_msg'].'/5.')),
 			82	=> new oml_email(file_get_contents($cfg['sample_msg'].'/82.')),
 			83	=> new oml_email(file_get_contents($cfg['sample_msg'].'/83.')),
 			100	=> new oml_email(file_get_contents($cfg['sample_msg'].'/100.')),
@@ -190,9 +191,10 @@ class oml_emailTest
 		= array(1	=> '/^Hi.*"4 5"$/s',
 			2	=> '/^Hi.*EndSection$/s',
 			3	=> '/^Welcome.*\.php\.$/s',
-			4	=> '/^Hallo.*Mark$/s',
+			4	=> '/^Hallo.*ÄÖÜ\,\säöü\,\sß.*Mark$/s',
+			5	=> '/\=12$/s',
 			82	=> '/^This email.*freshmeat.net/s',	// no $
-			83	=> '/^Hallo.*>/s',
+			83	=> '/^Hallo.*Gruß,.*>/s',
 		);
 
 		foreach($this->test_emails as $n => $email) {

@@ -81,7 +81,7 @@ class MIME_Part
 		if(isset($this->header['content-transfer-encoding'])) {
 			switch($this->header['content-transfer-encoding']) {
 				case 'quoted-printable':
-				case '7bit':
+
 					if(function_exists('imap_qprint')) {
 						$this->body	= imap_qprint($this->body);
 					} else {
@@ -91,6 +91,7 @@ class MIME_Part
 				case 'base64':
 					$this->body	= base64_decode($this->body);
 					break;
+				case '7bit':
 				case '8bit':
 				default:
 					// do nothing

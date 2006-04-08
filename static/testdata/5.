@@ -1,0 +1,32 @@
+Return-Path: <wmark@hurrikane.de>
+Received: from murder ([unix socket])
+	 by neon (Cyrus v2.3.0) with LMTPA;
+	 Wed, 05 Apr 2006 12:32:53 +0200
+X-Sieve: CMU Sieve 2.3
+X-Spam-DCC: EATSERVER: neon 1166; Body=1 Fuz1=1
+X-Spam-Checker-Version: SpamAssassin 3.1.0-gr0 (2005-09-13) on 
+	neon.hurrikane.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.0 required=5.0 tests=AWL,BAYES_00,
+	LOCAL_SENDER_FROM,RCVD_IN_DSBL,RCVD_IN_NJABL_DUL,RCVD_IN_SORBS_DUL 
+	autolearn=ham version=3.1.0-gr0
+Received: from [127.0.0.1] (dslc.pools.arcor-ip.net [255.128.255.128])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by neon.hurrikane.de (Postfix) with ESMTP id DFCEBC2FA22
+	for <list@openmailadmin.org>; Wed,  5 Apr 2006 12:32:52 +0200 (CEST)
+Message-ID: <44339CD7.7060608@hurrikane.de>
+Disposition-Notification-To: W-Mark Kubacki <wmark@hurrikane.de>
+Date: Wed, 05 Apr 2006 12:32:55 +0200
+From: W-Mark Kubacki <wmark@hurrikane.de>
+User-Agent: Thunderbird 1.5 (Windows/20051201)
+MIME-Version: 1.0
+To: Mario Schubert <list@openmailadmin.org>
+Subject: Re: Mailboxes/Account-List stays empty
+References: <<200604021736.26349.mario.schubert@physik.uni-muenchen.de>@localhost.localdomain>
+In-Reply-To: <200604021736.26349.mario.schubert@physik.uni-muenchen.de>@localhost.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+This is a duplicate of
+http://lists.openmailadmin.org/messages.php?tid=12
