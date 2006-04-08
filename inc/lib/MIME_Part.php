@@ -74,6 +74,8 @@ class MIME_Part
 		}
 		if(is_array($tmp)) {
 			return array_change_key_case($tmp, CASE_LOWER);
+		} else {
+			return array();
 		}
 	}
 
@@ -81,7 +83,6 @@ class MIME_Part
 		if(isset($this->header['content-transfer-encoding'])) {
 			switch($this->header['content-transfer-encoding']) {
 				case 'quoted-printable':
-
 					if(function_exists('imap_qprint')) {
 						$this->body	= imap_qprint($this->body);
 					} else {
